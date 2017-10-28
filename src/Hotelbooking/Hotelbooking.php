@@ -8,23 +8,23 @@ use Hotelbooking\Models\HooksFrontInterface;
 use Hotelbooking\Models\HooksAdminInterface;
 
 class Hotelbooking implements HooksInterface{
-    
+
     protected $actions   = array();
-    
+
     public function __construct($actions = array()){
         $this->actions = $actions;
     }
-    
+
     protected function canBeLoaded(){
         return true;
     }
-    
+
     public function execute(){
         if ($this->canBeLoaded()){
             add_action( 'plugins_loaded' , array($this,'hooks'), 0);
         }
     }
-    
+
     public function getActions(){
         return $this->actions;
     }
@@ -50,4 +50,3 @@ class Hotelbooking implements HooksInterface{
     }
 
 }
-

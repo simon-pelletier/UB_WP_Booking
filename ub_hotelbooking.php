@@ -11,5 +11,10 @@ require_once( dirname( __FILE__ ) . '/vendor/autoload.php' );
 
 use Hotelbooking\Hotelbooking;
 
-$hotelbooking = new Hotelbooking();
-$hotelbooking->execute();
+function bookingCreation(){
+  $hotelbooking = new Hotelbooking();
+  $hotelbooking->execute();
+}
+
+
+add_shortcode('booking', 'bookingCreation');
