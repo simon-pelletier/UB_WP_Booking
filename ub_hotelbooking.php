@@ -7,17 +7,7 @@ Author: UnicornBuster
 Author URI: http://simonpelletier.net
 */
 
-require_once( dirname( __FILE__ ) . '/vendor/autoload.php' );
-
-use Hotelbooking\Hotelbooking;
-
-function bookingCreation(){
-  echo 'Hello I\'m Hotel Booking !';
-  //$hotelbooking = new Hotelbooking();
-  //$hotelbooking->execute();
-}
-
-add_shortcode('booking', 'bookingCreation');
+add_shortcode('booking', 'bookingView');
 
 add_action('admin_menu', 'UBHBADMIN');
 
@@ -26,5 +16,9 @@ function UBHBADMIN(){
 }
 
 function adminView(){
-        echo "<h1>Hello World!</h1>";
+    echo "<h1>Ici l'admin</h1>";
+}
+
+function bookingView(){
+  echo "<h1>Ici Hotel Booking</h1>";
 }
