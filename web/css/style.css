@@ -1,0 +1,247 @@
+@import url('https://fonts.googleapis.com/css?family=Lato');
+
+body{
+    overflow: auto;
+    background: #ffffff;
+    padding-top: 50px;
+    font-family: 'Lato', sans-serif;
+    width: 100%;
+    margin: 0;
+}
+
+.recherche{
+    top: 20px;
+    width: 800px;
+    display: block;
+
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+
+    font-size: 12pt;
+    font-weight: 600;
+
+
+}
+
+.liste{
+    //display:table;
+    //display: block;
+
+
+    top: 300px;
+    width: 780px;
+
+
+    //columns: 3 200px;
+
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+
+}
+
+.rchambre{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    float: left;
+    width: 200px;
+    padding: 30px;
+
+}
+
+.menu{
+    display: block;
+    //position: fixed;
+    position: absolute;
+    right: 20px;
+    top: 20px;
+    height: 20px;
+}
+.menuAdmin{
+    display: block;
+
+
+    top: 20px;
+    height: 20px;
+}
+
+.photo{
+    width: 200px;
+
+    box-shadow: 2px 2px 5px 1px rgba(0, 0, 0, 0.75);
+    -moz-box-shadow: 2px 2px 5px 1px rgba(0, 0, 0, 0.75);
+    -webkit-box-shadow: 2px 2px 5px 1px rgba(0, 0, 0, 0.75);
+}
+
+.titre{
+    margin-top: 10px;
+    font-weight: 800;
+    font-size: 20pt;
+}
+
+.tarif{
+    font-weight: 600;
+}
+
+.infos, .tarif{
+    font-size: 18pt;
+
+
+}
+
+a, a:hover, a:visited, a:active{
+    text-decoration:none;
+    color: #000000;
+}
+
+
+img {
+  vertical-align:top;
+}
+
+.btn{
+    color: #ffffff;
+    background-color: #19391c;
+    border: none;
+    padding: 15px;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+.icon{
+    padding-right: 10px;
+}
+
+.date{
+    color: #ffffff;
+    background-color: #19391c;
+    border: none;
+    height: 30px;
+    text-align: center;
+    padding-left: 30px;
+    font-size: 12pt;
+}
+
+.nbpersonnes{
+    color: #ffffff;
+    background-color: #19391c;
+    border: none;
+    height: 30px;
+    text-align: center;
+    padding-left: 10px;
+}
+
+.retour{
+
+    font-weight: 600;
+    text-decoration: none;
+    background-color: #19391c;
+    display: block;
+    padding: 15px;
+    width: 80px;
+}
+a.retour, a:hover.retour, a:visited.retour, a:active.retour{
+
+    color: #ffffff;!important
+
+}
+
+
+menu{
+    text-align: center;
+    width: 100%;
+    top: -20px;
+    padding-top: 20px;
+    height: 40px;
+    position: absolute;
+    background-color: #19391c;
+    color: #ffffff;
+
+}
+
+.btndeco{
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    color: #ffffff;
+}
+
+a.btndeco, a:hover.btndeco, a:visited.btndeco, a:active.btndeco{
+
+    color: #ffffff;!important
+
+}
+
+.btnadmin{
+    display: inline-block;
+    margin-right: 50px;
+}
+
+
+
+tr:nth-child(even) {
+    background-color: #f2f2f2;
+
+}
+tr:hover {
+    background-color: #717171;
+    color: white;
+}
+th {
+    padding: 10px;
+    background-color: #19391c;
+    color: white;
+}
+td{
+    height: 30px;
+    text-align: center;
+}
+
+
+.confirmoui{
+    background-color:aquamarine;
+}
+
+.confirmnon{
+    background-color: crimson;
+}
+
+.resaImg{
+    filter: invert(100%);
+}
+
+.messageRoom{
+    text-align: center;
+    width: 100%;
+    color:darkgreen;
+    font-size: 15pt;
+}
+.messageResa{
+   text-align: center;
+    width: 100%;
+    color:darkgreen;
+    font-size: 15pt;
+}
+.messageRoomError{
+    text-align: center;
+    width: 100%;
+    color: crimson;
+    font-size: 15pt;
+}
+.messageResaError{
+   text-align: center;
+    width: 100%;
+    color: crimson;
+    font-size: 15pt;
+}
+
+.debug{
+    position: absolute;
+    top: 50px;
+    text-align: center;
+    width: 100%;
+    color: crimson;
+    font-size: 20pt;
+}

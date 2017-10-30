@@ -12,12 +12,11 @@ add_shortcode('booking', 'bookingView');
 add_action('admin_menu', 'UBHBADMIN');
 
 function UBHBADMIN(){
-        add_menu_page( 'UB Hotel Booking', 'Hotel Booking', 'manage_options', 'UBHB', 'adminView' );
+        add_menu_page( 'UB Hotel Booking', 'Hotel Booking', 'manage_options', 'UBHB', 'adminView', 'dashicons-book-alt' );
 }
 
 function adminView(){
-    echo "<h1>Ici l'admin</h1>";
-    include('admin.php');
+  include('../wp-content/plugins/ub_hotelbooking/admin.php');
 }
 
 function bookingView(){
