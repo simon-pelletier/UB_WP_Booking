@@ -17,8 +17,10 @@ function UBHBADMIN(){
 
 function adminView(){
     echo "<h1>Ici l'admin</h1>";
+    include('admin.php');
 }
 
 function bookingView(){
   echo "<h1>Ici Hotel Booking</h1>";
+  include('view.php');
 }
