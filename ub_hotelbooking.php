@@ -13,8 +13,8 @@ use Hotelbooking\Hotelbooking;
 
 function bookingCreation(){
   echo 'Hello I\'m Hotel Booking !';
-  $hotelbooking = new Hotelbooking();
-  $hotelbooking->execute();
+  //$hotelbooking = new Hotelbooking();
+  //$hotelbooking->execute();
 }
 
 add_shortcode('booking', 'bookingCreation');
