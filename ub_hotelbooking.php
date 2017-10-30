@@ -11,12 +11,22 @@ add_shortcode('booking', 'bookingView');
 
 add_action('admin_menu', 'UBHBADMIN');
 
+add_action('admin_menu', 'UBHBRESA');
+
 function UBHBADMIN(){
-        add_menu_page( 'UB Hotel Booking', 'Hotel Booking', 'manage_options', 'UBHB', 'adminView', 'dashicons-book-alt' );
+        add_menu_page( 'UB Hotel Booking', 'Chambres', 'manage_options', 'UBHB', 'chambreView', 'dashicons-building' );
 }
 
-function adminView(){
-  include('../wp-content/plugins/ub_hotelbooking/admin.php');
+function UBHBRESA(){
+        add_menu_page( 'UB Hotel Booking', 'Reservations', 'manage_options', 'UBHBRESA', 'resaView', 'dashicons-book-alt' );
+}
+
+function chambreView(){
+  include('../wp-content/plugins/ub_hotelbooking/chambres.php');
+}
+
+function resaView(){
+  include('../wp-content/plugins/ub_hotelbooking/resa.php');
 }
 
 function bookingView(){
