@@ -1,6 +1,9 @@
 <?php
 require 'src/autoload.php';
 
+global $wpdb, $table_prefix;
+$rooms_table = $table_prefix . 'hb_rooms';
+
 $db = Config::getMySqlPDO();
 
 $resaManager = new ResaManager($db);
@@ -19,9 +22,161 @@ if (isset($_GET['supprimerResa'])){
 
 }
 
+add_action('template_redirect', 'check_for_event_submissions');
 
-      if (isset($_POST['ajouterChambre'])){
+function check_for_event_submissions(){
+  if(isset($_POST['ajouterChambre'])) // && (get_query_var('pagename') === 'events)
+    {
+       // process your data here, you'll use wp_insert_post() I assume
+       if(isset($_POST['douche'])){
+           $douche = 1;
+       } else {
+           $douche = 0;
+       }
+       if(isset($_POST['wc'])){
+           $wc = 1;
+       } else {
+           $wc = 0;
+           }
+       if(isset($_POST['tel'])){
+           $tel = 1;
+       } else {
+           $tel = 0;
+       }
+       if(isset($_POST['tv'])){
+           $tv = 1;
+       } else {
+           $tv = 0;
+       }
+       if(isset($_POST['baignoire'])){
+           $baignoire = 1;
+       } else {
+           $baignoire = 0;
+       }
+       if(isset($_POST['wifi'])){
+           $wifi = 1;
+       } else {
+           $wifi = 0;
+       }
 
+       $wpdb->insert(
+         'wp_hb_rooms',
+         array(
+           'chambre' => $_POST['chambre'],
+           'max' => $_POST['max'],
+           'lits' => $_POST['lits'],
+           'douche' => $douche,
+           'wc' => $wc,
+           'tel' => $tel,
+           'tv' => $tv,
+           'baignoire' => $baignoire,
+           'wifi' => $wifi,
+           'photo' => 'default',
+           'for1' => $_POST['for1'],
+           'for2' => $_POST['for2'],
+           'for3' => $_POST['for3'],
+           'for4' => $_POST['for4'],
+           'supp' => $_POST['supp']
+         ),
+         array(
+           '%s',
+           '%d',
+           '%d',
+           '%d',
+           '%d',
+           '%d',
+           '%d',
+           '%d',
+           '%d',
+           '%s',
+           '%d',
+           '%d',
+           '%d',
+           '%d',
+           '%d'
+         )
+       );
+       wp_redirect($_POST['redirect_url']); // add a hidden input with get_permalink()
+       die();
+    }
+
+}
+/*
+if (isset($_POST['ajouterChambre'])){
+
+  if(isset($_POST['douche'])){
+      $douche = 1;
+  } else {
+      $douche = 0;
+  }
+  if(isset($_POST['wc'])){
+      $wc = 1;
+  } else {
+      $wc = 0;
+      }
+  if(isset($_POST['tel'])){
+      $tel = 1;
+  } else {
+      $tel = 0;
+  }
+  if(isset($_POST['tv'])){
+      $tv = 1;
+  } else {
+      $tv = 0;
+  }
+  if(isset($_POST['baignoire'])){
+      $baignoire = 1;
+  } else {
+      $baignoire = 0;
+  }
+  if(isset($_POST['wifi'])){
+      $wifi = 1;
+  } else {
+      $wifi = 0;
+  }
+
+  $wpdb->insert(
+    'wp_hb_rooms',
+    array(
+      'chambre' => $_POST['chambre'],
+      'max' => $_POST['max'],
+      'lits' => $_POST['lits'],
+      'douche' => $douche,
+      'wc' => $wc,
+      'tel' => $tel,
+      'tv' => $tv,
+      'baignoire' => $baignoire,
+      'wifi' => $wifi,
+      'photo' => 'default',
+      'for1' => $_POST['for1'],
+      'for2' => $_POST['for2'],
+      'for3' => $_POST['for3'],
+      'for4' => $_POST['for4'],
+      'supp' => $_POST['supp']
+    ),
+    array(
+      '%s',
+      '%d',
+      '%d',
+      '%d',
+      '%d',
+      '%d',
+      '%d',
+      '%d',
+      '%d',
+      '%s',
+      '%d',
+      '%d',
+      '%d',
+      '%d',
+      '%d'
+    )
+  );
+*/
+
+
+
+/*
     if(isset($_POST['douche'])){
         $douche = 1;
     } else {
@@ -112,7 +267,9 @@ if (isset($_GET['supprimerResa'])){
     if (isset($erreurs) && in_array(Room::FOR4_INVALIDE, $erreurs)) {
         $messageRoomError = 'Il faut renseigner for1, for2, for3 et for4<br/>';
     }
-}
+*/
+
+//}
 
 
 
@@ -189,7 +346,7 @@ if (isset($_POST['ajouterResa'])){
    <head>
        <title>Hotel Booking Admin</title>
        <meta charset="utf-8"/>
-       <link rel="stylesheet" type="text/css" href="web/css/style.css"/>
+       <link rel="stylesheet" type="text/css" href="../wp-content/plugins/ub_hotelbooking/web/css/style.css"/>
    </head>
 
     <body>
@@ -296,6 +453,31 @@ if (isset($_POST['ajouterResa'])){
         <?php
 
 
+        $room = $wpdb->get_results("SELECT * FROM $rooms_table");
+        foreach ($room as $room) {
+          echo '<td>', $room->id, '</td>';
+          echo '<td>', $room->chambre, '</td>';
+          echo '<td>', $room->max, '</td>';
+          echo '<td>', $room->lits, '</td>';
+          echo '<td>', $roomManager->yesOrNo($room->douche), '</td>';
+          echo '<td>', $roomManager->yesOrNo($room->wc), '</td>';
+          echo '<td>', $roomManager->yesOrNo($room->tel), '</td>';
+          echo '<td>', $roomManager->yesOrNo($room->tv), '</td>';
+          echo '<td>', $roomManager->yesOrNo($room->baignoire), '</td>';
+          echo '<td>', $roomManager->yesOrNo($room->wifi), '</td>';
+          echo '<td><center><img src="../wp-content/plugins/ub_hotelbooking/web/img/rooms/', $room->photo,'" style="max-width:60px;"/></center></td>'; //$resAdmin->photo()
+          echo '<td>', $room->for1, '</td>';
+          echo '<td>', $room->for2, '</td>';
+          echo '<td>', $room->for3, '</td>';
+          echo '<td>', $room->for4, '</td>';
+          echo '<td>', $room->supp, '</td>';
+          echo '<td><a href="?supprimerRoom=', $room->id, '&photo=', $room->photo, '">Supprimer</a></td>';
+          echo '</tr>';
+        }
+        //print_r($post);
+
+
+/*
         foreach ($roomManager->roomAdminList() as $resAdmin)
           {
             echo '<tr>';
@@ -317,7 +499,9 @@ if (isset($_POST['ajouterResa'])){
             echo '<td>', $resAdmin->for4(), '</td>';
             echo '<td>', $resAdmin->supp(), '</td>';
             echo '<td><a href="?supprimerRoom=', $resAdmin->id(), '&photo=', $resAdmin->photo(), '">Supprimer</a></td>';
-            /*if($resAdmin->confirmclient() == 1)
+*/
+/*
+            if($resAdmin->confirmclient() == 1)
             {
                 echo '<td class="confirmoui">oui</td>';
             }else{
@@ -325,11 +509,12 @@ if (isset($_POST['ajouterResa'])){
             }
 
             echo '<td> Editer | Supprimer </td>';
-
 */
+/*
             echo '</tr>';
           }
 
+*/
         ?>
 
             </table></center>

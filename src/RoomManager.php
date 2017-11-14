@@ -1,20 +1,20 @@
 <?php
 
 class RoomManager{
-    
+
     protected $db;
-    
-    public function __construct(PDO $db){
+
+    public function __construct($db){
         $this->db = $db;
     }
-    
+
     public function roomList($dateA, $dateB, $nombreP){
 
         if ($dateA < $dateB){
 
-            $requete = $this->db->prepare('SELECT DISTINCT C.id, C.chambre, C.max, C.lits, C.douche, C.wc, C.tel, C.tv, C.baignoire, C.wifi, C.photo, C.for1, C.for2, C.for3, C.for4, C.supp 
-            FROM rooms C 
-            LEFT JOIN reservation R 
+            $requete = $this->db->prepare('SELECT DISTINCT C.id, C.chambre, C.max, C.lits, C.douche, C.wc, C.tel, C.tv, C.baignoire, C.wifi, C.photo, C.for1, C.for2, C.for3, C.for4, C.supp
+            FROM rooms C
+            LEFT JOIN reservation R
             ON C.chambre = R.chambre
             AND (
             :SdateA BETWEEN R.datearrivee AND R.datedepart
@@ -27,17 +27,17 @@ class RoomManager{
             $requete->bindParam(':SdateA', $dateA, PDO::PARAM_INT);
             $requete->bindParam(':SdateB', $dateB, PDO::PARAM_INT);
             $requete->bindParam(':nombredepersonnes', $nombreP, PDO::PARAM_INT);
-    
+
             $requete->execute();
-            
+
             $requete->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, 'Room');
 
             $roomList = $requete->fetchAll();
 
             if (empty($roomList)){
-                $requete = $this->db->prepare('SELECT DISTINCT C.id, C.chambre, C.max, C.lits, C.douche, C.wc, C.tel, C.tv, C.baignoire, C.wifi, C.photo, C.for1, C.for2, C.for3, C.for4, C.supp 
-                FROM rooms C 
-                LEFT JOIN reservation R 
+                $requete = $this->db->prepare('SELECT DISTINCT C.id, C.chambre, C.max, C.lits, C.douche, C.wc, C.tel, C.tv, C.baignoire, C.wifi, C.photo, C.for1, C.for2, C.for3, C.for4, C.supp
+                FROM rooms C
+                LEFT JOIN reservation R
                 ON C.chambre = R.chambre
                 AND (
                 :SdateA BETWEEN R.datearrivee AND R.datedepart
@@ -65,14 +65,14 @@ class RoomManager{
                 $requete->closeCursor();
                 return $roomList;
             }
-  
+
         } else {
             echo 'ERREUR DE DATE';
             $nothing = array();
-            return $nothing; 
+            return $nothing;
         }
     }
-    
+
     public function addRoom(Room $room){
         $requete = $this->db->prepare('INSERT INTO rooms (chambre, max, lits, douche, wc, tel, tv, baignoire, wifi, photo, for1, for2, for3, for4, supp) VALUES (:chambre, :max, :lits, :douche, :wc, :tel, :tv, :baignoire, :wifi, :photo, :for1, :for2, :for3, :for4, :supp)');
         $requete->bindValue(':chambre', $room->chambre());
@@ -90,26 +90,26 @@ class RoomManager{
         $requete->bindValue(':for3', $room->for3());
         $requete->bindValue(':for4', $room->for4());
         $requete->bindValue(':supp', $room->supp());
-        
+
         //$last_id = $this->db->lastInsertId();
-        
+
         $requete->execute();
         $requete->closeCursor();
- 
+
         //return $last_id;
     }
-    
+
     public function deleteRoom($id, $photo){
         $this->db->exec('DELETE FROM rooms WHERE id = ' . (int) $id);
         if ($photo != 'default'){
-            unlink('web/img/rooms/' . $photo); 
+            unlink('web/img/rooms/' . $photo);
         }
-        
+
     }
-    
+
     public function roomAlone($chambreSelected){
-        $reqa = $this->db->prepare('SELECT rooms.id, rooms.chambre, rooms.max, rooms.lits, rooms.douche, rooms.wc, rooms.tel, rooms.tv, rooms.baignoire, rooms.wifi, rooms.photo, rooms.for1, rooms.for2, rooms.for3, rooms.for4, rooms.supp 
-        FROM rooms 
+        $reqa = $this->db->prepare('SELECT rooms.id, rooms.chambre, rooms.max, rooms.lits, rooms.douche, rooms.wc, rooms.tel, rooms.tv, rooms.baignoire, rooms.wifi, rooms.photo, rooms.for1, rooms.for2, rooms.for3, rooms.for4, rooms.supp
+        FROM rooms
         WHERE :chambre = rooms.chambre'
         );
 
@@ -118,43 +118,86 @@ class RoomManager{
         $reqa->execute();
         $reqa->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, 'Room');
         $roomAlone = $reqa->fetchAll();
-        
+
         $reqa->closeCursor();
         return $roomAlone;
     }
-    
+
     public function roomAdminList(){
-            $requete = $this->db->prepare('SELECT rooms.id, rooms.chambre, rooms.max, rooms.lits, rooms.douche, rooms.wc, rooms.tel, rooms.tv, rooms.baignoire, rooms.wifi, rooms.photo, rooms.for1, rooms.for2, rooms.for3, rooms.for4, rooms.supp 
-            FROM rooms 
-            ORDER BY rooms.max');
-    
+      global $wpdb, $table_prefix;
+
+      /*
+      $query = $wpdb->get_results("SELECT * FROM wp_hb_rooms", ARRAY_A);
+      foreach($query as $row)
+      {
+          // do stuff with $row here.
+      }
+      */
+
+            /*$requete = $this->db->prepare('SELECT wp_hb_rooms.id, wp_hb_rooms.chambre, wp_hb_rooms.max, wp_hb_rooms.lits, wp_hb_rooms.douche, wp_hb_rooms.wc, wp_hb_rooms.tel, wp_hb_rooms.tv, wp_hb_rooms.baignoire, wp_hb_rooms.wifi, wp_hb_rooms.photo, wp_hb_rooms.for1, wp_hb_rooms.for2, wp_hb_rooms.for3, wp_hb_rooms.for4, wp_hb_rooms.supp
+
+            FROM wp_hb_rooms
+            ORDER BY wp_hb_rooms.max = %d');
+//VALUES %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %s, %d, %d, %d, %d, %d
+
+
             $requete->execute();
-            
+
             $requete->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, 'Room');
 
             $roomAdminList = $requete->fetchAll();
-        
-        return $roomAdminList;
+
+        return $roomAdminList;*/
+
+        $rooms_table = $table_prefix . 'hb_rooms';
+
+        $post = $wpdb->get_results("SELECT * FROM $rooms_table");
+        /*
+print_r($post);
+        foreach ($post as $key => $value) {
+          //print_r($post);
+          echo $key;
+          echo '<br/>';
+          echo $value;
+          echo '<br/>';
+        }
+        */
+
+        return $post;
+
+/*
+
+        $requete = $wpdb->get_results($wpdb->prepare('SELECT id, chambre, max, lits, douche, wc, tel, tv, baignoire, wifi, photo, for1, for2, for3, for4, supp
+        FROM wp_hb_rooms
+        ORDER BY max = %d', $max));
+
+        $requete->execute();
+
+        $requete->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, 'Room');
+
+        $roomAdminList = $requete->fetchAll();
+
+    return $roomAdminList;*/
     }
-    
+
     public function yesOrNo($answer){
         if ($answer == 1){
             return 'oui';
         } elseif ($answer == 0) {
             return 'non';
         }
-    } 
-    
+    }
+
     public function chambreExistance($chambre){
         $requete = $this->db->prepare('SELECT COUNT(*) FROM rooms WHERE chambre = :chambre');
         $requete->bindValue(':chambre', $chambre);
         $requete->execute();
-        
+
         $nombre = $requete->fetchColumn();
-        
+
         return $nombre;
     }
-    
+
     public function ajoutPhoto($nom, $tmpname){
         $last_id = $this->db->lastInsertId();
         //$tailleMax = 2097152; //2mo ?!
@@ -165,22 +208,22 @@ class RoomManager{
             //if ($longueur==300 && $largeur==300) {
                 $extensionUpload = strtolower(substr(strrchr($nom, '.'), 1));
 
-  
+
             if (in_array($extensionUpload, $extensionsValides)){
-                
+
                 $newnom = md5(microtime(TRUE)*100000);
-                
+
                 $chemin = 'web/img/rooms/' . $newnom . '.' . $extensionUpload;
- 
-                $deplacement = move_uploaded_file($tmpname, $chemin);   
+
+                $deplacement = move_uploaded_file($tmpname, $chemin);
 
                 if($deplacement){
 
                     $updateavatar = $this->db->prepare('UPDATE rooms SET photo = :photo WHERE id = :id');
-                    $updateavatar->execute(array( 
+                    $updateavatar->execute(array(
                         'photo' => $newnom . '.' . $extensionUpload,
                         'id' => $last_id
-                        )); 
+                        ));
                     //header('Location: index.php?page=profil');
 
                 } else {
@@ -191,33 +234,28 @@ class RoomManager{
                 echo '<br/><br/><br/><div class="messageResaError">Votre photo doit être un gif un jpeg un jpeg ou un png.</div>';
             }
 
-           //} else { 
+           //} else {
                 //echo '<br/><br/><div class="messageResaError">Votre photo doit être de 300*300 pixels en 72dpi</div>';
             //}
 
 
 
-        //} else { 
+        //} else {
             //echo '<br/><br/><br/><div class="messageResaError">Votre photo de profil ne doit pas dépasser 2Mo :)</div>';
         //}
 
     }
-     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
-
-
-
-
-

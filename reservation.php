@@ -57,7 +57,7 @@ if(isset($_POST['reserver'])){
    <head>
        <title>Hotel Booking Reservation</title>
        <meta charset="utf-8"/>
-       <link rel="stylesheet" type="text/css" href="web/css/style.css"/>
+       <link rel="stylesheet" type="text/css" href="../wp-content/plugins/ub_hotelbooking/web/css/style.css"/>
    </head>
     <body>
         <div><center><a href="index.php" class="retour">Retour</a></center></div>

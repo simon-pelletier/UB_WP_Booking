@@ -1,7 +1,10 @@
 <?php
 require 'src/autoload.php';
 
-$db = Config::getMySqlPDO();
+global $wpdb;
+
+//$db = Config::getMySqlPDO();
+$db = $wpdb;
 
 $resaManager = new ResaManager($db);
 
