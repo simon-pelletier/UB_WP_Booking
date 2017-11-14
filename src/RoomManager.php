@@ -124,60 +124,13 @@ class RoomManager{
     }
 
     public function roomAdminList(){
-      global $wpdb, $table_prefix;
-
-      /*
-      $query = $wpdb->get_results("SELECT * FROM wp_hb_rooms", ARRAY_A);
-      foreach($query as $row)
-      {
-          // do stuff with $row here.
-      }
-      */
-
-            /*$requete = $this->db->prepare('SELECT wp_hb_rooms.id, wp_hb_rooms.chambre, wp_hb_rooms.max, wp_hb_rooms.lits, wp_hb_rooms.douche, wp_hb_rooms.wc, wp_hb_rooms.tel, wp_hb_rooms.tv, wp_hb_rooms.baignoire, wp_hb_rooms.wifi, wp_hb_rooms.photo, wp_hb_rooms.for1, wp_hb_rooms.for2, wp_hb_rooms.for3, wp_hb_rooms.for4, wp_hb_rooms.supp
-
-            FROM wp_hb_rooms
-            ORDER BY wp_hb_rooms.max = %d');
-//VALUES %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %s, %d, %d, %d, %d, %d
-
-
-            $requete->execute();
-
-            $requete->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, 'Room');
-
-            $roomAdminList = $requete->fetchAll();
-
-        return $roomAdminList;*/
+        global $wpdb, $table_prefix;
 
         $rooms_table = $table_prefix . 'hb_rooms';
 
-        $post = $wpdb->get_results("SELECT * FROM $rooms_table");
-        /*
-print_r($post);
-        foreach ($post as $key => $value) {
-          //print_r($post);
-          echo $key;
-          echo '<br/>';
-          echo $value;
-          echo '<br/>';
-        }
-        */
+        $room = $wpdb->get_results("SELECT * FROM $rooms_table");
 
-        return $post;
-
-/*
-
-        $requete = $wpdb->get_results($wpdb->prepare('SELECT id, chambre, max, lits, douche, wc, tel, tv, baignoire, wifi, photo, for1, for2, for3, for4, supp
-        FROM wp_hb_rooms
-        ORDER BY max = %d', $max));
-
-        $requete->execute();
-
-        $requete->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, 'Room');
-
-        $roomAdminList = $requete->fetchAll();
-
-    return $roomAdminList;*/
+        return $room;
     }
 
     public function yesOrNo($answer){

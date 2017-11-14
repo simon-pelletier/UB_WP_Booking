@@ -10,20 +10,13 @@ class ResaManager{
 
 
     public function resaList(){
-        $requete = $this->db->query('SELECT id, nom, email, tel, nombrep, chambre, chambreid, datearrivee, datedepart, infos, tarif, nuits, confirmclient FROM reservation ORDER BY id DESC');
+        global $wpdb, $table_prefix;
 
-        $requete->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, 'Resa');
+        $resa_table = $table_prefix . 'hb_resa';
 
-        $listeResa = $requete->fetchAll();
+        $post = $wpdb->get_results("SELECT * FROM $resa_table");
 
-        foreach ($listeResa as $resa){
-            $resa->setDatearrivee(new DateTime($resa->datearrivee()));
-            $resa->setDatedepart(new DateTime($resa->datedepart()));
-        }
-
-        $requete->closeCursor();
-
-        return $listeResa;
+        return $post;
     }
 
     public function resaUnique($id){
@@ -116,31 +109,33 @@ Ceci est un mail automatique, Merci de ne pas y répondre.';
     }
 
     public function quelIdDeChambre($chambre){
-        $requete = $this->db->prepare('SELECT id FROM rooms WHERE chambre = :chambre');
-        $requete->bindValue(':chambre', $chambre);
-        $requete->execute();
-        $id = $requete->fetchColumn();
-        return $id;
+        global $wpdb, $table_prefix;
+        $rooms_table = $table_prefix . 'hb_rooms';
+
+        $id = $wpdb->get_results("SELECT id FROM $rooms_table WHERE chambre = $chambre");
+
+        return $id[0]->id;
     }
 
     public function calculTarif($nuits, $roomId, $nombrep){
-        $requete = $this->db->prepare('SELECT for1, for2, for3, for4 FROM rooms WHERE id = :roomId');
-        $requete->bindValue(':roomId', $roomId, PDO::PARAM_INT);
-        $requete->execute();
-
-        $tableau = $requete->fetchAll();
+        global $wpdb, $table_prefix;
+        $rooms_table = $table_prefix . 'hb_rooms';
 
         if ($nombrep == 1){
-            $tarifChambre = $tableau[0][0];
+            $nb = 'for1';
         } elseif ($nombrep == 2){
-            $tarifChambre = $tableau[0][1];
+            $nb = 'for2';
         } elseif ($nombrep == 3){
-            $tarifChambre = $tableau[0][2];
+            $nb = 'for3';
         } elseif ($nombrep == 4){
-            $tarifChambre = $tableau[0][3];
+            $nb = 'for4';
         }
 
-        $tarif = (int) $nuits * (int) $tarifChambre;
+        $requete = $wpdb->get_results("SELECT $nb FROM $rooms_table WHERE id = $roomId");
+
+        $prix = $requete[0]->$nb;
+
+        $tarif = (int) $nuits * (int) $prix;
 
         return $tarif;
     }

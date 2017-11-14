@@ -7,7 +7,7 @@ $rooms_table = $table_prefix . 'hb_rooms';
 $roomManager = new RoomManager($wpdb);
 
 if (isset($_GET['supprimerRoom'])){
-    $message = 'La chambre a bien été supprimée';
+    //$message = 'La chambre a bien été supprimée';
     $wpdb->delete( 'wp_hb_rooms', array( 'ID' => $_GET['supprimerRoom'] ) );
 }
 
