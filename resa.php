@@ -98,7 +98,7 @@ if (isset($_POST['ajouterResa'])){
 
     <body>
        <div>
-        <h1><center>Reservations : </center></h1>
+        <h1><center>Booking</center></h1>
         <?php
         if (isset($messageResa)){
         echo '<div class="messageResa">' . $messageResa . '</div><br/>';

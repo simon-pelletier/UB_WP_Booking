@@ -1,9 +1,11 @@
 <?php
 require 'src/autoload.php';
 
-$db = Config::getMySqlPDO();
+global $wpdb, $table_prefix;
+$resa_table = $table_prefix . 'hb_resa';
+$rooms_table = $table_prefix . 'hb_rooms';
 
-$manager = new RoomManager($db);
+$manager = new RoomManager($wpdb);
 
 $resa = new Resa();
 ?>
@@ -45,7 +47,7 @@ $resa = new Resa();
    <head>
        <title>Hotel Booking Page</title>
        <meta charset="utf-8"/>
-       <link rel="stylesheet" type="text/css" href="web/css/style.css"/>
+       <link rel="stylesheet" type="text/css" href="../wp-content/plugins/ub_hotelbooking/web/css/style.css">
    </head>
     <body>
 
@@ -66,6 +68,8 @@ $resa = new Resa();
      &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
     <label>Date de départ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="date" name="depart" value="<?php echo $selectedB; ?>" min="<?php echo $mindaya; ?>" max="<?php echo $maxday; ?>" class="date"/></label>
 
+
+    <div class="choixnbpersonnes">
     <p><label>Nombre de personnes :
     <select name="nombrepersonnes" size="1" class="nbpersonnes">
        <?php
@@ -83,11 +87,11 @@ $resa = new Resa();
     </select>
     </label>
         </p>
+</div>
 
 
 
 
-    <br/><br/>
     <input type="submit" name="selecteddate" class="btn" value="Rechercher"/>
     </center>
     </form>
@@ -111,34 +115,36 @@ $resa = new Resa();
 
 
 
-                echo '<a href="reservation.php?chambre=' . $room->chambre() . '&dateA=' . $_POST['arrivee'] . '&dateB=' . $_POST['depart'] . '&nuits=' . $resa->nombreNuits($_POST['arrivee'], $_POST['depart']) . '&tarif=' . $room->prix($_POST['nombrepersonnes']) * $resa->nombreNuits($_POST['arrivee'], $_POST['depart']) . '&nbp=' . $_POST['nombrepersonnes'] . '&chambreid=' . $room->id() . '" >';
+                echo '<a href="reservation.php?chambre=' . $room->chambre . '&dateA=' . $_POST['arrivee'] . '&dateB=' . $_POST['depart'] . '&nuits=' . $resa->nombreNuits($_POST['arrivee'], $_POST['depart']) . '&tarif=' . $room->prix * $resa->nombreNuits($_POST['arrivee'], $_POST['depart']) . '&nbp=' . $_POST['nombrepersonnes'] . '&chambreid=' . $room->id . '" >';
 
 
 
-                echo '<img src="web/img/rooms/' . $room->photo() . '" class="photo" />';
+                echo '<img src="../wp-content/plugins/ub_hotelbooking/web/img/rooms/' . $room->photo . '" class="photo" />';
 
                 echo '<br/>';
 
-                echo '<div class="titre">Chambre ' . $room->chambre() . '</div>';
+                echo '<div class="titre">Chambre ' . $room->chambre . '</div>';
 
                 echo '<div class="infos">';
 
-                echo $room->max() . $room->returnImg('max');
-
-
-                echo $room->lits() . $room->returnImg('lits');
+                $maxImg = ' <img src="../wp-content/plugins/ub_hotelbooking/web/img/max.png"/>';
+                $litsImg = ' <img src="../wp-content/plugins/ub_hotelbooking/web/img/lits.png"/>';
+                echo $room->max . $maxImg . $room->lits . $litsImg;
 
                 echo '</div>';
 
-                echo '<div class="tarif">' . $room->prix($_POST['nombrepersonnes']) * $resa->nombreNuits($_POST['arrivee'], $_POST['depart']) . ' € - ' . $resa->nombreNuits($_POST['arrivee'], $_POST['depart']) . ' <img src="web/img/nuit.png" class="icon" /></div>';
+                echo '<div class="tarif">' . $manager->prix($_POST['nombrepersonnes']) * $resa->nombreNuits($_POST['arrivee'], $_POST['depart']) . ' € - ' . $resa->nombreNuits($_POST['arrivee'], $_POST['depart']) . ' <img src="../wp-content/plugins/ub_hotelbooking/web/img/nuit.png" class="icon" /></div>';
 
-                echo $room->returnImg('douche');
-                echo $room->returnImg('wc');
-                echo $room->returnImg('tel');
-                echo $room->returnImg('tv');
-                echo $room->returnImg('baignoire');
-                echo $room->returnImg('wifi');
 
+                echo '<div class="option">';
+                echo $manager->returnImg('douche');
+                echo $manager->returnImg('wc');
+                echo $manager->returnImg('tel');
+                echo $manager->returnImg('tv');
+                echo $manager->returnImg('baignoire');
+                echo $manager->returnImg('wifi');
+
+                echo '</div>';
                 echo '</a>';
                 echo '</center>';
                 echo '</div>';

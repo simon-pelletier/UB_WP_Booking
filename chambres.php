@@ -96,7 +96,7 @@ if (isset($_POST['ajouterChambre'])){
 
     <body>
         <div>
-        <h1><center>Chambres : </center></h1>
+        <h1><center>Rooms : </center></h1>
 
         <?php
         if (isset($messageRoom)){

@@ -12,58 +12,42 @@ class RoomManager{
 
         if ($dateA < $dateB){
 
-            $requete = $this->db->prepare('SELECT DISTINCT C.id, C.chambre, C.max, C.lits, C.douche, C.wc, C.tel, C.tv, C.baignoire, C.wifi, C.photo, C.for1, C.for2, C.for3, C.for4, C.supp
-            FROM rooms C
-            LEFT JOIN reservation R
+
+
+            global $wpdb, $table_prefix;
+            $resa_table = $table_prefix . 'hb_resa';
+            $rooms_table = $table_prefix . 'hb_rooms';
+
+            $room = $wpdb->get_results("SELECT DISTINCT C.id, C.chambre, C.max, C.lits, C.douche, C.wc, C.tel, C.tv, C.baignoire, C.wifi, C.photo, C.for1, C.for2, C.for3, C.for4, C.supp
+            FROM $rooms_table C
+            LEFT JOIN $resa_table R
             ON C.chambre = R.chambre
             AND (
-            :SdateA BETWEEN R.datearrivee AND R.datedepart
-            OR :SdateB BETWEEN R.datearrivee AND R.datedepart
+            $dateA BETWEEN R.datearrivee AND R.datedepart
+            OR $dateB BETWEEN R.datearrivee AND R.datedepart
             )
             WHERE
-            :nombredepersonnes = C.max
+            $nombreP = C.max
             AND R.datearrivee IS NULL
-            ORDER BY C.max');
-            $requete->bindParam(':SdateA', $dateA, PDO::PARAM_INT);
-            $requete->bindParam(':SdateB', $dateB, PDO::PARAM_INT);
-            $requete->bindParam(':nombredepersonnes', $nombreP, PDO::PARAM_INT);
+            ORDER BY C.max");
 
-            $requete->execute();
-
-            $requete->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, 'Room');
-
-            $roomList = $requete->fetchAll();
+            return $room;
 
             if (empty($roomList)){
-                $requete = $this->db->prepare('SELECT DISTINCT C.id, C.chambre, C.max, C.lits, C.douche, C.wc, C.tel, C.tv, C.baignoire, C.wifi, C.photo, C.for1, C.for2, C.for3, C.for4, C.supp
-                FROM rooms C
-                LEFT JOIN reservation R
-                ON C.chambre = R.chambre
-                AND (
-                :SdateA BETWEEN R.datearrivee AND R.datedepart
-                OR :SdateB BETWEEN R.datearrivee AND R.datedepart
-                )
-                WHERE
-                :nombredepersonnes <= C.max
-                AND R.datearrivee IS NULL
-                ORDER BY C.max');
+              $room = $wpdb->get_results("SELECT DISTINCT C.id, C.chambre, C.max, C.lits, C.douche, C.wc, C.tel, C.tv, C.baignoire, C.wifi, C.photo, C.for1, C.for2, C.for3, C.for4, C.supp
+              FROM $rooms_table C
+              LEFT JOIN $resa_table R
+              ON C.chambre = R.chambre
+              AND (
+              $dateA BETWEEN R.datearrivee AND R.datedepart
+              OR $dateB BETWEEN R.datearrivee AND R.datedepart
+              )
+              WHERE
+              $nombreP <= C.max
+              AND R.datearrivee IS NULL
+              ORDER BY C.max");
 
-
-                $requete->bindParam(':SdateA', $dateA, PDO::PARAM_INT);
-                $requete->bindParam(':SdateB', $dateB, PDO::PARAM_INT);
-                $requete->bindParam(':nombredepersonnes', $nombreP, PDO::PARAM_INT);
-
-                $requete->execute();
-
-                $requete->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, 'Room');
-
-                $roomList = $requete->fetchAll();
-                $requete->closeCursor();
-                echo '<p><center>Il n\'y a plus de chambres avec les critères entrés, mais voici une liste étendue :</center></p>';
-                return $roomList;
-            } else {
-                $requete->closeCursor();
-                return $roomList;
+              return $room;
             }
 
         } else {
@@ -71,40 +55,6 @@ class RoomManager{
             $nothing = array();
             return $nothing;
         }
-    }
-
-    public function addRoom(Room $room){
-        $requete = $this->db->prepare('INSERT INTO rooms (chambre, max, lits, douche, wc, tel, tv, baignoire, wifi, photo, for1, for2, for3, for4, supp) VALUES (:chambre, :max, :lits, :douche, :wc, :tel, :tv, :baignoire, :wifi, :photo, :for1, :for2, :for3, :for4, :supp)');
-        $requete->bindValue(':chambre', $room->chambre());
-        $requete->bindValue(':max', $room->max());
-        $requete->bindValue(':lits', $room->lits());
-        $requete->bindValue(':douche', $room->douche());
-        $requete->bindValue(':wc', $room->wc());
-        $requete->bindValue(':tel', $room->tel());
-        $requete->bindValue(':tv', $room->tv());
-        $requete->bindValue(':baignoire', $room->baignoire());
-        $requete->bindValue(':wifi', $room->wifi());
-        $requete->bindValue(':photo', $room->photo());
-        $requete->bindValue(':for1', $room->for1());
-        $requete->bindValue(':for2', $room->for2());
-        $requete->bindValue(':for3', $room->for3());
-        $requete->bindValue(':for4', $room->for4());
-        $requete->bindValue(':supp', $room->supp());
-
-        //$last_id = $this->db->lastInsertId();
-
-        $requete->execute();
-        $requete->closeCursor();
-
-        //return $last_id;
-    }
-
-    public function deleteRoom($id, $photo){
-        $this->db->exec('DELETE FROM rooms WHERE id = ' . (int) $id);
-        if ($photo != 'default'){
-            unlink('web/img/rooms/' . $photo);
-        }
-
     }
 
     public function roomAlone($chambreSelected){
@@ -139,6 +89,38 @@ class RoomManager{
         } elseif ($answer == 0) {
             return 'non';
         }
+    }
+
+    public function prix($nbreP){
+        if ($nbreP == 1){
+            return $tarif = $this->for1;
+        } else if ($nbreP == 2){
+            return $tarif = $this->for2;
+        } else if ($nbreP == 3){
+            return $tarif = $this->for3;
+        } else if ($nbreP == 4){
+            return $tarif = $this->for4;
+        } else {
+            return $tarif = 0;
+        }
+    }
+
+    public function returnImg($att){
+      $img = ' <img src="../wp-content/plugins/ub_hotelbooking/web/img/' . $att . '.png"/>';
+      return $img;
+      /*
+        $rep = $this->$att();
+        if ($rep == 1 && $att != 'lits' && $att != 'max'){
+            $img = ' <img src="web/img/' . $att . '.png"/>';
+            return $img;
+        } elseif ($att == 'lits' || $att == 'max') {
+            $img = ' <img src="web/img/' . $att . '.png"/>';
+            return $img;
+        } else {
+
+        }
+        */
+
     }
 
     public function chambreExistance($chambre){
