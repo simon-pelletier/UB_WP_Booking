@@ -8,104 +8,89 @@ $rooms_table = $table_prefix . 'hb_rooms';
 $manager = new RoomManager($wpdb);
 $resaManager = new ResaManager($wpdb);
 
-?>
+$timezone = "Europe/Paris";
+date_default_timezone_set($timezone);
+$mindaya = date("Y-m-d");
+$mindayd = date("Y-m-d", strtotime($mindaya . ' +1 day'));
+$maxday = date("Y-m-d", strtotime($mindaya . ' +1 YEAR'));
 
-<?php
-  $timezone = "Europe/Paris";
-  date_default_timezone_set($timezone);
-  $mindaya = date("Y-m-d");
-  $mindayd = date("Y-m-d", strtotime($mindaya . ' +1 day'));
-  $maxday = date("Y-m-d", strtotime($mindaya . ' +1 YEAR'));
+$selectedA = $mindaya;
+$selectedB = $mindayd;
 
-	$selectedA = $mindaya;
-  $selectedB = $mindayd;
+$personnesMax = 4;
 
-  $personnesMax = 4;
+if (isset($_POST['nombrepersonnes'])){
+  $nombreDePersonnes = $_POST['nombrepersonnes'];
+} else {
+  $nombreDePersonnes = 1;
+}
+if(isset($_POST['selecteddate'])){
+  $selectedA = $_POST['arrivee'];
+  $selectedB = $_POST['depart'];
+}
 
-  if (isset($_POST['nombrepersonnes'])){
-    $nombreDePersonnes = $_POST['nombrepersonnes'];
-  } else {
-    $nombreDePersonnes = 1;
-  }
-  if(isset($_POST['selecteddate'])){
-    $selectedA = $_POST['arrivee'];
-    $selectedB = $_POST['depart'];
-  }
+/*
+  if (isset($message)){
+  echo $message . '<br/>';
+*/
 
-?>
+if (isset($_GET['chambre']) && isset($_GET['chambreid']) ){
 
-
-<!DOCTYPE HTML>
-<html>
-   <head>
+  ?>
+  <!DOCTYPE HTML>
+  <html>
+    <head>
        <title>Hotel Booking Page</title>
        <meta charset="utf-8"/>
        <link rel="stylesheet" type="text/css" href="../wp-content/plugins/ub_hotelbooking/web/css/style.css">
-   </head>
-    <body>
+     </head>
+     <body>
+        <div><center><a href="." class="retour">Retour</a></center></div>
+        <br/><br/>
+        <center>
 
-      <?php
-        if (isset($_GET['chambre']) && isset($_GET['chambreid']) ){
+        <?php
 
+        foreach($manager->roomAlone($_GET['chambre']) as $room){
+          echo '<div>';
+          echo '<center>';
+          echo '<img src="../wp-content/plugins/ub_hotelbooking/web/img/rooms/' . $room->photo . '" class="photo" />';
+          echo '<br/>';
+          echo '<div class="titre">Chambre ' . $room->chambre . '</div>';
+          echo '<div class="infos">';
+          echo $room->max . $manager->returnImg('max');
+          echo $room->lits . $manager->returnImg('lits');
+          echo '</div>';
+          echo '<div class="tarif">' . $_GET['tarif'] . ' € - ' . $_GET['nuits'] . ' <img src="../wp-content/plugins/ub_hotelbooking/web/img/nuit.png" class="icon" /></div>';
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-          ?>
-          <div><center><a href="." class="retour">Retour</a></center></div>
-          <br/><br/>
-          <center>
-          <form method="POST" action="">
-          <?php
-
-          foreach($manager->roomAlone($_GET['chambre']) as $room){
-              echo '<div>';
-                  echo '<center>';
-
-                  echo '<img src="../wp-content/plugins/ub_hotelbooking/web/img/rooms/' . $room->photo . '" class="photo" />';
-
-                  echo '<br/>';
-
-                  echo '<div class="titre">Chambre ' . $room->chambre . '</div>';
-
-                  echo '<div class="infos">';
-
-                  echo $room->max . $manager->returnImg('max');
-
-
-                  echo $room->lits . $manager->returnImg('lits');
-
-                  echo '</div>';
-
-                  echo '<div class="tarif">' . $_GET['tarif'] . ' € - ' . $_GET['nuits'] . ' <img src="../wp-content/plugins/ub_hotelbooking/web/img/nuit.png" class="icon" /></div>';
-
-                  echo $manager->returnImg('douche');
-                  echo $manager->returnImg('wc');
-                  echo $manager->returnImg('tel');
-                  echo $manager->returnImg('tv');
-                  echo $manager->returnImg('baignoire');
-                  echo $manager->returnImg('wifi');
-
-                  echo '</center>';
-                  echo '</div>';
+          if ($room->douche == 1){
+            echo $manager->returnImg('douche');
+          }
+          if ($room->wc == 1){
+            echo $manager->returnImg('wc');
+          }
+          if ($room->tel == 1){
+            echo $manager->returnImg('tel');
+          }
+          if ($room->tv == 1){
+            echo $manager->returnImg('tv');
+          }
+          if ($room->baignoire == 1){
+            echo $manager->returnImg('baignoire');
+          }
+          if ($room->wifi == 1){
+            echo $manager->returnImg('wifi');
           }
 
-          ?>
+          echo '</center>';
+          echo '</div>';
+        }
 
-          <br/><br/>
+        ?>
+
+        <br/><br/>
+
+        <form method="POST" action=".">
 
           Arrivée le <?php $dateA = $_GET['dateA']; echo date("d-m-Y", strtotime($dateA));?>
           <br/><br/>
@@ -116,16 +101,14 @@ $resaManager = new ResaManager($wpdb);
           Total : <?php echo $_GET['tarif']; ?> euros pour <?php echo $_GET['nuits']; ?> nuits.
           <br/><br/>
 
-          <label>Votre nom : <input type="text" name="nom" /></label>
+          <label>Votre nom : <input type="text" name="nom" class="champs"/></label>
           <br/><br/>
-          <label>Votre e-mail : <input type="text" name="email" /></label>
+          <label>Votre e-mail : <input type="text" name="email" class="champs"/></label>
           <br/><br/>
-          <label>Téléphone : <input type="text" name="tel" /></label>
+          <label>Téléphone : <input type="text" name="tel" class="champs"/></label>
           <br/><br/>
 
-
-
-          <label>Informations complémentaires : <input type="text" name="infos" /></label>
+          <label>Informations complémentaires : <input type="text" name="infos" class="champs"/></label>
           <br/><br/>
           <?php
           if (isset($messageResa)){
@@ -134,9 +117,6 @@ $resaManager = new ResaManager($wpdb);
           if (isset($messageResaError)){
           echo '<div class="messageResaError">' . $messageResaError . '</div><br/>';
           }
-
-          ?>
-          <?php
 
           if ($_GET['nbp'] == 2){
               ?>
@@ -148,12 +128,13 @@ $resaManager = new ResaManager($wpdb);
 
           <br/><br/>
 
-
           <input type="submit" name="reserver" value="Réserver" class="btn"/>
 
           </form>
           </center>
 
+        </body>
+      </html>
 
 
 
@@ -167,22 +148,18 @@ $resaManager = new ResaManager($wpdb);
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-          <?php
-
-        } else {
+    <?php
+    } else {
           ?>
+          <!DOCTYPE HTML>
+          <html>
+             <head>
+                 <title>Hotel Booking Page</title>
+                 <meta charset="utf-8"/>
+                 <link rel="stylesheet" type="text/css" href="../wp-content/plugins/ub_hotelbooking/web/css/style.css">
+             </head>
+             <body>
+
           <div class="recherche">
           <form method="POST" action=".">
           <center>
@@ -213,7 +190,9 @@ $resaManager = new ResaManager($wpdb);
              <div class="liste">
               <?php
               if (isset($_POST['arrivee']) && isset($_POST['depart'])){
+                $countRoom = 0;
                   foreach ($manager->roomList($_POST['arrivee'], $_POST['depart'], $_POST['nombrepersonnes']) as $room){
+                      $countRoom += 1;
                       echo '<div class="rchambre">';
                       echo '<center>';
                       $pagename = basename(get_permalink());
@@ -232,28 +211,81 @@ $resaManager = new ResaManager($wpdb);
                       echo '<div class="tarif">' . $tarif . ' € - ' . $nbreNuits . ' <img src="../wp-content/plugins/ub_hotelbooking/web/img/nuit.png" class="icon" /></div>';
 
                       echo '<div class="option">';
-                      echo $manager->returnImg('douche');
-                      echo $manager->returnImg('wc');
-                      echo $manager->returnImg('tel');
-                      echo $manager->returnImg('tv');
-                      echo $manager->returnImg('baignoire');
-                      echo $manager->returnImg('wifi');
+                      if ($room->douche == 1){
+                        echo $manager->returnImg('douche');
+                      }
+                      if ($room->wc == 1){
+                        echo $manager->returnImg('wc');
+                      }
+                      if ($room->tel == 1){
+                        echo $manager->returnImg('tel');
+                      }
+                      if ($room->tv == 1){
+                        echo $manager->returnImg('tv');
+                      }
+                      if ($room->baignoire == 1){
+                        echo $manager->returnImg('baignoire');
+                      }
+                      if ($room->wifi == 1){
+                        echo $manager->returnImg('wifi');
+                      }
                       echo '</div>';
                       echo '</a>';
                       echo '</center>';
                       echo '</div>';
                   }
-              }
-              ?>
-        <?php }
+                  if ($countRoom == 0){
+                    foreach ($manager->roomListBis($_POST['arrivee'], $_POST['depart'], $_POST['nombrepersonnes']) as $room){
+                        $countRoom += 1;
+                        echo '<div class="rchambre">';
+                        echo '<center>';
+                        $pagename = basename(get_permalink());
+                        $nbreNuits = $resaManager->nombreNuits($_POST['arrivee'], $_POST['depart']);
+                        $tarif = $resaManager->calculTarif($nbreNuits, $room->id, $_POST['nombrepersonnes']);
+                        echo '<a href="../' . $pagename . '/?chambre=' . $room->chambre . '&dateA=' . $_POST['arrivee'] . '&dateB=' . $_POST['depart'] . '&nuits=' . $nbreNuits . '&tarif=' . $tarif . '&nbp=' . $_POST['nombrepersonnes'] . '&chambreid=' . $room->id . '" >';
+                        echo '<img src="../wp-content/plugins/ub_hotelbooking/web/img/rooms/' . $room->photo . '" class="photo" />';
+                        echo '<br/>';
+                        echo '<div class="titre">Chambre ' . $room->chambre . '</div>';
+                        echo '<div class="infos">';
+                        $maxImg = ' <img src="../wp-content/plugins/ub_hotelbooking/web/img/max.png"/>';
+                        $litsImg = ' <img src="../wp-content/plugins/ub_hotelbooking/web/img/lits.png"/>';
+                        echo $room->max . $maxImg . $room->lits . $litsImg;
+                        echo '</div>';
+
+                        echo '<div class="tarif">' . $tarif . ' € - ' . $nbreNuits . ' <img src="../wp-content/plugins/ub_hotelbooking/web/img/nuit.png" class="icon" /></div>';
+
+                        echo '<div class="option">';
+                        if ($room->douche == 1){
+                          echo $manager->returnImg('douche');
+                        }
+                        if ($room->wc == 1){
+                          echo $manager->returnImg('wc');
+                        }
+                        if ($room->tel == 1){
+                          echo $manager->returnImg('tel');
+                        }
+                        if ($room->tv == 1){
+                          echo $manager->returnImg('tv');
+                        }
+                        if ($room->baignoire == 1){
+                          echo $manager->returnImg('baignoire');
+                        }
+                        if ($room->wifi == 1){
+                          echo $manager->returnImg('wifi');
+                        }
+                        echo '</div>';
+                        echo '</a>';
+                        echo '</center>';
+                        echo '</div>';
+                      }
+                  }
+
+
+         }
        ?>
-
-      <?php
-        if (isset($message)){
-        echo $message . '<br/>';
-        }
-        ?>
-
-        </div>
-    </body>
-</html>
+     </div>
+     </body>
+     </html>
+<?php
+   }
+?>

@@ -13,6 +13,10 @@ body{
   padding-top: 20px;
 }
 
+.champs{
+  width: 250px !important;
+}
+
 .recherche{
     top: 20px;
     width: 300px;

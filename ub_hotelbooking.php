@@ -7,7 +7,7 @@ Author: UnicornBuster
 Author URI: http://simonpelletier.net
 */
 
-add_shortcode('booking', 'bookingView');
+add_shortcode('search', 'searchView');
 
 add_action('admin_menu', 'UBHBADMIN');
 
@@ -29,7 +29,7 @@ function resaView(){
   include('../wp-content/plugins/ub_hotelbooking/resa.php');
 }
 
-function bookingView(){
+function searchView(){
   include('view.php');
 }
 

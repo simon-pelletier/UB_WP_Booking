@@ -30,9 +30,22 @@ class RoomManager{
             ORDER BY C.max");
 
             return $room;
-            print_r($room);
-            echo $room;
-            if (empty($room)){
+
+        } else {
+            echo 'ERREUR DE DATE';
+            $nothing = array();
+            return $nothing;
+        }
+    }
+
+    public function roomListBis($dateA, $dateB, $nombreP){
+
+        if ($dateA < $dateB){
+
+            global $wpdb, $table_prefix;
+            $resa_table = $table_prefix . 'hb_resa';
+            $rooms_table = $table_prefix . 'hb_rooms';
+
               $room = $wpdb->get_results("SELECT C.id, C.chambre, C.max, C.lits, C.douche, C.wc, C.tel, C.tv, C.baignoire, C.wifi, C.photo, C.for1, C.for2, C.for3, C.for4, C.supp
               FROM $rooms_table C
               LEFT JOIN $resa_table R
@@ -47,7 +60,7 @@ class RoomManager{
               ORDER BY C.max");
 
               return $room;
-            }
+
 
         } else {
             echo 'ERREUR DE DATE';
@@ -103,19 +116,6 @@ class RoomManager{
     public function returnImg($att){
       $img = ' <img src="../wp-content/plugins/ub_hotelbooking/web/img/' . $att . '.png"/>';
       return $img;
-      /*
-        $rep = $this->$att();
-        if ($rep == 1 && $att != 'lits' && $att != 'max'){
-            $img = ' <img src="web/img/' . $att . '.png"/>';
-            return $img;
-        } elseif ($att == 'lits' || $att == 'max') {
-            $img = ' <img src="web/img/' . $att . '.png"/>';
-            return $img;
-        } else {
-
-        }
-        */
-
     }
 
     public function chambreExistance($chambre){
