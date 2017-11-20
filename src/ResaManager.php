@@ -140,5 +140,16 @@ Ceci est un mail automatique, Merci de ne pas y répondre.';
         return $tarif;
     }
 
+    public function nombreNuits($arrivee, $depart){
+        $dateA = strtotime($arrivee);
+        $dateB = strtotime($depart);
+
+        $nuitsTimestamp = $dateB - $dateA;
+
+        $nuits = intval($nuitsTimestamp / 86400); //60*60*24
+
+        return $nuits;
+    }
+
 
 }

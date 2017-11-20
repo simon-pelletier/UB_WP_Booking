@@ -12,13 +12,11 @@ class RoomManager{
 
         if ($dateA < $dateB){
 
-
-
             global $wpdb, $table_prefix;
             $resa_table = $table_prefix . 'hb_resa';
             $rooms_table = $table_prefix . 'hb_rooms';
 
-            $room = $wpdb->get_results("SELECT DISTINCT C.id, C.chambre, C.max, C.lits, C.douche, C.wc, C.tel, C.tv, C.baignoire, C.wifi, C.photo, C.for1, C.for2, C.for3, C.for4, C.supp
+            $room = $wpdb->get_results("SELECT C.id, C.chambre, C.max, C.lits, C.douche, C.wc, C.tel, C.tv, C.baignoire, C.wifi, C.photo, C.for1, C.for2, C.for3, C.for4, C.supp
             FROM $rooms_table C
             LEFT JOIN $resa_table R
             ON C.chambre = R.chambre
@@ -32,9 +30,10 @@ class RoomManager{
             ORDER BY C.max");
 
             return $room;
-
-            if (empty($roomList)){
-              $room = $wpdb->get_results("SELECT DISTINCT C.id, C.chambre, C.max, C.lits, C.douche, C.wc, C.tel, C.tv, C.baignoire, C.wifi, C.photo, C.for1, C.for2, C.for3, C.for4, C.supp
+            print_r($room);
+            echo $room;
+            if (empty($room)){
+              $room = $wpdb->get_results("SELECT C.id, C.chambre, C.max, C.lits, C.douche, C.wc, C.tel, C.tv, C.baignoire, C.wifi, C.photo, C.for1, C.for2, C.for3, C.for4, C.supp
               FROM $rooms_table C
               LEFT JOIN $resa_table R
               ON C.chambre = R.chambre
@@ -58,19 +57,15 @@ class RoomManager{
     }
 
     public function roomAlone($chambreSelected){
-        $reqa = $this->db->prepare('SELECT rooms.id, rooms.chambre, rooms.max, rooms.lits, rooms.douche, rooms.wc, rooms.tel, rooms.tv, rooms.baignoire, rooms.wifi, rooms.photo, rooms.for1, rooms.for2, rooms.for3, rooms.for4, rooms.supp
-        FROM rooms
-        WHERE :chambre = rooms.chambre'
-        );
 
-        $reqa->bindParam(':chambre', $chambreSelected, PDO::PARAM_INT);
+      global $wpdb, $table_prefix;
 
-        $reqa->execute();
-        $reqa->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, 'Room');
-        $roomAlone = $reqa->fetchAll();
+      $rooms_table = $table_prefix . 'hb_rooms';
 
-        $reqa->closeCursor();
-        return $roomAlone;
+      $room = $wpdb->get_results("SELECT * FROM $rooms_table WHERE chambre = $chambreSelected");
+
+      return $room;
+
     }
 
     public function roomAdminList(){
