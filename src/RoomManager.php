@@ -120,16 +120,18 @@ class RoomManager{
     }
 
     public function chambreExistance($chambre){
-        $requete = $this->db->prepare('SELECT COUNT(*) FROM rooms WHERE chambre = :chambre');
-        $requete->bindValue(':chambre', $chambre);
-        $requete->execute();
+      global $wpdb, $table_prefix;
 
-        $nombre = $requete->fetchColumn();
+      $rooms_table = $table_prefix . 'hb_rooms';
 
-        return $nombre;
+      $room = $wpdb->get_results("SELECT COUNT(*) FROM $rooms_table WHERE chambre = $chambre");
+
+      return $room;
     }
 
     public function addRoom($chambre, $max, $lits, $douche, $wc, $tel, $tv, $baignoire, $wifi, $photo, $for1, $for2, $for3, $for4, $supp){
+
+      global $wpdb, $table_prefix;
 
       $photo = 'default';
 

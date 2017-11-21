@@ -7,13 +7,19 @@ $rooms_table = $table_prefix . 'hb_rooms';
 $roomManager = new RoomManager($wpdb);
 
 if (isset($_GET['supprimerRoom'])){
-    //$message = 'La chambre a bien été supprimée';
+    $messageRoom = 'La chambre a bien été supprimée';
     $wpdb->delete( 'wp_hb_rooms', array( 'ID' => $_GET['supprimerRoom'] ) );
 }
 
 if (isset($_POST['ajouterChambre'])){
 
-  $roomManager->addRoom($_POST['chambre'], $_POST['max'], $_POST['lits'], $_POST['douche'], $_POST['wc'], $_POST['tel'], $_POST['tv'], $_POST['baignoire'], $_POST['wifi'], $_POST['photo'], $_POST['for1'], $_POST['for2'], $_POST['for3'], $_POST['for4'], $_POST['supp']);
+  if($roomManager->chambreExistance($_POST['chambre']) > 0){
+    $messageRoomError = 'Ce nom de chambre existe déjà.';
+  } else {
+    $roomManager->addRoom($_POST['chambre'], $_POST['max'], $_POST['lits'], $_POST['douche'], $_POST['wc'], $_POST['tel'], $_POST['tv'], $_POST['baignoire'], $_POST['wifi'], $_POST['photo'], $_POST['for1'], $_POST['for2'], $_POST['for3'], $_POST['for4'], $_POST['supp']);
+    $messageRoom = 'La chambre a bien été ajoutée';
+
+  }
 
 }
 ?>

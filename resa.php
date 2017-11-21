@@ -9,7 +9,7 @@ $resaManager = new ResaManager($wpdb);
 $roomManager = new RoomManager($wpdb);
 
 if (isset($_GET['supprimerResa'])){
-    //$message = 'La chambre a bien été supprimée';
+    $messageResa = 'La réservation a bien été supprimée';
     $wpdb->delete( 'wp_hb_resa', array( 'ID' => $_GET['supprimerResa'] ) );
 }
 
