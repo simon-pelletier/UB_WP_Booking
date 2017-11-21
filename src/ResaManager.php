@@ -112,6 +112,7 @@ class ResaManager{
     }
 
 
+
     public function sendMail($mail, $cle){
         $id = $this->db->lastInsertId();
         $url_actuel = 'http://' . $_SERVER['SERVER_NAME'] . $_SERVER['REQUEST_URI'];

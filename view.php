@@ -47,43 +47,6 @@ if(isset($_POST['reserver'])){
     0,
     $cle
   );
-
-
-/*
-    $wpdb->insert(
-      'wp_hb_resa',
-      array(
-        'nom' => $_POST['nom'],
-         'email' => $_POST['email'],
-         'tel' => $_POST['tel'],
-         'nombrep' => $_GET['nbp'],
-         'chambre' => $_GET['chambre'],
-         'chambreid' => $_GET['chambreid'],
-         'datearrivee' => $_GET['dateA'],
-         'datedepart' => $_GET['dateB'],
-         'infos' => $_POST['infos'],
-         'tarif' => $_GET['tarif'],
-         'nuits' => $_GET['nuits'],
-         'confirmclient' => 0,
-         'cleconfirm' => $cle
-      ),
-      array(
-        '%s',
-        '%s',
-        '%s',
-        '%d',
-        '%d',
-        '%d',
-        '%s',
-        '%s',
-        '%s',
-        '%d',
-        '%d',
-        '%d',
-        '%s'
-      )
-    );
-    */
   }
 
 /*

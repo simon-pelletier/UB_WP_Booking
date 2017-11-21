@@ -22,7 +22,7 @@ function UBHBRESA(){
 }
 
 function chambreView(){
-  include('../wp-content/plugins/ub_hotelbooking/chambres.php');
+  include('../wp-content/plugins/ub_hotelbooking/room.php');
 }
 
 function resaView(){

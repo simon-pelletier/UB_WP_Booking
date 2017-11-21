@@ -21,35 +21,29 @@ if (isset($_POST['ajouterResa'])){
         $confirmclient = 0;
     }
 
-    $chambreid = $resaManager->quelIdDeChambre($_POST['chambre']);
+    if(!empty($_POST['nom'])){
+      if (filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
 
-    $dateA = strtotime($_POST['datearrivee']);
-    $dateB = strtotime($_POST['datedepart']);
+      $chambreid = $resaManager->quelIdDeChambre($_POST['chambre']);
 
-    $nuitsTimestamp = $dateB - $dateA;
-    $nuits = intval($nuitsTimestamp / 86400); //60*60*24
+      $dateA = strtotime($_POST['datearrivee']);
+      $dateB = strtotime($_POST['datedepart']);
 
-    $tarif = $resaManager->calculTarif($nuits, (int) $chambreid,  (int) $_POST['nombrep']);
+      $nuitsTimestamp = $dateB - $dateA;
+      $nuits = intval($nuitsTimestamp / 86400); //60*60*24
 
-    $resaManager->addResaManuel($_POST['nom'], $_POST['email'], $_POST['tel'], $_POST['nombrep'], $_POST['chambre'], $chambreid, $_POST['datearrivee'], $_POST['datedepart'], $_POST['infos'], $tarif, $nuits, $confirmclient, 0);
+      $tarif = $resaManager->calculTarif($nuits, (int) $chambreid,  (int) $_POST['nombrep']);
 
-/*
-    if ($resaManuel->isValid()){
-        $messageResa = 'La réservation a bien été ajoutée !';
-        $resaManager->addResa($resaManuel);
+      $resaManager->addResaManuel($_POST['nom'], $_POST['email'], $_POST['tel'], $_POST['nombrep'], $_POST['chambre'], $chambreid, $_POST['datearrivee'], $_POST['datedepart'], $_POST['infos'], $tarif, $nuits, $confirmclient, 0);
+
+      $messageResa = 'La réservation a bien été ajoutée !';
+
     } else {
-        $erreurs = $resaManuel->erreurs();
+      $messageResaError = 'L\'email entré n\'est pas correct.';
     }
-    if (isset($erreurs) && in_array(Resa::NOM_INVALIDE, $erreurs)) {
-        $messageResaError = 'Merci de renseigner votre nom.<br/>';
+    } else {
+      $messageResaError = 'Merci de renseigner le Nom du client';
     }
-    if (isset($erreurs) && in_array(Resa::EMAIL_INVALIDE, $erreurs)) {
-        $messageResaError = 'Cet e-mail n\'est pas valide.<br/>';
-    }
-    if (isset($erreurs) && in_array(Resa::TEL_INVALIDE, $erreurs)) {
-        $messageResaError = 'Ce numéro de téléphone n\'est pas valide.<br/>';
-    }
-*/
 
 }
 ?>
