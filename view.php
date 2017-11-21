@@ -30,8 +30,26 @@ if(isset($_POST['selecteddate'])){
 }
 if(isset($_POST['reserver'])){
 
-    $cle = md5(microtime(TRUE)*100000);
+  $cle = md5(microtime(TRUE)*100000);
 
+  $resaManager->resaAuto(
+    $_POST['nom'],
+    $_POST['email'],
+    $_POST['tel'],
+    $_GET['nbp'],
+    $_GET['chambre'],
+    $_GET['chambreid'],
+    $_GET['dateA'],
+    $_GET['dateB'],
+    $_POST['infos'],
+    $_GET['tarif'],
+    $_GET['nuits'],
+    0,
+    $cle
+  );
+
+
+/*
     $wpdb->insert(
       'wp_hb_resa',
       array(
@@ -65,6 +83,7 @@ if(isset($_POST['reserver'])){
         '%s'
       )
     );
+    */
   }
 
 /*

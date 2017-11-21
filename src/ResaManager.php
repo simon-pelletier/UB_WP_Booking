@@ -56,6 +56,43 @@ class ResaManager{
       );
     }
 
+    public function resaAuto($nom, $email, $tel, $nbp, $chambre, $chambreid, $dateA, $dateB, $infos, $tarif, $nuits, $confirm, $cle){
+      global $wpdb, $table_prefix;
+      $wpdb->insert(
+        'wp_hb_resa',
+        array(
+          'nom' => $nom,
+           'email' => $email,
+           'tel' => $tel,
+           'nombrep' => $nbp,
+           'chambre' => $chambre,
+           'chambreid' => $chambreid,
+           'datearrivee' => $dateA,
+           'datedepart' => $dateB,
+           'infos' => $infos,
+           'tarif' => $tarif,
+           'nuits' => $nuits,
+           'confirmclient' => $confirm,
+           'cleconfirm' => $cle
+        ),
+        array(
+          '%s',
+          '%s',
+          '%s',
+          '%d',
+          '%d',
+          '%d',
+          '%s',
+          '%s',
+          '%s',
+          '%d',
+          '%d',
+          '%d',
+          '%s'
+        )
+      );
+    }
+
     public function resaUnique($id){
         $requete = $this->db->query('SELECT id, nom, email, tel, nombrep, chambre, chambreid, datearrivee, datedepart, infos, tarif, nuits, confirmclient FROM reservation WHERE id = :id');
         $requete->bindParam(':id', $id, PDO::PARAM_INT);
