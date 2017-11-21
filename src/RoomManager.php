@@ -16,13 +16,15 @@ class RoomManager{
             $resa_table = $table_prefix . 'hb_resa';
             $rooms_table = $table_prefix . 'hb_rooms';
 
-            $room = $wpdb->get_results("SELECT C.id, C.chambre, C.max, C.lits, C.douche, C.wc, C.tel, C.tv, C.baignoire, C.wifi, C.photo, C.for1, C.for2, C.for3, C.for4, C.supp
+
+
+            $room = $wpdb->get_results("SELECT C.id, C.chambre, C.max, C.lits, C.douche, C.wc, C.tel, C.tv, C.baignoire, C.wifi, C.photo, C.for1, C.for2, C.for3, C.for4, C.supp, R.datedepart
             FROM $rooms_table C
             LEFT JOIN $resa_table R
             ON C.chambre = R.chambre
             AND (
-            $dateA BETWEEN R.datearrivee AND R.datedepart
-            OR $dateB BETWEEN R.datearrivee AND R.datedepart
+            '$dateA' BETWEEN R.datearrivee AND R.datedepart
+            OR '$dateB' BETWEEN R.datearrivee AND R.datedepart
             )
             WHERE
             $nombreP = C.max
@@ -32,7 +34,6 @@ class RoomManager{
             return $room;
 
         } else {
-            echo 'ERREUR DE DATE';
             $nothing = array();
             return $nothing;
         }
@@ -51,8 +52,8 @@ class RoomManager{
               LEFT JOIN $resa_table R
               ON C.chambre = R.chambre
               AND (
-              $dateA BETWEEN R.datearrivee AND R.datedepart
-              OR $dateB BETWEEN R.datearrivee AND R.datedepart
+              '$dateA' BETWEEN R.datearrivee AND R.datedepart
+              OR '$dateB' BETWEEN R.datearrivee AND R.datedepart
               )
               WHERE
               $nombreP <= C.max

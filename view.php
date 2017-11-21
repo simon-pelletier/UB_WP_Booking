@@ -28,6 +28,44 @@ if(isset($_POST['selecteddate'])){
   $selectedA = $_POST['arrivee'];
   $selectedB = $_POST['depart'];
 }
+if(isset($_POST['reserver'])){
+
+    $cle = md5(microtime(TRUE)*100000);
+
+    $wpdb->insert(
+      'wp_hb_resa',
+      array(
+        'nom' => $_POST['nom'],
+         'email' => $_POST['email'],
+         'tel' => $_POST['tel'],
+         'nombrep' => $_GET['nbp'],
+         'chambre' => $_GET['chambre'],
+         'chambreid' => $_GET['chambreid'],
+         'datearrivee' => $_GET['dateA'],
+         'datedepart' => $_GET['dateB'],
+         'infos' => $_POST['infos'],
+         'tarif' => $_GET['tarif'],
+         'nuits' => $_GET['nuits'],
+         'confirmclient' => 0,
+         'cleconfirm' => $cle
+      ),
+      array(
+        '%s',
+        '%s',
+        '%s',
+        '%d',
+        '%d',
+        '%d',
+        '%s',
+        '%s',
+        '%s',
+        '%d',
+        '%d',
+        '%d',
+        '%s'
+      )
+    );
+  }
 
 /*
   if (isset($message)){
@@ -90,7 +128,7 @@ if (isset($_GET['chambre']) && isset($_GET['chambreid']) ){
 
         <br/><br/>
 
-        <form method="POST" action=".">
+        <form method="POST" action="">
 
           Arrivée le <?php $dateA = $_GET['dateA']; echo date("d-m-Y", strtotime($dateA));?>
           <br/><br/>

@@ -32,30 +32,6 @@ class ResaManager{
         return $resaUnique;
     }
 
-    public function addResa(Resa $resa){
-
-        $requete = $this->db->prepare('INSERT INTO reservation (nom, email, tel, nombrep, chambre, chambreid, datearrivee, datedepart, infos, tarif, nuits, confirmclient, cleconfirm) VALUES (:nom, :email, :tel, :nombrep, :chambre, :chambreid, :datearrivee, :datedepart, :infos, :tarif, :nuits, :confirmclient, :cleconfirm)');
-        $requete->bindValue(':nom', $resa->nom());
-        $requete->bindValue(':email', $resa->email());
-        $requete->bindValue(':tel', $resa->tel());
-        $requete->bindValue(':nombrep', $resa->nombrep());
-        $requete->bindValue(':chambre', $resa->chambre());
-        $requete->bindValue(':chambreid', $resa->chambreid());
-        $requete->bindValue(':datearrivee', $resa->datearrivee());
-        $requete->bindValue(':datedepart', $resa->datedepart());
-        $requete->bindValue(':infos', $resa->infos());
-        $requete->bindValue(':tarif', $resa->tarif(), PDO::PARAM_INT);
-        $requete->bindValue(':nuits', $resa->nuits(), PDO::PARAM_INT);
-        $requete->bindValue(':confirmclient', $resa->confirmclient());
-        $requete->bindValue(':cleconfirm', $resa->cleconfirm());
-        $requete->execute();
-
-
-
-        $requete->closeCursor();
-
-        //return $last_id;
-    }
 
     public function deleteResa($id){
         $this->db->exec('DELETE FROM reservation WHERE id = ' . (int) $id);

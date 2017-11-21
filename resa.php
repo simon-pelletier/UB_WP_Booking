@@ -33,6 +33,7 @@ if (isset($_POST['ajouterResa'])){
 
     $tarif = $resaManager->calculTarif($nuits, (int) $chambreid,  (int) $_POST['nombrep']);
 
+
     $wpdb->insert(
       'wp_hb_resa',
       array(
@@ -115,13 +116,13 @@ if (isset($_POST['ajouterResa'])){
           <th>Nom</th>
           <th>@</th>
           <th>TEL</th>
-          <th><img src="web/img/max.png" class="resaImg"/></th>
+          <th><img src="../wp-content/plugins/ub_hotelbooking/web/img/max.png" class="resaImg"/></th>
           <th>Chambre</th>
           <th>Date Arrivée</th>
           <th>Date Départ</th>
           <th>Infos</th>
           <th>€</th>
-          <th><img src="web/img/nuit.png" class="resaImg"/></th>
+          <th><img src="../wp-content/plugins/ub_hotelbooking/web/img/nuit.png" class="resaImg"/></th>
           <th>Confirmé</th>
           <th>Actions</th>
           </tr>
