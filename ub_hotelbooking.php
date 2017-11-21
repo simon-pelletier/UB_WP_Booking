@@ -53,6 +53,8 @@ function create_plugin_database_table()
       $sql .= "  `personnesmax`  int(10), ";
       $sql .= "  `confirmadminmail`  text, ";
       $sql .= "  `confirmclientmail`  text, ";
+      $sql .= "  `language`  text, ";
+      $sql .= "  `devise`  text, ";
       $sql .= "  PRIMARY KEY `order_id` (`id`) ";
       $sql .= ") ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ; ";
       require_once( ABSPATH . '/wp-admin/includes/upgrade.php' );
@@ -62,9 +64,11 @@ function create_plugin_database_table()
       $admin_email = get_option( 'admin_email' );
       $wpdb->insert($wp_table_config, array(
         'adminmail' => $admin_email,
-        'personnesmax' => '10',
+        'personnesmax' => '5',
         'confirmadminmail' => 'BLABLABLABLABLA',
-        'confirmclientmail' => 'BLUBLUBLUBLUBLUBLUBLUBLUBLUBLU'
+        'confirmclientmail' => 'BLUBLUBLUBLUBLUBLUBLUBLUBLUBLU',
+        'language' => 'FR',
+        'devise' => '€'
       ));
   }
 
@@ -97,28 +101,28 @@ function create_plugin_database_table()
         'chambre' => "1",
         'max' => '2',
         'lits' => '2',
-        'douche' => '1',
+        'douche' => '0',
         'wc' => '1',
         'tel' => '1',
-        'tv' => '0',
-        'baignoire' => '0',
+        'tv' => '1',
+        'baignoire' => '1',
         'wifi' => '1',
-        'for1' => '50',
-        'for2' => '55',
-        'for3' => '0',
-        'for4' => '0',
+        'for1' => '65',
+        'for2' => '70',
+        'for3' => '80',
+        'for4' => '85',
         'supp' => '5'
       ));
       $wpdb->insert($wp_table_room, array(
         'chambre' => "2",
         'max' => '4',
         'lits' => '2',
-        'douche' => '0',
+        'douche' => '1',
         'wc' => '1',
         'tel' => '1',
         'tv' => '1',
-        'baignoire' => '1',
-        'wifi' => '0',
+        'baignoire' => '0',
+        'wifi' => '1',
         'for1' => '55',
         'for2' => '55',
         'for3' => '75',
@@ -152,7 +156,7 @@ function create_plugin_database_table()
       //Ajout d'une reservation de base
       $wpdb->insert($wp_table_resa, array(
         'nom' => "nom client",
-        'email' => 'email_client',
+        'email' => 'email@client.com',
         'tel' => '0622556633',
         'nombrep' => '2',
         'chambre' => '1',

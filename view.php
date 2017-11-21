@@ -29,24 +29,33 @@ if(isset($_POST['selecteddate'])){
   $selectedB = $_POST['depart'];
 }
 if(isset($_POST['reserver'])){
+  if(!empty($_POST['nom'])){
+    if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
+      $cle = md5(microtime(TRUE)*100000);
 
-  $cle = md5(microtime(TRUE)*100000);
+      $resaManager->resaAuto(
+        $_POST['nom'],
+        $_POST['email'],
+        $_POST['tel'],
+        $_GET['nbp'],
+        $_GET['chambre'],
+        $_GET['chambreid'],
+        $_GET['dateA'],
+        $_GET['dateB'],
+        $_POST['infos'],
+        $_GET['tarif'],
+        $_GET['nuits'],
+        0,
+        $cle
+      );
+    } else {
+      $messageResaError = 'Merci de renseigner une adresse e-mail valide.';
+    }
 
-  $resaManager->resaAuto(
-    $_POST['nom'],
-    $_POST['email'],
-    $_POST['tel'],
-    $_GET['nbp'],
-    $_GET['chambre'],
-    $_GET['chambreid'],
-    $_GET['dateA'],
-    $_GET['dateB'],
-    $_POST['infos'],
-    $_GET['tarif'],
-    $_GET['nuits'],
-    0,
-    $cle
-  );
+  }else{
+    $messageResaError = 'Merci de renseigner votre nom.';
+  }
+
   }
 
 /*
@@ -66,7 +75,16 @@ if (isset($_GET['chambre']) && isset($_GET['chambreid']) ){
      </head>
      <body>
         <div><center><a href="." class="retour">Retour</a></center></div>
-        <br/><br/>
+        <br/>
+        <?php
+        if (isset($messageResa)){
+        echo '<div class="messageResa">' . $messageResa . '</div><br/>';
+        }
+        if (isset($messageResaError)){
+        echo '<div class="messageResaError">' . $messageResaError . '</div><br/>';
+        }
+        ?>
+        <br/>
         <center>
 
         <?php
@@ -112,31 +130,29 @@ if (isset($_GET['chambre']) && isset($_GET['chambreid']) ){
 
         <form method="POST" action="">
 
-          Arrivée le <?php $dateA = $_GET['dateA']; echo date("d-m-Y", strtotime($dateA));?>
-          <br/><br/>
-          Départ le <?php $dateB = $_GET['dateB']; echo date("d-m-Y", strtotime($dateB));?>
-          <br/><br/>
-          Nombre de personnes : <?php echo $_GET['nbp']; ?>
-          <br/><br/>
-          Total : <?php echo $_GET['tarif']; ?> euros pour <?php echo $_GET['nuits']; ?> nuits.
+
+
+          <label>Votre nom* : <br/><input type="text" name="nom" class="champs"/></label>
+          <br/>
+          <label>Votre e-mail* : <br/><input type="text" name="email" class="champs"/></label>
+          <br/>
+          <label>Téléphone : <br/><input type="text" name="tel" class="champs"/></label>
+          <br/>
+          <label>Informations complémentaires : <br/><input type="text" name="infos" class="champs"/></label>
           <br/><br/>
 
-          <label>Votre nom : <input type="text" name="nom" class="champs"/></label>
-          <br/><br/>
-          <label>Votre e-mail : <input type="text" name="email" class="champs"/></label>
-          <br/><br/>
-          <label>Téléphone : <input type="text" name="tel" class="champs"/></label>
-          <br/><br/>
+          Arrivée le <strong><?php $dateA = $_GET['dateA']; echo date("d-m-Y", strtotime($dateA));?></strong>
+          <br/>
+          Départ le <strong><?php $dateB = $_GET['dateB']; echo date("d-m-Y", strtotime($dateB));?></strong>
+          <br/>
+          Nombre de personnes : <strong><?php echo $_GET['nbp']; ?></strong>
+          <br/>
+          Total : <strong><?php echo $_GET['tarif']; ?> euros pour <?php echo $_GET['nuits']; ?> nuits.</strong>
+          <br/>
 
-          <label>Informations complémentaires : <input type="text" name="infos" class="champs"/></label>
-          <br/><br/>
+
           <?php
-          if (isset($messageResa)){
-          echo '<div class="messageResa">' . $messageResa . '</div><br/>';
-          }
-          if (isset($messageResaError)){
-          echo '<div class="messageResaError">' . $messageResaError . '</div><br/>';
-          }
+
 
           if ($_GET['nbp'] == 2){
               ?>

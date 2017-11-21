@@ -3,8 +3,10 @@ require 'src/autoload.php';
 
 global $wpdb, $table_prefix;
 $rooms_table = $table_prefix . 'hb_rooms';
+$config_table = $table_prefix . 'hb_config';
 
 $roomManager = new RoomManager($wpdb);
+$configManager = new ConfigManager($wpdb);
 
 if (isset($_GET['supprimerRoom'])){
     $messageRoom = 'La chambre a bien été supprimée';
@@ -32,8 +34,51 @@ if (isset($_POST['ajouterChambre'])){
        <link rel="stylesheet" type="text/css" href="../wp-content/plugins/ub_hotelbooking/web/css/style.css"/>
    </head>
     <body>
+      <div>
+        <h1><center>Configuration : </center></h1>
+        <center>
+          <?php
+          $config = $wpdb->get_results("SELECT * FROM $config_table");
+          ?>
+        <form method="POST" action="admin.php?page=UBHB">
+          <label>Email admin : <input type="text" style="max-width:250px;" name="adminmail" value="<?php echo $config[0]->adminmail ?>"/></label>
+
+          <label>Personnnes Max : <select name="persmax" size="1" class="nbpersonnes">
+             <?php
+              for ($i=1; $i <= 10; $i++){
+                if ($config[0]->personnesmax == $i){
+                  echo '<option selected>' . $i . '</option>';
+                } else {
+                  echo '<option>' . $i . '</option>';
+                }
+
+              }
+              ?></select></label>
+
+              <label>Langage : <select name="language" size="1" class="nbpersonnes">
+                <?php
+
+                  if ($config[0]->language == 'FR'){
+                    echo '<option selected>FR</option>';
+                    echo '<option>EN</option>';
+                  } else {
+                    echo '<option>FR</option>';
+                    echo '<option selected>EN</option>';
+                  }
+                 ?>
+              </select></label>
+
+              <label>Devise : <input type="text" style="max-width:30px;" name="adminmail" value="<?php echo $config[0]->devise ?>"/></label>
+
+          <input type="submit" name="update" value="Enregistrer"/>
+        </form>
+        </center>
+      </div>
+<br/>
+
+<br/>
         <div>
-        <h1><center>Rooms : </center></h1>
+        <h1><center>Chambres : </center></h1>
         <?php
         if (isset($messageRoom)){
         echo '<div class="messageRoom">' . $messageRoom . '</div><br/>';
