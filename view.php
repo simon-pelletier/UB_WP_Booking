@@ -28,6 +28,7 @@ if(isset($_POST['selecteddate'])){
   $selectedA = $_POST['arrivee'];
   $selectedB = $_POST['depart'];
 }
+
 if(isset($_POST['reserver'])){
   if(!empty($_POST['nom'])){
     if (filter_var($email, FILTER_VALIDATE_EMAIL)) {

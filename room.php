@@ -90,7 +90,6 @@ if (isset($_POST['ajouterChambre'])){
         <center>
         <table>
           <tr>
-          <th>ID</th>
           <th>Chambre</th>
           <th>Capacité</th>
           <th>Lits</th>
@@ -110,13 +109,13 @@ if (isset($_POST['ajouterChambre'])){
           </tr>
         <tr>
            <form method="POST" action="admin.php?page=UBHB" enctype="multipart/form-data">
-            <td></td>
+
 
             <td><input type="text" style="max-width:50px;" name="chambre"/></td>
 
             <td><select name="max" size="1" class="nbpersonnes">
                <?php
-                for ($i=1; $i <= 4; $i++){
+                for ($i=1; $i <= $config[0]->personnesmax; $i++){
                     echo '<option>' . $i . '</option>';
                 }
                 ?></select></td>
@@ -145,7 +144,8 @@ if (isset($_POST['ajouterChambre'])){
         <?php
         $room = $wpdb->get_results("SELECT * FROM $rooms_table");
         foreach ($room as $room) {
-          echo '<td>', $room->id, '</td>';
+
+          //echo '<td>', $room->id, '</td>';
           echo '<td>', $room->chambre, '</td>';
           echo '<td>', $room->max, '</td>';
           echo '<td>', $room->lits, '</td>';
@@ -156,11 +156,11 @@ if (isset($_POST['ajouterChambre'])){
           echo '<td>', $roomManager->yesOrNo($room->baignoire), '</td>';
           echo '<td>', $roomManager->yesOrNo($room->wifi), '</td>';
           echo '<td><center><img src="../wp-content/plugins/ub_hotelbooking/web/img/rooms/', $room->photo,'" style="max-width:60px;"/></center></td>'; //$resAdmin->photo()
-          echo '<td>', $room->for1, '</td>';
-          echo '<td>', $room->for2, '</td>';
-          echo '<td>', $room->for3, '</td>';
-          echo '<td>', $room->for4, '</td>';
-          echo '<td>', $room->supp, '</td>';
+          echo '<td>', $room->for1, $config[0]->devise, '</td>';
+          echo '<td>', $room->for2, $config[0]->devise, '</td>';
+          echo '<td>', $room->for3, $config[0]->devise, '</td>';
+          echo '<td>', $room->for4, $config[0]->devise, '</td>';
+          echo '<td>', $room->supp, $config[0]->devise, '</td>';
           echo '<td><a href="admin.php?page=UBHB&supprimerRoom=', $room->id, '&photo=', $room->photo, '">Supprimer</a></td>';
           echo '</tr>';
         }
