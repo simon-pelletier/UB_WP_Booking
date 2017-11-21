@@ -129,6 +129,81 @@ class RoomManager{
         return $nombre;
     }
 
+    public function addRoom($chambre, $max, $lits, $douche, $wc, $tel, $tv, $baignoire, $wifi, $photo, $for1, $for2, $for3, $for4, $supp){
+
+      $photo = 'default';
+
+      if($douche !== NULL){
+          $douche = 1;
+      } else {
+          $douche = 0;
+      }
+      if($wc !== NULL){
+          $wc = 1;
+      } else {
+          $wc = 0;
+          }
+      if($tel !== NULL){
+          $tel = 1;
+      } else {
+          $tel = 0;
+      }
+      if($tv !== NULL){
+          $tv = 1;
+      } else {
+          $tv = 0;
+      }
+      if($baignoire !== NULL){
+          $baignoire = 1;
+      } else {
+          $baignoire = 0;
+      }
+      if($wifi !== NULL){
+          $wifi = 1;
+      } else {
+          $wifi = 0;
+      }
+
+
+      $wpdb->insert(
+        'wp_hb_rooms',
+        array(
+          'chambre' => $chambre,
+          'max' => $max,
+          'lits' => $lits,
+          'douche' => $douche,
+          'wc' => $wc,
+          'tel' => $tel,
+          'tv' => $tv,
+          'baignoire' => $baignoire,
+          'wifi' => $wifi,
+          'photo' => $photo,
+          'for1' => $for1,
+          'for2' => $for2,
+          'for3' => $for3,
+          'for4' => $for4,
+          'supp' => $supp
+        ),
+        array(
+          '%s',
+          '%d',
+          '%d',
+          '%d',
+          '%d',
+          '%d',
+          '%d',
+          '%d',
+          '%d',
+          '%s',
+          '%d',
+          '%d',
+          '%d',
+          '%d',
+          '%d'
+        )
+      );
+    }
+
     public function ajoutPhoto($nom, $tmpname){
         $last_id = $this->db->lastInsertId();
         //$tailleMax = 2097152; //2mo ?!

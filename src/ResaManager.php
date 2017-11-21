@@ -19,6 +19,43 @@ class ResaManager{
         return $post;
     }
 
+    public function addResaManuel($nom, $email, $tel, $nombrep, $chambre, $chambreid, $dateA, $dateD, $infos, $tarif, $nuits, $confirmclient, $cleconfirm){
+      global $wpdb, $table_prefix;
+      $wpdb->insert(
+        'wp_hb_resa',
+        array(
+          'nom' => $nom,
+           'email' => $email,
+           'tel' => $tel,
+           'nombrep' => $nombrep,
+           'chambre' => $chambre,
+           'chambreid' => $chambreid,
+           'datearrivee' => $dateA,
+           'datedepart' => $dateD,
+           'infos' => $infos,
+           'tarif' => $tarif,
+           'nuits' => $nuits,
+           'confirmclient' => $confirmclient,
+           'cleconfirm' => $cleconfirm
+        ),
+        array(
+          '%s',
+          '%s',
+          '%s',
+          '%d',
+          '%d',
+          '%d',
+          '%s',
+          '%s',
+          '%s',
+          '%d',
+          '%d',
+          '%d',
+          '%s'
+        )
+      );
+    }
+
     public function resaUnique($id){
         $requete = $this->db->query('SELECT id, nom, email, tel, nombrep, chambre, chambreid, datearrivee, datedepart, infos, tarif, nuits, confirmclient FROM reservation WHERE id = :id');
         $requete->bindParam(':id', $id, PDO::PARAM_INT);

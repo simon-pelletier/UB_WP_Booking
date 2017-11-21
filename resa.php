@@ -21,52 +21,18 @@ if (isset($_POST['ajouterResa'])){
         $confirmclient = 0;
     }
 
+    $chambreid = $resaManager->quelIdDeChambre($_POST['chambre']);
+
     $dateA = strtotime($_POST['datearrivee']);
     $dateB = strtotime($_POST['datedepart']);
 
     $nuitsTimestamp = $dateB - $dateA;
-
     $nuits = intval($nuitsTimestamp / 86400); //60*60*24
-
-
-    $chambreid = $resaManager->quelIdDeChambre($_POST['chambre']);
 
     $tarif = $resaManager->calculTarif($nuits, (int) $chambreid,  (int) $_POST['nombrep']);
 
+    $resaManager->addResaManuel($_POST['nom'], $_POST['email'], $_POST['tel'], $_POST['nombrep'], $_POST['chambre'], $chambreid, $_POST['datearrivee'], $_POST['datedepart'], $_POST['infos'], $tarif, $nuits, $confirmclient, 0);
 
-    $wpdb->insert(
-      'wp_hb_resa',
-      array(
-        'nom' => $_POST['nom'],
-         'email' => $_POST['email'],
-         'tel' => $_POST['tel'],
-         'nombrep' => $_POST['nombrep'],
-         'chambre' => $_POST['chambre'],
-         'chambreid' => $chambreid,
-         'datearrivee' => $_POST['datearrivee'],
-         'datedepart' => $_POST['datedepart'],
-         'infos' => $_POST['infos'],
-         'tarif' => $tarif,
-         'nuits' => $nuits,
-         'confirmclient' => $confirmclient,
-         'cleconfirm' => 0
-      ),
-      array(
-        '%s',
-        '%s',
-        '%s',
-        '%d',
-        '%d',
-        '%d',
-        '%s',
-        '%s',
-        '%s',
-        '%d',
-        '%d',
-        '%d',
-        '%s'
-      )
-    );
 /*
     if ($resaManuel->isValid()){
         $messageResa = 'La réservation a bien été ajoutée !';
@@ -126,8 +92,6 @@ if (isset($_POST['ajouterResa'])){
           <th>Confirmé</th>
           <th>Actions</th>
           </tr>
-
-
           <tr>
              <form method="POST" action="admin.php?page=UBHBRESA">
               <td></td>
@@ -157,13 +121,6 @@ if (isset($_POST['ajouterResa'])){
                 */
                 ?></select></td>
 
-
-
-
-
-
-
-
                 <?php
                 $timezone = "Europe/Paris";
                 date_default_timezone_set($timezone);
@@ -187,16 +144,11 @@ if (isset($_POST['ajouterResa'])){
 
               </form></tr>
 
-
-
-
         <?php
-
         $resa = $wpdb->get_results("SELECT * FROM $resa_table");
         foreach ($resaManager->resaList() as $resa)
           {
             echo '<tr>';
-
             echo '<td>', $resa->id, '</td>';
             echo '<td>', $resa->nom, '</td>';
             echo '<td>', $resa->email, '</td>';
@@ -216,15 +168,10 @@ if (isset($_POST['ajouterResa'])){
             }else{
                 echo '<td class="confirmnon">non</td>';
             }
-
             echo '<td><a href="admin.php?page=UBHBRESA&supprimerResa=', $resa->id, '">Supprimer</a></td>';
-
-
             echo '</tr>';
           }
-
         ?>
-
         </table></center></div>
     </body>
 </html>

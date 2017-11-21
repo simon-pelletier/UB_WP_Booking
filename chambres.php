@@ -13,78 +13,10 @@ if (isset($_GET['supprimerRoom'])){
 
 if (isset($_POST['ajouterChambre'])){
 
-  if(isset($_POST['douche'])){
-      $douche = 1;
-  } else {
-      $douche = 0;
-  }
-  if(isset($_POST['wc'])){
-      $wc = 1;
-  } else {
-      $wc = 0;
-      }
-  if(isset($_POST['tel'])){
-      $tel = 1;
-  } else {
-      $tel = 0;
-  }
-  if(isset($_POST['tv'])){
-      $tv = 1;
-  } else {
-      $tv = 0;
-  }
-  if(isset($_POST['baignoire'])){
-      $baignoire = 1;
-  } else {
-      $baignoire = 0;
-  }
-  if(isset($_POST['wifi'])){
-      $wifi = 1;
-  } else {
-      $wifi = 0;
-  }
+  $roomManager->addRoom($_POST['chambre'], $_POST['max'], $_POST['lits'], $_POST['douche'], $_POST['wc'], $_POST['tel'], $_POST['tv'], $_POST['baignoire'], $_POST['wifi'], $_POST['photo'], $_POST['for1'], $_POST['for2'], $_POST['for3'], $_POST['for4'], $_POST['supp']);
 
-  $wpdb->insert(
-    'wp_hb_rooms',
-    array(
-      'chambre' => $_POST['chambre'],
-      'max' => $_POST['max'],
-      'lits' => $_POST['lits'],
-      'douche' => $douche,
-      'wc' => $wc,
-      'tel' => $tel,
-      'tv' => $tv,
-      'baignoire' => $baignoire,
-      'wifi' => $wifi,
-      'photo' => 'default',
-      'for1' => $_POST['for1'],
-      'for2' => $_POST['for2'],
-      'for3' => $_POST['for3'],
-      'for4' => $_POST['for4'],
-      'supp' => $_POST['supp']
-    ),
-    array(
-      '%s',
-      '%d',
-      '%d',
-      '%d',
-      '%d',
-      '%d',
-      '%d',
-      '%d',
-      '%d',
-      '%s',
-      '%d',
-      '%d',
-      '%d',
-      '%d',
-      '%d'
-    )
-  );
 }
-
 ?>
-
 
 <!DOCTYPE HTML>
 <html>
@@ -93,11 +25,9 @@ if (isset($_POST['ajouterChambre'])){
        <meta charset="utf-8"/>
        <link rel="stylesheet" type="text/css" href="../wp-content/plugins/ub_hotelbooking/web/css/style.css"/>
    </head>
-
     <body>
         <div>
         <h1><center>Rooms : </center></h1>
-
         <?php
         if (isset($messageRoom)){
         echo '<div class="messageRoom">' . $messageRoom . '</div><br/>';
@@ -106,7 +36,6 @@ if (isset($_POST['ajouterChambre'])){
         echo '<div class="messageRoomError">' . $messageRoomError . '</div><br/>';
         }
         ?>
-
         <center>
         <table>
           <tr>
@@ -127,9 +56,7 @@ if (isset($_POST['ajouterChambre'])){
           <th>for4</th>
           <th>supp</th>
           <th>Actions</th>
-
           </tr>
-
         <tr>
            <form method="POST" action="admin.php?page=UBHB" enctype="multipart/form-data">
             <td></td>
@@ -149,16 +76,13 @@ if (isset($_POST['ajouterChambre'])){
                     echo '<option>' . $i . '</option>';
                 }
                 ?></select></td>
-
             <td><input type="checkbox" name="douche" value="1"/></td>
             <td><input type="checkbox" name="wc" value="1"/></td>
             <td><input type="checkbox" name="tel" value="1"/></td>
             <td><input type="checkbox" name="tv" value="1"/></td>
             <td><input type="checkbox" name="baignoire" value="1"/></td>
             <td><input type="checkbox" name="wifi" value="1"/></td>
-
             <td><input type="file" name="photo"/></td>
-
             <td><input type="text" style="max-width:30px;" name="for1"/></td>
             <td><input type="text" style="max-width:30px;" name="for2"/></td>
             <td><input type="text" style="max-width:30px;" name="for3"/></td>
@@ -167,7 +91,6 @@ if (isset($_POST['ajouterChambre'])){
             <td><input type="submit" name="ajouterChambre" value="Ajouter"/></td>
             </form>
         </tr>
-
         <?php
         $room = $wpdb->get_results("SELECT * FROM $rooms_table");
         foreach ($room as $room) {
@@ -190,7 +113,6 @@ if (isset($_POST['ajouterChambre'])){
           echo '<td><a href="admin.php?page=UBHB&supprimerRoom=', $room->id, '&photo=', $room->photo, '">Supprimer</a></td>';
           echo '</tr>';
         }
-
         ?>
             </table></center>
         </div>
