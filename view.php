@@ -195,11 +195,25 @@ if (isset($_GET['chambre']) && isset($_GET['chambreid']) ){
     <?php
   } else if(isset($_GET['do']) && isset($_GET['id']) && isset($_GET['cle'])){
     if($_GET['do'] == 'confirm'){
-      $resaManager->confirmResa($_GET['id'], $_GET['cle']);
-      $messageResa = 'Réservation confirmée !';
+      $check = $resaManager->confirmResa($_GET['id'], $_GET['cle']);
+      if ($check == 'valid'){
+        $messageResa = 'Réservation confirmée !';
+      } else if ($check == 'notvalid'){
+        $messageResaError = 'La clé ne correspond pas !';
+      } else if ($check == 'already'){
+        $messageResaError = 'Cette réservation a déjà été confirmée !';
+      }
+
     } else if($_GET['do'] == 'cancel'){
-      $resaManager->annulResa($_GET['id'], $_GET['cle']);
-      $messageResaError = 'Réservation annulée !';
+      $check = $resaManager->annulResa($_GET['id'], $_GET['cle']);
+
+      if ($check == 'valid'){
+        $messageResa = 'Réservation annulée !';
+      } else if ($check == 'notvalid'){
+        $messageResaError = 'La clé ne correspond pas !';
+      } else if ($check == 'dontexist'){
+        $messageResaError = 'Cette réservation a déjà été annulée !';
+      }
     }
     ?>
     <!DOCTYPE HTML>

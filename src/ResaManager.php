@@ -161,26 +161,45 @@ class ResaManager{
       global $wpdb, $table_prefix;
       $resa_table = $table_prefix . 'hb_resa';
 
+      $verif = $wpdb->get_results("SELECT confirmclient, cleconfirm FROM $resa_table WHERE id = $id");
 
-        global $wpdb, $table_prefix;
-        $resa_table = $table_prefix . 'hb_resa';
-        $wpdb->update(
-        	$resa_table,
-        	array(
-        		'confirmclient' => 1
-        	),
-        	array( 'id' => $id ),
-        	array(
-        		'%s'
-        	)
-        );
+      if ($verif[0]->confirmclient == 1){
+        return 'already';
+      } else {
+        if ($cle == $verif[0]->cleconfirm){
+          $wpdb->update(
+          	$resa_table,
+          	array(
+          		'confirmclient' => 1
+          	),
+          	array( 'id' => $id ),
+          	array(
+          		'%s'
+          	)
+          );
+          return 'valid';
+        } else {
+          return 'notvalid';
+        }
+      }
     }
 
     public function annulResa($id, $cle){
       global $wpdb, $table_prefix;
       $resa_table = $table_prefix . 'hb_resa';
 
-      $wpdb->delete( $resa_table, array( 'id' => $id ) );
+      $verif = $wpdb->get_results("SELECT id, cleconfirm FROM $resa_table WHERE id = $id");
+
+      if (!empty($verif[0]->id)){
+        if ($cle == $verif[0]->cleconfirm){
+          $wpdb->delete( $resa_table, array( 'id' => $id ) );
+          return 'valid';
+        } else {
+          return 'notvalid';
+        }
+      } else {
+        return 'dontexist';
+      }
     }
 
 
