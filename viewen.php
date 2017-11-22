@@ -104,7 +104,7 @@ if (isset($_GET['chambre']) && isset($_GET['chambreid']) ){
        <link rel="stylesheet" type="text/css" href="../wp-content/plugins/ub_hotelbooking/web/css/style.css">
      </head>
      <body>
-        <div><center><a href="." class="return">Retour</a></center></div>
+        <div><center><a href="." class="retour">Return</a></center></div>
         <br/>
         <?php
         if (isset($messageResa)){
