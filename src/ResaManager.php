@@ -19,7 +19,7 @@ class ResaManager{
         return $post;
     }
 
-    public function addResaManuel($nom, $email, $tel, $nombrep, $chambre, $chambreid, $dateA, $dateD, $infos, $tarif, $nuits, $confirmclient, $cleconfirm){
+    public function addResaManuel($nom, $email, $tel, $nombrep, $chambre, $chambreid, $dateA, $dateD, $infos, $tarif, $nuits, $confirmclient, $cleconfirm, $supp){
       global $wpdb, $table_prefix;
       $wpdb->insert(
         'wp_hb_resa',
@@ -36,7 +36,8 @@ class ResaManager{
            'tarif' => $tarif,
            'nuits' => $nuits,
            'confirmclient' => $confirmclient,
-           'cleconfirm' => $cleconfirm
+           'cleconfirm' => $cleconfirm,
+           'supp' => $supp
         ),
         array(
           '%s',
@@ -51,12 +52,13 @@ class ResaManager{
           '%d',
           '%d',
           '%d',
-          '%s'
+          '%s',
+          '%d'
         )
       );
     }
 
-    public function resaAuto($nom, $email, $tel, $nbp, $chambre, $chambreid, $dateA, $dateB, $infos, $tarif, $nuits, $confirm, $cle){
+    public function resaAuto($nom, $email, $tel, $nbp, $chambre, $chambreid, $dateA, $dateB, $infos, $tarif, $nuits, $confirm, $cle, $supp){
       global $wpdb, $table_prefix;
       $wpdb->insert(
         'wp_hb_resa',
@@ -73,7 +75,8 @@ class ResaManager{
            'tarif' => $tarif,
            'nuits' => $nuits,
            'confirmclient' => $confirm,
-           'cleconfirm' => $cle
+           'cleconfirm' => $cle,
+           'supp' => $supp
         ),
         array(
           '%s',
@@ -88,7 +91,8 @@ class ResaManager{
           '%d',
           '%d',
           '%d',
-          '%s'
+          '%s',
+          '%d'
         )
       );
     }
@@ -113,7 +117,7 @@ class ResaManager{
 
 
 
-    public function sendMail($mail, $cle, $nom){
+    public function sendMail($mail, $cle, $nom, $supChambre){
 
         global $wpdb, $table_prefix;
         //$id = $this->db->lastInsertId();
@@ -144,6 +148,12 @@ class ResaManager{
         $sujet = "Confirmez votre réservation";
         $entete = "From: " . $siteName . " <robotUB@" . $siteNameAtt . ".com>";
 
+        if($getInfos[0]->supp == 1){
+          $supplement = 'Option lit séparés '. $supChambre . ' ' . $getConfig[0]->devise;
+        } else {
+          $supplement = '';
+        }
+
         $message = 'Merci d\'avoir réservé une chambre dans notre hotel ' . $siteName . '.
 <br/><br/>
 <strong>
@@ -151,6 +161,7 @@ Du '. $dateA .'<br/>
 Au '. $dateB .'<br/>
 ('. $getInfos[0]->nuits .' nuit(s))<br/>
 Pour '. $getInfos[0]->tarif . ' ' . $getConfig[0]->devise . '<br/>
+' . $supplement . '<br/>
 </strong>
 <br/><br/>
 <strong>Pour CONFIRMER votre réservation au nom de ' . $nom . ',<br/>
@@ -189,6 +200,7 @@ Ceci est un mail automatique, Merci de ne pas y répondre.';
         Du '. $dateA .'<br/>
         Au '. $dateB .'<br/>
         ('. $getInfos[0]->nuits .' nuit(s))<br/><br/>
+        ' . $supplement . '<br/>
         Pour '. $getInfos[0]->tarif . ' ' . $getConfig[0]->devise . '<br/><br/>
         Informations complémentaires : ' . $getInfos[0]->infos . '<br/><br/>
         <a href="' . esc_url( home_url( '/' ) ) . 'wp-admin/" />Se connecter à votre espace Administration Wordpress.</a>
@@ -268,7 +280,7 @@ Ceci est un mail automatique, Merci de ne pas y répondre.';
         return $id[0]->id;
     }
 
-    public function calculTarif($nuits, $roomId, $nombrep){
+    public function calculTarif($nuits, $roomId, $nombrep, $supp){
         global $wpdb, $table_prefix;
         $rooms_table = $table_prefix . 'hb_rooms';
 
@@ -282,11 +294,17 @@ Ceci est un mail automatique, Merci de ne pas y répondre.';
             $nb = 'for4';
         }
 
-        $requete = $wpdb->get_results("SELECT $nb FROM $rooms_table WHERE id = $roomId");
+        $requete = $wpdb->get_results("SELECT $nb, supp FROM $rooms_table WHERE id = $roomId");
 
         $prix = $requete[0]->$nb;
 
-        $tarif = (int) $nuits * (int) $prix;
+        if ((int)$supp == 1){
+          $suppAdd = $requete[0]->supp;
+          $tarif = (int) $nuits * ((int) $prix + (int) $suppAdd);
+        } else {
+          $tarif = (int) $nuits * (int) $prix;
+        }
+
 
         return $tarif;
     }

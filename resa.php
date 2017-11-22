@@ -14,12 +14,9 @@ if (isset($_GET['supprimerResa'])){
 }
 
 if (isset($_POST['ajouterResa'])){
+    $confirmclient = 1;
 
-    if(isset($_POST['confirmclient'])){
-        $confirmclient = 1;
-    } else {
-        $confirmclient = 0;
-    }
+
 
     if(!empty($_POST['nom'])){
       if (filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
@@ -31,10 +28,16 @@ if (isset($_POST['ajouterResa'])){
 
       $nuitsTimestamp = $dateB - $dateA;
       $nuits = intval($nuitsTimestamp / 86400); //60*60*24
+      if(isset($_POST['supp'])){
+          $supp = 1;
+          $tarif = $resaManager->calculTarif($nuits, (int) $chambreid,  (int) $_POST['nombrep'], $supp);
+      } else {
+          $supp = 0;
+          $tarif = $resaManager->calculTarif($nuits, (int) $chambreid,  (int) $_POST['nombrep'], $supp);
+      }
 
-      $tarif = $resaManager->calculTarif($nuits, (int) $chambreid,  (int) $_POST['nombrep']);
 
-      $resaManager->addResaManuel($_POST['nom'], $_POST['email'], $_POST['tel'], $_POST['nombrep'], $_POST['chambre'], $chambreid, $_POST['datearrivee'], $_POST['datedepart'], $_POST['infos'], $tarif, $nuits, $confirmclient, 0);
+      $resaManager->addResaManuel($_POST['nom'], $_POST['email'], $_POST['tel'], $_POST['nombrep'], $_POST['chambre'], $chambreid, $_POST['datearrivee'], $_POST['datedepart'], $_POST['infos'], $tarif, $nuits, $confirmclient, 0, $supp);
 
       $messageResa = 'La réservation a bien été ajoutée !';
 
@@ -81,6 +84,7 @@ if (isset($_POST['ajouterResa'])){
           <th>Date Arrivée</th>
           <th>Date Départ</th>
           <th>Infos</th>
+          <th>2Lits</th>
           <th>€</th>
           <th><img src="../wp-content/plugins/ub_hotelbooking/web/img/nuit.png" class="resaImg"/></th>
           <th>Confirmé</th>
@@ -131,9 +135,10 @@ if (isset($_POST['ajouterResa'])){
                 <td><input type="date" name="datedepart" value="<?php echo $selectedB; ?>" min="<?php echo $mindaya; ?>" max="<?php echo $maxday; ?>" class="date"/></td>
 
                 <td><input type="text" style="max-width:100px;" name="infos"/></td>
+                <td><input type="checkbox" value="1" name="supp"/></td>
                 <td></td>
                 <td></td>
-                <td><input type="checkbox" value="1" name="confirmclient"/></td>
+                <td></td>
                 <td><input type="submit" name="ajouterResa" value="Ajouter"/></td>
 
               </form></tr>
@@ -149,11 +154,15 @@ if (isset($_POST['ajouterResa'])){
             echo '<td>', $resa->tel, '</td>';
             echo '<td>', $resa->nombrep, '</td>';
             echo '<td>', $resa->chambre, '</td>';
-            //echo '<td>', $resa->datearrivee->format('d/m/Y'), '</td>';
-            //echo '<td>', $resa->datedepart->format('d/m/Y'), '</td>';
             echo '<td>', $resa->datearrivee, '</td>';
             echo '<td>', $resa->datedepart, '</td>';
             echo '<td>', $resa->infos, '</td>';
+            if($resa->supp == 1)
+            {
+                echo '<td>oui</td>';
+            }else{
+                echo '<td>non</td>';
+            }
             echo '<td>', $resa->tarif, ' €</td>';
             echo '<td>', $resa->nuits, '</td>';
             if($resa->confirmclient == 1)

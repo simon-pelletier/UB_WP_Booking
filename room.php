@@ -120,7 +120,7 @@ if (isset($_POST['update'])){
           <th>for2</th>
           <th>for3</th>
           <th>for4</th>
-          <th>supp</th>
+          <th>2Lits</th>
           <th>Actions</th>
           </tr>
         <tr>
