@@ -10,7 +10,9 @@ $configManager = new ConfigManager($wpdb);
 
 if (isset($_GET['supprimerRoom'])){
     $messageRoom = 'La chambre a bien été supprimée';
-    $wpdb->delete( 'wp_hb_rooms', array( 'ID' => $_GET['supprimerRoom'] ) );
+
+    $roomManager->deleteRoom($_GET['supprimerRoom'], $_GET['photo']);
+
 }
 
 if (isset($_POST['ajouterChambre'])){
@@ -18,8 +20,27 @@ if (isset($_POST['ajouterChambre'])){
   if($roomManager->chambreExistance($_POST['chambre']) > 0){
     $messageRoomError = 'Ce nom de chambre existe déjà.';
   } else {
-    $roomManager->addRoom($_POST['chambre'], $_POST['max'], $_POST['lits'], $_POST['douche'], $_POST['wc'], $_POST['tel'], $_POST['tv'], $_POST['baignoire'], $_POST['wifi'], $_POST['photo'], $_POST['for1'], $_POST['for2'], $_POST['for3'], $_POST['for4'], $_POST['supp']);
-    $messageRoom = 'La chambre a bien été ajoutée';
+    if (!empty($_FILES['photo']['name'])){
+        $tailleMax = 2097152;
+         if ($_FILES['photo']['size'] <= $tailleMax){
+            $dimensions = getimagesize($_FILES['photo']['tmp_name']);
+            $longueur = $dimensions[0];
+            $largeur = $dimensions[1];
+             if ($longueur==300 && $largeur==300) {
+               $roomManager->addRoom($_POST['chambre'], $_POST['max'], $_POST['lits'], $_POST['douche'], $_POST['wc'], $_POST['tel'], $_POST['tv'], $_POST['baignoire'], $_POST['wifi'], $_POST['photo'], $_POST['for1'], $_POST['for2'], $_POST['for3'], $_POST['for4'], $_POST['supp']);
+               $messageRoom = 'La chambre a bien été ajoutée';
+
+                $roomManager->ajoutPhoto($_FILES['photo']['name'], $_FILES['photo']['tmp_name']);
+            } else {
+                 $messageRoomError = 'Votre photo doit faire 300*300px<br/>';
+             }
+         } else {
+             $messageRoomError = 'Votre photo ne doit pas dépasser 2Mo<br/>';
+         }
+    } else {
+      $roomManager->addRoom($_POST['chambre'], $_POST['max'], $_POST['lits'], $_POST['douche'], $_POST['wc'], $_POST['tel'], $_POST['tv'], $_POST['baignoire'], $_POST['wifi'], $_POST['photo'], $_POST['for1'], $_POST['for2'], $_POST['for3'], $_POST['for4'], $_POST['supp']);
+      $messageRoom = 'La chambre a bien été ajoutée';
+    }
   }
 }
 

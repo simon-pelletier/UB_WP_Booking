@@ -213,14 +213,32 @@ class RoomManager{
       );
     }
 
+    public function deleteRoom($id, $photo){
+      global $wpdb, $table_prefix;
+      $room_table = $table_prefix . 'hb_rooms';
+
+      if ($photo != 'default'){
+
+        unlink('../wp-content/plugins/ub_hotelbooking/web/img/rooms/' . $photo);
+
+        $wpdb->delete( 'wp_hb_rooms', array( 'ID' => $id ) );
+      }
+
+
+    }
+
     public function ajoutPhoto($nom, $tmpname){
-        $last_id = $this->db->lastInsertId();
-        //$tailleMax = 2097152; //2mo ?!
+      global $wpdb, $table_prefix;
+      //$id = $this->db->lastInsertId();
+
+      $resa_table = $table_prefix . 'hb_resa';
+      $room_table = $table_prefix . 'hb_rooms';
+      $config_table = $table_prefix . 'hb_config';
+
+      $last_id = $wpdb->insert_id;
+
         $extensionsValides = array('jpg', 'jpeg', 'gif', 'png');
 
-        //if ($size <= $tailleMax){
-
-            //if ($longueur==300 && $largeur==300) {
                 $extensionUpload = strtolower(substr(strrchr($nom, '.'), 1));
 
 
@@ -228,18 +246,24 @@ class RoomManager{
 
                 $newnom = md5(microtime(TRUE)*100000);
 
-                $chemin = 'web/img/rooms/' . $newnom . '.' . $extensionUpload;
+                $chemin = '../wp-content/plugins/ub_hotelbooking/web/img/rooms/' . $newnom . '.' . $extensionUpload;
 
                 $deplacement = move_uploaded_file($tmpname, $chemin);
 
                 if($deplacement){
 
-                    $updateavatar = $this->db->prepare('UPDATE rooms SET photo = :photo WHERE id = :id');
-                    $updateavatar->execute(array(
-                        'photo' => $newnom . '.' . $extensionUpload,
-                        'id' => $last_id
-                        ));
-                    //header('Location: index.php?page=profil');
+
+                  $wpdb->update(
+                  	$room_table,
+                  	array(
+                  		'photo' => $newnom . '.' . $extensionUpload
+                  	),
+                  	array( 'id' => $last_id ),
+                  	array(
+                  		'%s'
+                  	)
+                  );
+
 
                 } else {
                     echo '<br/><br/><br/><div class="messageResaError">Erreur d\'upload</div>';
@@ -249,28 +273,6 @@ class RoomManager{
                 echo '<br/><br/><br/><div class="messageResaError">Votre photo doit être un gif un jpeg un jpeg ou un png.</div>';
             }
 
-           //} else {
-                //echo '<br/><br/><div class="messageResaError">Votre photo doit être de 300*300 pixels en 72dpi</div>';
-            //}
-
-
-
-        //} else {
-            //echo '<br/><br/><br/><div class="messageResaError">Votre photo de profil ne doit pas dépasser 2Mo :)</div>';
-        //}
-
     }
-
-
-
-
-
-
-
-
-
-
-
-
 
 }
