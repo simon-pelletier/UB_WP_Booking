@@ -1,11 +1,11 @@
 @import url('https://fonts.googleapis.com/css?family=Lato');
 
 body{
-    overflow: auto;
-    background: #ffffff;
+    //overflow: auto;
+    //background: #ffffff;
     //padding-top: 50px;
-    font-family: 'Lato', sans-serif;
-    width: 100%;
+    //font-family: 'Lato', sans-serif;
+    //width: 100%;
     margin: 0;
 }
 
@@ -157,7 +157,7 @@ img {
     background-color: #333333;
     display: block;
     padding: 15px;
-    width: 80px;
+    width: 120px;
 }
 a.retour, a:hover.retour, a:visited.retour, a:active.retour{
 
