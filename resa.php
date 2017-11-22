@@ -4,6 +4,9 @@ require 'src/autoload.php';
 global $wpdb, $table_prefix;
 $resa_table = $table_prefix . 'hb_resa';
 $rooms_table = $table_prefix . 'hb_rooms';
+$config_table = $table_prefix . 'hb_config';
+
+$config = $wpdb->get_results("SELECT * FROM $config_table");
 
 $resaManager = new ResaManager();
 $roomManager = new RoomManager();
@@ -84,7 +87,7 @@ if (isset($_POST['ajouterResa'])){
           <th>Date Départ</th>
           <th>Infos</th>
           <th>2Lits</th>
-          <th>€</th>
+          <th><?php echo $config[0]->devise ?></th>
           <th><img src="<?php echo esc_url( home_url( '/' ) ) ?>wp-content/plugins/ub_hotelbooking/web/img/nuit.png" class="resaImg"/></th>
           <th>Confirmé</th>
           <th>Actions</th>
@@ -153,7 +156,7 @@ if (isset($_POST['ajouterResa'])){
             }else{
                 echo '<td>non</td>';
             }
-            echo '<td>', $resa->tarif, ' €</td>';
+            echo '<td>', $resa->tarif, ' ', $config[0]->devise, '</td>';
             echo '<td>', $resa->nuits, '</td>';
             if($resa->confirmclient == 1)
             {

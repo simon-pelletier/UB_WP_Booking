@@ -198,7 +198,7 @@ class RoomManager{
 
       if ($photo != 'default'){
 
-        unlink(esc_url( home_url( '/' ) ) . 'wp-content/plugins/ub_hotelbooking/web/img/rooms/' . $photo);
+        unlink('../wp-content/plugins/ub_hotelbooking/web/img/rooms/' . $photo);
 
         $wpdb->delete( 'wp_hb_rooms', array( 'ID' => $id ) );
       }
@@ -220,7 +220,7 @@ class RoomManager{
 
                 $newnom = md5(microtime(TRUE)*100000);
 
-                $chemin = esc_url( home_url( '/' ) ) . 'wp-content/plugins/ub_hotelbooking/web/img/rooms/' . $newnom . '.' . $extensionUpload;
+                $chemin = '../wp-content/plugins/ub_hotelbooking/web/img/rooms/' . $newnom . '.' . $extensionUpload;
 
                 $deplacement = move_uploaded_file($tmpname, $chemin);
 
