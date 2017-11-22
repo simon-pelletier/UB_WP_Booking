@@ -13,6 +13,7 @@ if (isset($_GET['supprimerRoom'])){
 
     $roomManager->deleteRoom($_GET['supprimerRoom'], $_GET['photo']);
 
+    ?><meta http-equiv="refresh" content="0; url=admin.php?page=UBHB"><?php
 }
 
 if (isset($_POST['ajouterChambre'])){
