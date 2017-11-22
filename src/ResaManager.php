@@ -11,11 +11,8 @@ class ResaManager{
 
     public function resaList(){
         global $wpdb, $table_prefix;
-
         $resa_table = $table_prefix . 'hb_resa';
-
         $post = $wpdb->get_results("SELECT * FROM $resa_table");
-
         return $post;
     }
 
@@ -97,26 +94,6 @@ class ResaManager{
       );
     }
 
-    public function resaUnique($id){
-        $requete = $this->db->query('SELECT id, nom, email, tel, nombrep, chambre, chambreid, datearrivee, datedepart, infos, tarif, nuits, confirmclient FROM reservation WHERE id = :id');
-        $requete->bindParam(':id', $id, PDO::PARAM_INT);
-
-        $requete->execute();
-        $requete->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, 'Resa');
-        $resaUnique = $requete->fetchAll();
-
-        $requete->closeCursor();
-
-        return $resaUnique;
-    }
-
-
-    public function deleteResa($id){
-        $this->db->exec('DELETE FROM reservation WHERE id = ' . (int) $id);
-    }
-
-
-
     public function sendMail($mail, $cle, $nom, $supChambre){
 
         global $wpdb, $table_prefix;
@@ -175,16 +152,8 @@ merci de cliquer sur le lien ci dessous ou copier/coller dans votre navigateur i
 <br/>
 ---------------------------------------------<br/>
 Ceci est un mail automatique, Merci de ne pas y répondre.';
-/*
-        function mailFromName( $email ){
-          return $siteNameAtt; // new email name from sender.
-        }
-        add_filter( 'wp_mail_from_name', 'mailFromName' );
-*/
-        //envoi du mail
 
         wp_mail($mail, $sujet, $message, $entete);
-
 
         $mailHotel = $getConfig[0]->adminmail;
 
@@ -209,13 +178,6 @@ Ceci est un mail automatique, Merci de ne pas y répondre.';
         wp_mail($mailHotel, $sujetHotel, $messageHotel, $entete);
 
     }
-
-
-
-
-
-
-
 
     public function confirmResa($id, $cle){
       global $wpdb, $table_prefix;

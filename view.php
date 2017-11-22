@@ -156,11 +156,7 @@ if (isset($_GET['chambre']) && isset($_GET['chambreid']) ){
         ?>
 
         <br/><br/>
-
         <form method="POST" action="">
-
-
-
           <label>Votre nom* : <br/><input type="text" name="nom" class="champs"/></label>
           <br/>
           <label>Votre e-mail* : <br/><input type="text" name="email" class="champs"/></label>
@@ -179,25 +175,18 @@ if (isset($_GET['chambre']) && isset($_GET['chambreid']) ){
           Total : <strong><?php echo $_GET['tarif'] . ' ' . $getConfig[0]->devise  ?> pour <?php echo $_GET['nuits']; ?> nuit(s).</strong>
           <br/><br/>
 
-
           <?php
-
-
           if ($_GET['nbp'] == 2){
               ?>
               <label>Option lit séparé : ( + <?php echo $room->supp . ' ' . $getConfig[0]->devise ?> ) <input type="checkbox" value="1" name="litsep" /> </label>
               <?php
           }
-
           ?>
 
           <br/><br/>
-
           <input type="submit" name="reserver" value="Réserver" class="btn"/>
-
           </form>
           </center>
-
         </body>
       </html>
 
@@ -259,7 +248,6 @@ if (isset($_GET['chambre']) && isset($_GET['chambreid']) ){
        </body>
        </html>
 
-
        <?php
 
 
@@ -313,10 +301,6 @@ if (isset($_GET['chambre']) && isset($_GET['chambreid']) ){
           </div>
              <div class="liste">
               <?php
-
-
-
-
 
               if (isset($_POST['arrivee']) && isset($_POST['depart'])){
                 $countRoom = 0;
@@ -408,8 +392,6 @@ if (isset($_GET['chambre']) && isset($_GET['chambreid']) ){
                         echo '</div>';
                       }
                   }
-
-
          }
        ?>
      </div>

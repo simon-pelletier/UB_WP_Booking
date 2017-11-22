@@ -36,6 +36,20 @@ if(isset($_POST['reserver'])){
     $email = $_POST['email'];
     if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
       $cle = md5(microtime(TRUE)*100000);
+      $chambreid = (int)$_GET['chambreid'];
+
+      if(isset($_POST['litsep'])){
+          $supp = 1;
+
+          global $wpdb, $table_prefix;
+          $room_table = $table_prefix . 'hb_rooms';
+          $room = $wpdb->get_results("SELECT * FROM $rooms_table WHERE id = $chambreid");
+
+          $tarif = (int)$_GET['tarif'] + ((int)$_GET['nuits'] * (int)$room[0]->supp);
+      } else {
+          $supp = 0;
+          $tarif = $_GET['tarif'];
+      }
 
       $resaManager->resaAuto(
         $_POST['nom'],
@@ -43,18 +57,23 @@ if(isset($_POST['reserver'])){
         $_POST['tel'],
         $_GET['nbp'],
         $_GET['chambre'],
-        $_GET['chambreid'],
+        $chambreid,
         $_GET['dateA'],
         $_GET['dateB'],
         $_POST['infos'],
-        $_GET['tarif'],
+        $tarif,
         $_GET['nuits'],
         0,
-        $cle
+        $cle,
+        $supp
       );
 
-      $resaManager->sendMail($email, $cle, $_POST['nom']);
+      $resaManager->sendMail($email, $cle, $_POST['nom'], $room[0]->supp);
 
+      $messageResa = 'Vous allez recevoir un e-mail pour confirmer votre réservation.<br/>
+      Vous allez être redirigé dans 3 secondes...
+      <br/>';
+      ?><meta http-equiv="refresh" content="3; url=."><?php
 
     } else {
       $messageResaError = 'Merci de renseigner une adresse e-mail valide.';
@@ -72,7 +91,9 @@ if(isset($_POST['reserver'])){
 */
 
 if (isset($_GET['chambre']) && isset($_GET['chambreid']) ){
-
+  global $wpdb, $table_prefix;
+  $config_table = $table_prefix . 'hb_config';
+  $getConfig = $wpdb->get_results("SELECT * FROM $config_table WHERE id = 1");
   ?>
   <!DOCTYPE HTML>
   <html>
@@ -135,11 +156,7 @@ if (isset($_GET['chambre']) && isset($_GET['chambreid']) ){
         ?>
 
         <br/><br/>
-
         <form method="POST" action="">
-
-
-
           <label>Votre nom* : <br/><input type="text" name="nom" class="champs"/></label>
           <br/>
           <label>Votre e-mail* : <br/><input type="text" name="email" class="champs"/></label>
@@ -155,35 +172,23 @@ if (isset($_GET['chambre']) && isset($_GET['chambreid']) ){
           <br/>
           Nombre de personnes : <strong><?php echo $_GET['nbp']; ?></strong>
           <br/>
-          Total : <strong><?php echo $_GET['tarif']; ?> euros pour <?php echo $_GET['nuits']; ?> nuits.</strong>
-          <br/>
-
+          Total : <strong><?php echo $_GET['tarif'] . ' ' . $getConfig[0]->devise  ?> pour <?php echo $_GET['nuits']; ?> nuit(s).</strong>
+          <br/><br/>
 
           <?php
-
-
           if ($_GET['nbp'] == 2){
               ?>
-              <label>Option lit séparé : ( + 5€ ) <input type="checkbox" value="lit" name="litsep" /> </label>
+              <label>Option lit séparé : ( + <?php echo $room->supp . ' ' . $getConfig[0]->devise ?> ) <input type="checkbox" value="1" name="litsep" /> </label>
               <?php
           }
-
           ?>
 
           <br/><br/>
-
           <input type="submit" name="reserver" value="Réserver" class="btn"/>
-
           </form>
           </center>
-
         </body>
       </html>
-
-
-
-
-
 
 
 
@@ -203,7 +208,6 @@ if (isset($_GET['chambre']) && isset($_GET['chambreid']) ){
       $check = $resaManager->confirmResa($_GET['id'], $_GET['cle']);
       if ($check == 'valid'){
         $messageResa = 'Réservation confirmée !';
-        header("refresh:5;url=index.php");
       } else if ($check == 'notvalid'){
         $messageResaError = 'La clé ne correspond pas !';
       } else if ($check == 'already'){
@@ -244,36 +248,21 @@ if (isset($_GET['chambre']) && isset($_GET['chambreid']) ){
        </body>
        </html>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
        <?php
 
+
+
+
+
+
+
+
+
+
+
+
     } else {
+
           ?>
           <!DOCTYPE HTML>
           <html>
@@ -287,11 +276,11 @@ if (isset($_GET['chambre']) && isset($_GET['chambreid']) ){
           <div class="recherche">
           <form method="POST" action=".">
           <center>
-          <label>Arrival &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="date" name="arrivee" value="<?php echo $selectedA; ?>" min="<?php echo $mindaya; ?>" max="<?php echo $maxday; ?>" class="date"/></label>
-          <label>Start &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="date" name="depart" value="<?php echo $selectedB; ?>" min="<?php echo $mindaya; ?>" max="<?php echo $maxday; ?>" class="date"/></label>
+          <label>Date d'arrivée &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="date" name="arrivee" value="<?php echo $selectedA; ?>" min="<?php echo $mindaya; ?>" max="<?php echo $maxday; ?>" class="date"/></label>
+          <label>Date de départ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="date" name="depart" value="<?php echo $selectedB; ?>" min="<?php echo $mindaya; ?>" max="<?php echo $maxday; ?>" class="date"/></label>
 
           <div class="choixnbpersonnes">
-          <p><label>Number of persons :
+          <p><label>Nombre de personnes :
           <select name="nombrepersonnes" size="1" class="nbpersonnes">
              <?php
               for ($i = 1; $i <= $personnesMax; $i++){
@@ -306,12 +295,13 @@ if (isset($_GET['chambre']) && isset($_GET['chambreid']) ){
           </label>
               </p>
       </div>
-          <input type="submit" name="selecteddate" class="btn" value="Search"/>
+          <input type="submit" name="selecteddate" class="btn" value="Rechercher"/>
           </center>
           </form>
           </div>
              <div class="liste">
               <?php
+
               if (isset($_POST['arrivee']) && isset($_POST['depart'])){
                 $countRoom = 0;
                   foreach ($manager->roomList($_POST['arrivee'], $_POST['depart'], $_POST['nombrepersonnes']) as $room){
@@ -364,7 +354,7 @@ if (isset($_GET['chambre']) && isset($_GET['chambreid']) ){
                         echo '<center>';
                         $pagename = basename(get_permalink());
                         $nbreNuits = $resaManager->nombreNuits($_POST['arrivee'], $_POST['depart']);
-                        $tarif = $resaManager->calculTarif($nbreNuits, $room->id, $_POST['nombrepersonnes']);
+                        $tarif = $resaManager->calculTarif($nbreNuits, $room->id, $_POST['nombrepersonnes'], 0);
                         echo '<a href="../' . $pagename . '/?chambre=' . $room->chambre . '&dateA=' . $_POST['arrivee'] . '&dateB=' . $_POST['depart'] . '&nuits=' . $nbreNuits . '&tarif=' . $tarif . '&nbp=' . $_POST['nombrepersonnes'] . '&chambreid=' . $room->id . '" >';
                         echo '<img src="../wp-content/plugins/ub_hotelbooking/web/img/rooms/' . $room->photo . '" class="photo" />';
                         echo '<br/>';
@@ -402,8 +392,6 @@ if (isset($_GET['chambre']) && isset($_GET['chambreid']) ){
                         echo '</div>';
                       }
                   }
-
-
          }
        ?>
      </div>

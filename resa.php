@@ -51,7 +51,6 @@ if (isset($_POST['ajouterResa'])){
 }
 ?>
 
-
 <!DOCTYPE HTML>
 <html>
    <head>
@@ -105,18 +104,13 @@ if (isset($_POST['ajouterResa'])){
                 }
                 ?></select></td>
 
-
                 <td><select name="chambre" size="1" class="nbpersonnes">
                <?php
                $room = $wpdb->get_results("SELECT * FROM $rooms_table");
                foreach ($room as $room) {
                  echo '<option>' . $room->chambre . '</option>';
                }
-               /*
-                foreach ($roomManager->roomAdminList() as $aroom){
-                    echo '<option>' . $aroom->chambre() . '</option>';
-                }
-                */
+
                 ?></select></td>
 
                 <?php
@@ -126,21 +120,17 @@ if (isset($_POST['ajouterResa'])){
                 $mindayd = date("Y-m-d", strtotime($mindaya . ' +1 day'));
                 $maxday = date("Y-m-d", strtotime($mindaya . ' +1 YEAR'));
 
-
                 $selectedA = $mindaya;
                 $selectedB = $mindayd;
                  ?>
-
                 <td><input type="date" name="datearrivee" value="<?php echo $selectedA; ?>" min="<?php echo $mindaya; ?>" max="<?php echo $maxday; ?>" class="date"/></td>
                 <td><input type="date" name="datedepart" value="<?php echo $selectedB; ?>" min="<?php echo $mindaya; ?>" max="<?php echo $maxday; ?>" class="date"/></td>
-
                 <td><input type="text" style="max-width:100px;" name="infos"/></td>
                 <td><input type="checkbox" value="1" name="supp"/></td>
                 <td></td>
                 <td></td>
                 <td></td>
                 <td><input type="submit" name="ajouterResa" value="Ajouter"/></td>
-
               </form></tr>
 
         <?php

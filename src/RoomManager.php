@@ -78,24 +78,16 @@ class RoomManager{
 
 
     public function roomAlone($chambreSelected){
-
       global $wpdb, $table_prefix;
-
       $rooms_table = $table_prefix . 'hb_rooms';
-
       $room = $wpdb->get_results("SELECT * FROM $rooms_table WHERE chambre = $chambreSelected");
-
       return $room;
-
     }
 
     public function roomAdminList(){
         global $wpdb, $table_prefix;
-
         $rooms_table = $table_prefix . 'hb_rooms';
-
         $room = $wpdb->get_results("SELECT * FROM $rooms_table");
-
         return $room;
     }
 
@@ -128,20 +120,14 @@ class RoomManager{
 
     public function chambreExistance($chambre){
       global $wpdb, $table_prefix;
-
       $rooms_table = $table_prefix . 'hb_rooms';
-
       $room = $wpdb->get_results("SELECT COUNT(*) as nombre FROM $rooms_table WHERE chambre = $chambre");
-
       return $room[0]->nombre;
     }
 
     public function addRoom($chambre, $max, $lits, $douche, $wc, $tel, $tv, $baignoire, $wifi, $photo, $for1, $for2, $for3, $for4, $supp){
-
       global $wpdb, $table_prefix;
-
       $photo = 'default';
-
       if($douche !== NULL){
           $douche = 1;
       } else {
@@ -172,7 +158,6 @@ class RoomManager{
       } else {
           $wifi = 0;
       }
-
 
       $wpdb->insert(
         'wp_hb_rooms',
@@ -229,18 +214,13 @@ class RoomManager{
 
     public function ajoutPhoto($nom, $tmpname){
       global $wpdb, $table_prefix;
-      //$id = $this->db->lastInsertId();
-
       $resa_table = $table_prefix . 'hb_resa';
       $room_table = $table_prefix . 'hb_rooms';
       $config_table = $table_prefix . 'hb_config';
 
       $last_id = $wpdb->insert_id;
-
-        $extensionsValides = array('jpg', 'jpeg', 'gif', 'png');
-
-                $extensionUpload = strtolower(substr(strrchr($nom, '.'), 1));
-
+      $extensionsValides = array('jpg', 'jpeg', 'gif', 'png');
+      $extensionUpload = strtolower(substr(strrchr($nom, '.'), 1));
 
             if (in_array($extensionUpload, $extensionsValides)){
 
@@ -251,7 +231,6 @@ class RoomManager{
                 $deplacement = move_uploaded_file($tmpname, $chemin);
 
                 if($deplacement){
-
 
                   $wpdb->update(
                   	$room_table,
@@ -264,7 +243,6 @@ class RoomManager{
                   	)
                   );
 
-
                 } else {
                     echo '<br/><br/><br/><div class="messageResaError">Erreur d\'upload</div>';
                 }
@@ -272,7 +250,6 @@ class RoomManager{
             } else {
                 echo '<br/><br/><br/><div class="messageResaError">Votre photo doit être un gif un jpeg un jpeg ou un png.</div>';
             }
-
     }
 
 }

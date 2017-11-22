@@ -160,8 +160,6 @@ if (isset($_POST['update'])){
         <?php
         $room = $wpdb->get_results("SELECT * FROM $rooms_table");
         foreach ($room as $room) {
-
-          //echo '<td>', $room->id, '</td>';
           echo '<td>', $room->chambre, '</td>';
           echo '<td>', $room->max, '</td>';
           echo '<td>', $room->lits, '</td>';
