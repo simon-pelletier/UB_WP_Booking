@@ -174,6 +174,28 @@ Ceci est un mail automatique, Merci de ne pas y répondre.';
 
         wp_mail($mail, $sujet, $message, $entete);
 
+
+        $mailHotel = $getConfig[0]->adminmail;
+
+        $sujetHotel = 'Nouvelle réservation';
+
+        $messageHotel = 'Vous avez reçu une nouvelle réservation.<br/>
+        <strong>
+        Nom : ' . $getInfos[0]->nom . '<br/>
+        Email : ' . $getInfos[0]->email . '<br/>
+        Tel : ' . $getInfos[0]->tel . '<br/><br/>
+        Chambre ' . $getInfos[0]->chambre . '<br/>
+        Nombre de personnes : ' . $getInfos[0]->nombrep . '<br/><br/>
+        Du '. $dateA .'<br/>
+        Au '. $dateB .'<br/>
+        ('. $getInfos[0]->nuits .' nuit(s))<br/><br/>
+        Pour '. $getInfos[0]->tarif . ' ' . $getConfig[0]->devise . '<br/><br/>
+        Informations complémentaires : ' . $getInfos[0]->infos . '<br/><br/>
+        <a href="' . esc_url( home_url( '/' ) ) . 'wp-admin/" />Se connecter à votre espace Administration Wordpress.</a>
+        </strong>';
+
+        wp_mail($mailHotel, $sujetHotel, $messageHotel, $entete);
+
     }
 
 
