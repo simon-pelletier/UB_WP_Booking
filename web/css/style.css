@@ -85,7 +85,7 @@ a, a:hover, a:visited, a:active{
     border: none;
     height: 30px;
     text-align: center;
-    padding-left: 30px;
+    //padding-left: 30px;
     font-size: 12pt;
 }
 
@@ -122,13 +122,6 @@ a.btndeco, a:hover.btndeco, a:visited.btndeco, a:active.btndeco{
     color: #ffffff !important;
 
 }
-
-.btnadmin{
-    display: inline-block;
-    margin-right: 50px;
-}
-
-
 
 tr:nth-child(even) {
     background-color: #f2f2f2;

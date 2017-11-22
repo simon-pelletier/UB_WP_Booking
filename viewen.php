@@ -71,17 +71,17 @@ if(isset($_POST['reserver'])){
 
       $resaManager->sendMail($email, $cle, $_POST['nom'], $room[0]->supp);
 
-      $messageResa = 'You will receive an e-mail to confirm your reservation<br/>
-      You will be redirected in 3 seconds ...
+      $messageResa = 'Vous allez recevoir un e-mail pour confirmer votre réservation.<br/>
+      Vous allez être redirigé dans 3 secondes...
       <br/>';
       ?><meta http-equiv="refresh" content="3; url=."><?php
 
     } else {
-      $messageResaError = 'Please enter a valid email address.';
+      $messageResaError = 'Merci de renseigner une adresse e-mail valide.';
     }
 
   }else{
-    $messageResaError = 'Please fill in your name.';
+    $messageResaError = 'Merci de renseigner votre nom.';
   }
 
   }
@@ -101,10 +101,10 @@ if (isset($_GET['chambre']) && isset($_GET['chambreid']) ){
     <head>
        <title>Hotel Booking Page</title>
        <meta charset="utf-8"/>
-       <link rel="stylesheet" type="text/css" href="../wp-content/plugins/ub_hotelbooking/web/css/style.css">
+       <link rel="stylesheet" type="text/css" href="<?php echo esc_url( home_url( '/' ) ) ?>wp-content/plugins/ub_hotelbooking/web/css/style.css">
      </head>
      <body>
-        <div><center><a href="." class="retour">Return</a></center></div>
+        <div><center><a href="." class="retour">Retour</a></center></div>
         <br/>
         <?php
         if (isset($messageResa)){
@@ -122,14 +122,14 @@ if (isset($_GET['chambre']) && isset($_GET['chambreid']) ){
         foreach($manager->roomAlone($_GET['chambre']) as $room){
           echo '<div>';
           echo '<center>';
-          echo '<img src="../wp-content/plugins/ub_hotelbooking/web/img/rooms/' . $room->photo . '" class="photo" />';
+          echo '<img src="' . esc_url( home_url( '/' ) ) . 'wp-content/plugins/ub_hotelbooking/web/img/rooms/' . $room->photo . '" class="photo" />';
           echo '<br/>';
-          echo '<div class="titre">Room ' . $room->chambre . '</div>';
+          echo '<div class="titre">Chambre ' . $room->chambre . '</div>';
           echo '<div class="infos">';
           echo $room->max . $manager->returnImg('max');
           echo $room->lits . $manager->returnImg('lits');
           echo '</div>';
-          echo '<div class="tarif">' . $_GET['tarif'] . ' ' . $getConfig[0]->devise . ' - ' . $_GET['nuits'] . ' <img src="../wp-content/plugins/ub_hotelbooking/web/img/nuit.png" class="icon" /></div>';
+          echo '<div class="tarif">' . $_GET['tarif'] . ' ' . $getConfig[0]->devise . ' - ' . $_GET['nuits'] . ' <img src="' . esc_url( home_url( '/' ) ) . 'wp-content/plugins/ub_hotelbooking/web/img/nuit.png" class="icon" /></div>';
 
           if ($room->douche == 1){
             echo $manager->returnImg('douche');
@@ -158,34 +158,34 @@ if (isset($_GET['chambre']) && isset($_GET['chambreid']) ){
 
         <br/><br/>
         <form method="POST" action="">
-          <label>Your Name* : <br/><input type="text" name="nom" class="champs"/></label>
+          <label>Votre nom* : <br/><input type="text" name="nom" class="champs"/></label>
           <br/>
-          <label>Your e-mail* : <br/><input type="text" name="email" class="champs"/></label>
+          <label>Votre e-mail* : <br/><input type="text" name="email" class="champs"/></label>
           <br/>
-          <label>Your Phone Number : <br/><input type="text" name="tel" class="champs"/></label>
+          <label>Téléphone : <br/><input type="text" name="tel" class="champs"/></label>
           <br/>
-          <label>Informations, additional requests : <br/><input type="text" name="infos" class="champs"/></label>
+          <label>Informations complémentaires : <br/><input type="text" name="infos" class="champs"/></label>
           <br/><br/>
 
-          Date of your arrival : <strong><?php $dateA = $_GET['dateA']; echo date("d-m-Y", strtotime($dateA));?></strong>
+          Arrivée le <strong><?php $dateA = $_GET['dateA']; echo date("d-m-Y", strtotime($dateA));?></strong>
           <br/>
-          Date of your departure : <strong><?php $dateB = $_GET['dateB']; echo date("d-m-Y", strtotime($dateB));?></strong>
+          Départ le <strong><?php $dateB = $_GET['dateB']; echo date("d-m-Y", strtotime($dateB));?></strong>
           <br/>
-          Number of persons : <strong><?php echo $_GET['nbp']; ?></strong>
+          Nombre de personnes : <strong><?php echo $_GET['nbp']; ?></strong>
           <br/>
-          Total : <strong><?php echo $_GET['tarif'] . ' ' . $getConfig[0]->devise  ?> for <?php echo $_GET['nuits']; ?> night(s).</strong>
+          Total : <strong><?php echo $_GET['tarif'] . ' ' . $getConfig[0]->devise  ?> pour <?php echo $_GET['nuits']; ?> nuit(s).</strong>
           <br/><br/>
 
           <?php
           if ($_GET['nbp'] == 2){
               ?>
-              <label>Separate bed option : ( + <?php echo $room->supp . ' ' . $getConfig[0]->devise ?> ) <input type="checkbox" value="1" name="litsep" /> </label>
+              <label>Option lit séparé : ( + <?php echo $room->supp . ' ' . $getConfig[0]->devise ?> ) <input type="checkbox" value="1" name="litsep" /> </label>
               <?php
           }
           ?>
 
           <br/><br/>
-          <input type="submit" name="reserver" value="Book" class="btn"/>
+          <input type="submit" name="reserver" value="Réserver" class="btn"/>
           </form>
           </center>
         </body>
@@ -208,22 +208,22 @@ if (isset($_GET['chambre']) && isset($_GET['chambreid']) ){
     if($_GET['do'] == 'confirm'){
       $check = $resaManager->confirmResa($_GET['id'], $_GET['cle']);
       if ($check == 'valid'){
-        $messageResa = 'Confirmed reservation !';
+        $messageResa = 'Réservation confirmée !';
       } else if ($check == 'notvalid'){
-        $messageResaError = 'The key does not match !';
+        $messageResaError = 'La clé ne correspond pas !';
       } else if ($check == 'already'){
-        $messageResaError = 'This reservation has already been confirmed !';
+        $messageResaError = 'Cette réservation a déjà été confirmée !';
       }
 
     } else if($_GET['do'] == 'cancel'){
       $check = $resaManager->annulResa($_GET['id'], $_GET['cle']);
 
       if ($check == 'valid'){
-        $messageResa = 'Reservation canceled !';
+        $messageResa = 'Réservation annulée !';
       } else if ($check == 'notvalid'){
-        $messageResaError = 'The key does not match !';
+        $messageResaError = 'La clé ne correspond pas !';
       } else if ($check == 'dontexist'){
-        $messageResaError = 'This reservation has already been confirmed !';
+        $messageResaError = 'Cette réservation a déjà été annulée !';
       }
     }
     ?>
@@ -233,7 +233,7 @@ if (isset($_GET['chambre']) && isset($_GET['chambreid']) ){
            <title>Hotel Booking Page</title>
            <meta charset="utf-8"/>
            <meta http-equiv="refresh" content="3; url=.">
-           <link rel="stylesheet" type="text/css" href="../wp-content/plugins/ub_hotelbooking/web/css/style.css">
+           <link rel="stylesheet" type="text/css" href="<?php echo esc_url( home_url( '/' ) ) ?>wp-content/plugins/ub_hotelbooking/web/css/style.css">
        </head>
        <body>
 
@@ -245,7 +245,7 @@ if (isset($_GET['chambre']) && isset($_GET['chambreid']) ){
          echo '<div class="messageResaError">' . $messageResaError . '</div><br/>';
          }
          ?>
-         <div class="messageResa">You will be redirected in 3 seconds ...</div><br/>
+         <div class="messageResa">Vous allez être redirigé dans 3 secondes...</div><br/>
        </body>
        </html>
 
@@ -270,18 +270,18 @@ if (isset($_GET['chambre']) && isset($_GET['chambreid']) ){
              <head>
                  <title>Hotel Booking Page</title>
                  <meta charset="utf-8"/>
-                 <link rel="stylesheet" type="text/css" href="../wp-content/plugins/ub_hotelbooking/web/css/style.css">
+                 <link rel="stylesheet" type="text/css" href="<?php echo esc_url( home_url( '/' ) ) ?>wp-content/plugins/ub_hotelbooking/web/css/style.css">
              </head>
              <body>
 
           <div class="recherche">
           <form method="POST" action=".">
           <center>
-          <label>Arrival date &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="date" name="arrivee" value="<?php echo $selectedA; ?>" min="<?php echo $mindaya; ?>" max="<?php echo $maxday; ?>" class="date"/></label>
-          <label>Date of departure &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="date" name="depart" value="<?php echo $selectedB; ?>" min="<?php echo $mindaya; ?>" max="<?php echo $maxday; ?>" class="date"/></label>
+          <label>Date d'arrivée <input type="date" name="arrivee" value="<?php echo $selectedA; ?>" min="<?php echo $mindaya; ?>" max="<?php echo $maxday; ?>" class="date"/></label>
+          <label>Date de départ <input type="date" name="depart" value="<?php echo $selectedB; ?>" min="<?php echo $mindaya; ?>" max="<?php echo $maxday; ?>" class="date"/></label>
 
           <div class="choixnbpersonnes">
-          <p><label>Number of persons :
+          <p><label>Nombre de personnes :
           <select name="nombrepersonnes" size="1" class="nbpersonnes">
              <?php
               for ($i = 1; $i <= $personnesMax; $i++){
@@ -296,7 +296,7 @@ if (isset($_GET['chambre']) && isset($_GET['chambreid']) ){
           </label>
               </p>
       </div>
-          <input type="submit" name="selecteddate" class="btn" value="Search"/>
+          <input type="submit" name="selecteddate" class="btn" value="Rechercher"/>
           </center>
           </form>
           </div>
@@ -304,8 +304,8 @@ if (isset($_GET['chambre']) && isset($_GET['chambreid']) ){
               <?php
 
               if (isset($_POST['arrivee']) && isset($_POST['depart'])){
-                $getConfig = $wpdb->get_results("SELECT * FROM $config_table WHERE id = 1");
                 $countRoom = 0;
+                $getConfig = $wpdb->get_results("SELECT * FROM $config_table WHERE id = 1");
                   foreach ($manager->roomList($_POST['arrivee'], $_POST['depart'], $_POST['nombrepersonnes']) as $room){
                       $countRoom += 1;
                       echo '<div class="rchambre">';
@@ -314,17 +314,17 @@ if (isset($_GET['chambre']) && isset($_GET['chambreid']) ){
                       $nbreNuits = $resaManager->nombreNuits($_POST['arrivee'], $_POST['depart']);
                       $tarif = $resaManager->calculTarif($nbreNuits, $room->id, $_POST['nombrepersonnes'], 0);
                       echo '<a href="../' . $pagename . '/?chambre=' . $room->chambre . '&dateA=' . $_POST['arrivee'] . '&dateB=' . $_POST['depart'] . '&nuits=' . $nbreNuits . '&tarif=' . $tarif . '&nbp=' . $_POST['nombrepersonnes'] . '&chambreid=' . $room->id . '" >';
-                      echo '<img src="../wp-content/plugins/ub_hotelbooking/web/img/rooms/' . $room->photo . '" class="photo" />';
+                      echo '<img src="' . esc_url( home_url( '/' ) ) . 'wp-content/plugins/ub_hotelbooking/web/img/rooms/' . $room->photo . '" class="photo" />';
                       echo '<br/>';
-                      echo '<div class="titre">Room ' . $room->chambre . '</div>';
+                      echo '<div class="titre">Chambre ' . $room->chambre . '</div>';
                       echo '<div class="infos">';
-                      $maxImg = ' <img src="../wp-content/plugins/ub_hotelbooking/web/img/max.png"/>';
-                      $litsImg = ' <img src="../wp-content/plugins/ub_hotelbooking/web/img/lits.png"/>';
+                      $maxImg = ' <img src="' . esc_url( home_url( '/' ) ) . 'wp-content/plugins/ub_hotelbooking/web/img/max.png"/>';
+                      $litsImg = ' <img src="' . esc_url( home_url( '/' ) ) . 'wp-content/plugins/ub_hotelbooking/web/img/lits.png"/>';
                       echo $room->max . $maxImg . $room->lits . $litsImg;
                       echo '</div>';
 
+                      echo '<div class="tarif">' . $tarif . ' ' . $getConfig[0]->devise . ' - ' . $nbreNuits . ' <img src="' . esc_url( home_url( '/' ) ) . 'wp-content/plugins/ub_hotelbooking/web/img/nuit.png" class="icon" /></div>';
 
-                      echo '<div class="tarif">' . $tarif . ' ' . $getConfig[0]->devise . ' - ' . $nbreNuits . ' <img src="../wp-content/plugins/ub_hotelbooking/web/img/nuit.png" class="icon" /></div>';
                       echo '<div class="option">';
                       if ($room->douche == 1){
                         echo $manager->returnImg('douche');
@@ -358,16 +358,16 @@ if (isset($_GET['chambre']) && isset($_GET['chambreid']) ){
                         $nbreNuits = $resaManager->nombreNuits($_POST['arrivee'], $_POST['depart']);
                         $tarif = $resaManager->calculTarif($nbreNuits, $room->id, $_POST['nombrepersonnes'], 0);
                         echo '<a href="../' . $pagename . '/?chambre=' . $room->chambre . '&dateA=' . $_POST['arrivee'] . '&dateB=' . $_POST['depart'] . '&nuits=' . $nbreNuits . '&tarif=' . $tarif . '&nbp=' . $_POST['nombrepersonnes'] . '&chambreid=' . $room->id . '" >';
-                        echo '<img src="../wp-content/plugins/ub_hotelbooking/web/img/rooms/' . $room->photo . '" class="photo" />';
+                        echo '<img src="' . esc_url( home_url( '/' ) ) . 'wp-content/plugins/ub_hotelbooking/web/img/rooms/' . $room->photo . '" class="photo" />';
                         echo '<br/>';
-                        echo '<div class="titre">Room ' . $room->chambre . '</div>';
+                        echo '<div class="titre">Chambre ' . $room->chambre . '</div>';
                         echo '<div class="infos">';
-                        $maxImg = ' <img src="../wp-content/plugins/ub_hotelbooking/web/img/max.png"/>';
-                        $litsImg = ' <img src="../wp-content/plugins/ub_hotelbooking/web/img/lits.png"/>';
+                        $maxImg = ' <img src="' . esc_url( home_url( '/' ) ) . 'wp-content/plugins/ub_hotelbooking/web/img/max.png" class="icon"/>';
+                        $litsImg = ' <img src="' . esc_url( home_url( '/' ) ) . 'wp-content/plugins/ub_hotelbooking/web/img/lits.png" class="icon"/>';
                         echo $room->max . $maxImg . $room->lits . $litsImg;
                         echo '</div>';
 
-                        echo '<div class="tarif">' . $tarif . ' ' . $getConfig[0]->devise . ' - ' . $nbreNuits . ' <img src="../wp-content/plugins/ub_hotelbooking/web/img/nuit.png" class="icon" /></div>';
+                        echo '<div class="tarif">' . $tarif . ' ' . $getConfig[0]->devise . ' - ' . $nbreNuits . ' <img src="' . esc_url( home_url( '/' ) ) . 'wp-content/plugins/ub_hotelbooking/web/img/nuit.png" class="icon" /></div>';
 
                         echo '<div class="option">';
                         if ($room->douche == 1){
