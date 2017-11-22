@@ -295,6 +295,11 @@ if (isset($_GET['chambre']) && isset($_GET['chambreid']) ){
           </div>
              <div class="liste">
               <?php
+
+              
+
+
+
               if (isset($_POST['arrivee']) && isset($_POST['depart'])){
                 $countRoom = 0;
                   foreach ($manager->roomList($_POST['arrivee'], $_POST['depart'], $_POST['nombrepersonnes']) as $room){

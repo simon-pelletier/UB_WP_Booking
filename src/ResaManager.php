@@ -126,24 +126,38 @@ class ResaManager{
         $decoupe = explode('?', $url_actuel);
         $url_serveur = $decoupe[0];
 
+        $siteName = get_option( 'blogname' );
+        $siteNameAtt=str_replace(' ','',$siteName);
+
+        function wpdocs_set_html_mail_content_type() {
+          return 'text/html';
+        }
+        add_filter( 'wp_mail_content_type', 'wpdocs_set_html_mail_content_type' );
+
+
+
         $sujet = "Confirmez votre réservation";
-        $entete = "From: confirmation@votrehotel.com";
+        $entete = "From: " . $siteName . " <robot@" . $siteNameAtt . ".com>";
 
-        $message = 'Merci d\'avoir réservé une chambre dans notre hotel,
-        Pour confirmer votre réservation au nom de ' . $nom . ', veuillez cliquer sur le lien ci dessous ou copier/coller dans votre navigateur internet.
+        $message = 'Merci d\'avoir réservé une chambre dans notre hotel ' . $siteName . '.
+<br/><br/>
+<strong>Pour CONFIRMER votre réservation au nom de ' . $nom . ',<br/>
+merci de cliquer sur le lien ci dessous ou copier/coller dans votre navigateur internet :<br/>
+' . $url_serveur . '?do=confirm&id='.urlencode($id).'&cle='.urlencode($cle).'</strong>
+<br/><br/><br/>
 
-        ' . $url_serveur . '?do=confirm&id='.urlencode($id).'&cle='.urlencode($cle).'
-
-
-
-        ---------------
-        Pour annuler votre réservation, veuillez cliquer sur le lien ci dessous.
-        ' . $url_serveur . '?do=cancel&id='.urlencode($id).'&cle='.urlencode($cle).'
-
-        ---------------
-        Ceci est un mail automatique, Merci de ne pas y répondre.';
-
-
+---------------------------------------------<br/>
+<i>Pour ANNULER votre réservation, veuillez cliquer sur le lien ci dessous.
+' . $url_serveur . '?do=cancel&id='.urlencode($id).'&cle='.urlencode($cle).'</i>
+<br/>
+---------------------------------------------<br/>
+Ceci est un mail automatique, Merci de ne pas y répondre.';
+/*
+        function mailFromName( $email ){
+          return $siteNameAtt; // new email name from sender.
+        }
+        add_filter( 'wp_mail_from_name', 'mailFromName' );
+*/
         //envoi du mail
 
         wp_mail($mail, $sujet, $message, $entete);
