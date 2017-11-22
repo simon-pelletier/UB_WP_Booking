@@ -198,6 +198,7 @@ if (isset($_GET['chambre']) && isset($_GET['chambreid']) ){
       $check = $resaManager->confirmResa($_GET['id'], $_GET['cle']);
       if ($check == 'valid'){
         $messageResa = 'Réservation confirmée !';
+        header("refresh:5;url=index.php");
       } else if ($check == 'notvalid'){
         $messageResaError = 'La clé ne correspond pas !';
       } else if ($check == 'already'){
@@ -221,9 +222,11 @@ if (isset($_GET['chambre']) && isset($_GET['chambreid']) ){
        <head>
            <title>Hotel Booking Page</title>
            <meta charset="utf-8"/>
+           <meta http-equiv="refresh" content="3; url=.">
            <link rel="stylesheet" type="text/css" href="../wp-content/plugins/ub_hotelbooking/web/css/style.css">
        </head>
        <body>
+
          <?php
          if (isset($messageResa)){
          echo '<div class="messageResa">' . $messageResa . '</div><br/>';
@@ -232,6 +235,7 @@ if (isset($_GET['chambre']) && isset($_GET['chambreid']) ){
          echo '<div class="messageResaError">' . $messageResaError . '</div><br/>';
          }
          ?>
+         <div class="messageResa">Vous allez être redirigé dans 3 secondes...</div><br/>
        </body>
        </html>
 
