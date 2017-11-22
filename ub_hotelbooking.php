@@ -9,6 +9,8 @@ Author URI: http://simonpelletier.net
 
 add_shortcode('search', 'searchView');
 
+add_shortcode('searchen', 'searchViewen');
+
 add_action('admin_menu', 'UBHBADMIN');
 
 add_action('admin_menu', 'UBHBRESA');
@@ -27,6 +29,10 @@ function chambreView(){
 
 function resaView(){
   include('../wp-content/plugins/ub_hotelbooking/resa.php');
+}
+
+function searchViewen(){
+  include('viewen.php');
 }
 
 function searchView(){
