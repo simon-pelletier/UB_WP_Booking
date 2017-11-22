@@ -109,7 +109,7 @@ a, a:hover, a:visited, a:active{
     width: 120px;
 }
 a.retour, a:hover.retour, a:visited.retour, a:active.retour{
-    color: #ffffff;!important
+    color: #ffffff !important;
 }
 
 .btndeco{
@@ -121,7 +121,7 @@ a.retour, a:hover.retour, a:visited.retour, a:active.retour{
 
 a.btndeco, a:hover.btndeco, a:visited.btndeco, a:active.btndeco{
 
-    color: #ffffff;!important
+    color: #ffffff !important;
 
 }
 
