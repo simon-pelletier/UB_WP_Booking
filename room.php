@@ -20,9 +20,16 @@ if (isset($_POST['ajouterChambre'])){
   } else {
     $roomManager->addRoom($_POST['chambre'], $_POST['max'], $_POST['lits'], $_POST['douche'], $_POST['wc'], $_POST['tel'], $_POST['tv'], $_POST['baignoire'], $_POST['wifi'], $_POST['photo'], $_POST['for1'], $_POST['for2'], $_POST['for3'], $_POST['for4'], $_POST['supp']);
     $messageRoom = 'La chambre a bien été ajoutée';
-
   }
+}
 
+if (isset($_POST['update'])){
+
+  if (filter_var($_POST['adminmail'], FILTER_VALIDATE_EMAIL)) {
+    $configManager->update($_POST['adminmail'], $_POST['persmax'], $_POST['devise']);
+  } else {
+    $messageRoomError = 'Merci d\'entrer une adresse e-mail valide.';
+  }
 }
 ?>
 
@@ -55,20 +62,7 @@ if (isset($_POST['ajouterChambre'])){
               }
               ?></select></label>
 
-              <label>Langage : <select name="language" size="1" class="nbpersonnes">
-                <?php
-
-                  if ($config[0]->language == 'FR'){
-                    echo '<option selected>FR</option>';
-                    echo '<option>EN</option>';
-                  } else {
-                    echo '<option>FR</option>';
-                    echo '<option selected>EN</option>';
-                  }
-                 ?>
-              </select></label>
-
-              <label>Devise : <input type="text" style="max-width:30px;" name="adminmail" value="<?php echo $config[0]->devise ?>"/></label>
+              <label>Devise : <input type="text" style="max-width:30px;" name="devise" value="<?php echo $config[0]->devise ?>"/></label>
 
           <input type="submit" name="update" value="Enregistrer"/>
         </form>
@@ -156,11 +150,11 @@ if (isset($_POST['ajouterChambre'])){
           echo '<td>', $roomManager->yesOrNo($room->baignoire), '</td>';
           echo '<td>', $roomManager->yesOrNo($room->wifi), '</td>';
           echo '<td><center><img src="../wp-content/plugins/ub_hotelbooking/web/img/rooms/', $room->photo,'" style="max-width:60px;"/></center></td>'; //$resAdmin->photo()
-          echo '<td>', $room->for1, $config[0]->devise, '</td>';
-          echo '<td>', $room->for2, $config[0]->devise, '</td>';
-          echo '<td>', $room->for3, $config[0]->devise, '</td>';
-          echo '<td>', $room->for4, $config[0]->devise, '</td>';
-          echo '<td>', $room->supp, $config[0]->devise, '</td>';
+          echo '<td>', $room->for1, ' ', $config[0]->devise, '</td>';
+          echo '<td>', $room->for2, ' ', $config[0]->devise, '</td>';
+          echo '<td>', $room->for3, ' ', $config[0]->devise, '</td>';
+          echo '<td>', $room->for4, ' ', $config[0]->devise, '</td>';
+          echo '<td>', $room->supp, ' ', $config[0]->devise, '</td>';
           echo '<td><a href="admin.php?page=UBHB&supprimerRoom=', $room->id, '&photo=', $room->photo, '">Supprimer</a></td>';
           echo '</tr>';
         }

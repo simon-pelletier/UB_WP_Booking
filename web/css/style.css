@@ -52,11 +52,13 @@ body{
 .rchambre{
     //display: inline-block;
     margin-left: auto;
-    margin-right: auto;
+    margin-right: 20px;
+    margin-top: 20px;
     float: left;
     width: 200px;
     padding: 30px;
-
+  //border: 1px solid #000;
+  background-color: #ededed;
 }
 
 .menu{

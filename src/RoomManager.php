@@ -75,6 +75,8 @@ class RoomManager{
         }
     }
 
+
+
     public function roomAlone($chambreSelected){
 
       global $wpdb, $table_prefix;
@@ -129,9 +131,9 @@ class RoomManager{
 
       $rooms_table = $table_prefix . 'hb_rooms';
 
-      $room = $wpdb->get_results("SELECT COUNT(*) FROM $rooms_table WHERE chambre = $chambre");
+      $room = $wpdb->get_results("SELECT COUNT(*) as nombre FROM $rooms_table WHERE chambre = $chambre");
 
-      return $room;
+      return $room[0]->nombre;
     }
 
     public function addRoom($chambre, $max, $lits, $douche, $wc, $tel, $tv, $baignoire, $wifi, $photo, $for1, $for2, $for3, $for4, $supp){

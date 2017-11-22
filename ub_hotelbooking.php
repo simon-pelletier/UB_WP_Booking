@@ -51,8 +51,6 @@ function create_plugin_database_table()
       $sql .= "  `id`  int(11)   NOT NULL auto_increment, ";
       $sql .= "  `adminmail`  varchar(255), ";
       $sql .= "  `personnesmax`  int(10), ";
-      $sql .= "  `confirmadminmail`  text, ";
-      $sql .= "  `confirmclientmail`  text, ";
       $sql .= "  `language`  text, ";
       $sql .= "  `devise`  text, ";
       $sql .= "  PRIMARY KEY `order_id` (`id`) ";
@@ -65,9 +63,6 @@ function create_plugin_database_table()
       $wpdb->insert($wp_table_config, array(
         'adminmail' => $admin_email,
         'personnesmax' => '5',
-        'confirmadminmail' => 'BLABLABLABLABLA',
-        'confirmclientmail' => 'BLUBLUBLUBLUBLUBLUBLUBLUBLUBLU',
-        'language' => 'FR',
         'devise' => '€'
       ));
   }

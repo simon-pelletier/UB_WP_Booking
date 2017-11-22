@@ -113,51 +113,84 @@ class ResaManager{
 
 
 
-    public function sendMail($mail, $cle){
-        $id = $this->db->lastInsertId();
+    public function sendMail($mail, $cle, $nom){
+
+        global $wpdb, $table_prefix;
+        //$id = $this->db->lastInsertId();
+
+        $resa_table = $table_prefix . 'hb_resa';
+
+        $id = $wpdb->insert_id;
+
         $url_actuel = 'http://' . $_SERVER['SERVER_NAME'] . $_SERVER['REQUEST_URI'];
-        $decoupe = explode('reservation', $url_actuel);
+        $decoupe = explode('?', $url_actuel);
         $url_serveur = $decoupe[0];
 
         $sujet = "Confirmez votre réservation";
         $entete = "From: confirmation@votrehotel.com";
 
-        // Le lien d'activation est composé du mail et de la clé(cle)
-        // Le lien d'annulation est composé du mail et de la clé(cle)
         $message = 'Merci d\'avoir réservé une chambre dans notre hotel,
-Pour confirmer votre réservation, veuillez cliquer sur le lien ci dessous ou copier/coller dans votre navigateur internet.
+        Pour confirmer votre réservation au nom de ' . $nom . ', veuillez cliquer sur le lien ci dessous ou copier/coller dans votre navigateur internet.
 
-' . $url_serveur . 'confirmation.php?id='.urlencode($id).'&cle='.urlencode($cle).'
+        ' . $url_serveur . '?do=confirm&id='.urlencode($id).'&cle='.urlencode($cle).'
 
 
 
----------------
-Pour annuler votre réservation, veuillez cliquer sur le lien ci dessous.
-' . $url_serveur . 'annulation.php?id='.urlencode($id).'&cle='.urlencode($cle).'
+        ---------------
+        Pour annuler votre réservation, veuillez cliquer sur le lien ci dessous.
+        ' . $url_serveur . '?do=cancel&id='.urlencode($id).'&cle='.urlencode($cle).'
 
----------------
-Ceci est un mail automatique, Merci de ne pas y répondre.';
+        ---------------
+        Ceci est un mail automatique, Merci de ne pas y répondre.';
 
 
         //envoi du mail
-        mail($mail, $sujet, $message, $entete);
+
+        wp_mail($mail, $sujet, $message, $entete);
 
     }
 
+
+
+
+
+
+
+
     public function confirmResa($id, $cle){
-        $requete = $this->db->prepare('UPDATE reservation SET confirmclient = 1 WHERE id= :id AND cleconfirm = :cle');
-        $requete->bindValue(':id', $id);
-        $requete->bindValue(':cle', $cle);
-        $requete->execute();
+      global $wpdb, $table_prefix;
+      $resa_table = $table_prefix . 'hb_resa';
+
+
+        global $wpdb, $table_prefix;
+        $resa_table = $table_prefix . 'hb_resa';
+        $wpdb->update(
+        	$resa_table,
+        	array(
+        		'confirmclient' => 1
+        	),
+        	array( 'id' => $id ),
+        	array(
+        		'%s'
+        	)
+        );
     }
 
     public function annulResa($id, $cle){
-        $requete = $this->db->prepare('DELETE FROM reservation WHERE id = :id AND cleconfirm = :cle');
-        $requete->bindValue(':id', $id);
-        $requete->bindValue(':cle', $cle);
-        $requete->execute();
-        $requete->closeCursor();
+      global $wpdb, $table_prefix;
+      $resa_table = $table_prefix . 'hb_resa';
+
+      $wpdb->delete( $resa_table, array( 'id' => $id ) );
     }
+
+
+
+
+
+
+
+
+
 
     public function quelIdDeChambre($chambre){
         global $wpdb, $table_prefix;

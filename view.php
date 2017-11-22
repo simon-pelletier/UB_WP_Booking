@@ -29,8 +29,11 @@ if(isset($_POST['selecteddate'])){
   $selectedB = $_POST['depart'];
 }
 
+
+
 if(isset($_POST['reserver'])){
   if(!empty($_POST['nom'])){
+    $email = $_POST['email'];
     if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
       $cle = md5(microtime(TRUE)*100000);
 
@@ -49,6 +52,10 @@ if(isset($_POST['reserver'])){
         0,
         $cle
       );
+
+      $resaManager->sendMail($email, $cle, $_POST['nom']);
+
+
     } else {
       $messageResaError = 'Merci de renseigner une adresse e-mail valide.';
     }
@@ -186,6 +193,41 @@ if (isset($_GET['chambre']) && isset($_GET['chambreid']) ){
 
 
     <?php
+  } else if(isset($_GET['do']) && isset($_GET['id']) && isset($_GET['cle'])){
+    if($_GET['do'] == 'confirm'){
+      $resaManager->confirmResa($_GET['id'], $_GET['cle']);
+      $messageResa = 'Réservation confirmée !';
+    } else if($_GET['do'] == 'cancel'){
+      $resaManager->annulResa($_GET['id'], $_GET['cle']);
+      $messageResaError = 'Réservation annulée !';
+    }
+    ?>
+    <!DOCTYPE HTML>
+    <html>
+       <head>
+           <title>Hotel Booking Page</title>
+           <meta charset="utf-8"/>
+           <link rel="stylesheet" type="text/css" href="../wp-content/plugins/ub_hotelbooking/web/css/style.css">
+       </head>
+       <body>
+         <?php
+         if (isset($messageResa)){
+         echo '<div class="messageResa">' . $messageResa . '</div><br/>';
+         }
+         if (isset($messageResaError)){
+         echo '<div class="messageResaError">' . $messageResaError . '</div><br/>';
+         }
+         ?>
+       </body>
+       </html>
+
+
+       <?php
+
+
+
+
+
     } else {
           ?>
           <!DOCTYPE HTML>
