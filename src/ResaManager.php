@@ -2,13 +2,6 @@
 
 class ResaManager{
 
-    protected $db;
-
-    public function __construct($db){
-        $this->db = $db;
-    }
-
-
     public function resaList(){
         global $wpdb, $table_prefix;
         $resa_table = $table_prefix . 'hb_resa';

@@ -16,7 +16,7 @@ add_action('admin_menu', 'UBHBADMIN');
 add_action('admin_menu', 'UBHBRESA');
 
 function UBHBADMIN(){
-  add_menu_page( 'UB Hotel Booking', 'Rooms', 'manage_options', 'UBHB', 'chambreView', 'dashicons-building' );
+  add_menu_page( 'UB Hotel Booking', 'Rooms', 'manage_options', 'UBHBADMIN', 'chambreView', 'dashicons-building' );
 }
 
 function UBHBRESA(){

@@ -5,8 +5,8 @@ global $wpdb, $table_prefix;
 $resa_table = $table_prefix . 'hb_resa';
 $rooms_table = $table_prefix . 'hb_rooms';
 
-$resaManager = new ResaManager($wpdb);
-$roomManager = new RoomManager($wpdb);
+$resaManager = new ResaManager();
+$roomManager = new RoomManager();
 
 if (isset($_GET['supprimerResa'])){
     $messageResa = 'La réservation a bien été supprimée';
@@ -56,7 +56,7 @@ if (isset($_POST['ajouterResa'])){
    <head>
        <title>Hotel Booking Admin</title>
        <meta charset="utf-8"/>
-       <link rel="stylesheet" type="text/css" href="../wp-content/plugins/ub_hotelbooking/web/css/style.css"/>
+       <link rel="stylesheet" type="text/css" href="<?php echo esc_url( home_url( '/' ) ) ?>wp-content/plugins/ub_hotelbooking/web/css/style.css"/>
    </head>
 
     <body>
@@ -78,14 +78,14 @@ if (isset($_POST['ajouterResa'])){
           <th>Nom</th>
           <th>@</th>
           <th>TEL</th>
-          <th><img src="../wp-content/plugins/ub_hotelbooking/web/img/max.png" class="resaImg"/></th>
+          <th><img src="<?php echo esc_url( home_url( '/' ) ) ?>wp-content/plugins/ub_hotelbooking/web/img/max.png" class="resaImg"/></th>
           <th>Chambre</th>
           <th>Date Arrivée</th>
           <th>Date Départ</th>
           <th>Infos</th>
           <th>2Lits</th>
           <th>€</th>
-          <th><img src="../wp-content/plugins/ub_hotelbooking/web/img/nuit.png" class="resaImg"/></th>
+          <th><img src="<?php echo esc_url( home_url( '/' ) ) ?>wp-content/plugins/ub_hotelbooking/web/img/nuit.png" class="resaImg"/></th>
           <th>Confirmé</th>
           <th>Actions</th>
           </tr>

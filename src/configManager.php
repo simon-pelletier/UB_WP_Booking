@@ -2,12 +2,6 @@
 
 class ConfigManager{
 
-    protected $db;
-
-    public function __construct($db){
-        $this->db = $db;
-    }
-
     public function update($mail, $persmax, $devise){
       global $wpdb, $table_prefix;
       $config_table = $table_prefix . 'hb_config';

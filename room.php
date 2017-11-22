@@ -5,15 +5,15 @@ global $wpdb, $table_prefix;
 $rooms_table = $table_prefix . 'hb_rooms';
 $config_table = $table_prefix . 'hb_config';
 
-$roomManager = new RoomManager($wpdb);
-$configManager = new ConfigManager($wpdb);
+$roomManager = new RoomManager();
+$configManager = new ConfigManager();
 
 if (isset($_GET['supprimerRoom'])){
     $messageRoom = 'La chambre a bien été supprimée';
 
     $roomManager->deleteRoom($_GET['supprimerRoom'], $_GET['photo']);
 
-    ?><meta http-equiv="refresh" content="0; url=admin.php?page=UBHB"><?php
+    ?><meta http-equiv="refresh" content="0; url=admin.php?page=UBHBADMIN"><?php
 }
 
 if (isset($_POST['ajouterChambre'])){
@@ -60,7 +60,7 @@ if (isset($_POST['update'])){
    <head>
        <title>Hotel Booking Admin</title>
        <meta charset="utf-8"/>
-       <link rel="stylesheet" type="text/css" href="../wp-content/plugins/ub_hotelbooking/web/css/style.css"/>
+       <link rel="stylesheet" type="text/css" href="<?php echo esc_url( home_url( '/' ) ) ?>wp-content/plugins/ub_hotelbooking/web/css/style.css"/>
    </head>
     <body>
       <div>
@@ -69,7 +69,7 @@ if (isset($_POST['update'])){
           <?php
           $config = $wpdb->get_results("SELECT * FROM $config_table");
           ?>
-        <form method="POST" action="admin.php?page=UBHB">
+        <form method="POST" action="admin.php?page=UBHBADMIN">
           <label>Email admin : <input type="text" style="max-width:250px;" name="adminmail" value="<?php echo $config[0]->adminmail ?>"/></label>
 
           <label>Personnnes Max : <select name="persmax" size="1" class="nbpersonnes">
@@ -124,7 +124,7 @@ if (isset($_POST['update'])){
           <th>Actions</th>
           </tr>
         <tr>
-           <form method="POST" action="admin.php?page=UBHB" enctype="multipart/form-data">
+           <form method="POST" action="admin.php?page=UBHBADMIN" enctype="multipart/form-data">
 
 
             <td><input type="text" style="max-width:50px;" name="chambre"/></td>
@@ -169,13 +169,13 @@ if (isset($_POST['update'])){
           echo '<td>', $roomManager->yesOrNo($room->tv), '</td>';
           echo '<td>', $roomManager->yesOrNo($room->baignoire), '</td>';
           echo '<td>', $roomManager->yesOrNo($room->wifi), '</td>';
-          echo '<td><center><img src="../wp-content/plugins/ub_hotelbooking/web/img/rooms/', $room->photo,'" style="max-width:60px;"/></center></td>'; //$resAdmin->photo()
+          echo '<td><center><img src="' . esc_url( home_url( '/' ) ) . '/wp-content/plugins/ub_hotelbooking/web/img/rooms/', $room->photo,'" style="max-width:60px;"/></center></td>'; //$resAdmin->photo()
           echo '<td>', $room->for1, ' ', $config[0]->devise, '</td>';
           echo '<td>', $room->for2, ' ', $config[0]->devise, '</td>';
           echo '<td>', $room->for3, ' ', $config[0]->devise, '</td>';
           echo '<td>', $room->for4, ' ', $config[0]->devise, '</td>';
           echo '<td>', $room->supp, ' ', $config[0]->devise, '</td>';
-          echo '<td><a href="admin.php?page=UBHB&supprimerRoom=', $room->id, '&photo=', $room->photo, '">Supprimer</a></td>';
+          echo '<td><a href="admin.php?page=UBHBADMIN&supprimerRoom=', $room->id, '&photo=', $room->photo, '">Supprimer</a></td>';
           echo '</tr>';
         }
         ?>

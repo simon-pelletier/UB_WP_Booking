@@ -2,12 +2,6 @@
 
 class RoomManager{
 
-    protected $db;
-
-    public function __construct($db){
-        $this->db = $db;
-    }
-
     public function roomList($dateA, $dateB, $nombreP){
 
         if ($dateA < $dateB){
@@ -114,7 +108,7 @@ class RoomManager{
     }
 
     public function returnImg($att){
-      $img = ' <img src="../wp-content/plugins/ub_hotelbooking/web/img/' . $att . '.png"/>';
+      $img = ' <img src="' . esc_url( home_url( '/' ) ) . 'wp-content/plugins/ub_hotelbooking/web/img/' . $att . '.png"/>';
       return $img;
     }
 
@@ -204,7 +198,7 @@ class RoomManager{
 
       if ($photo != 'default'){
 
-        unlink('../wp-content/plugins/ub_hotelbooking/web/img/rooms/' . $photo);
+        unlink(esc_url( home_url( '/' ) ) . 'wp-content/plugins/ub_hotelbooking/web/img/rooms/' . $photo);
 
         $wpdb->delete( 'wp_hb_rooms', array( 'ID' => $id ) );
       }
@@ -226,7 +220,7 @@ class RoomManager{
 
                 $newnom = md5(microtime(TRUE)*100000);
 
-                $chemin = '../wp-content/plugins/ub_hotelbooking/web/img/rooms/' . $newnom . '.' . $extensionUpload;
+                $chemin = esc_url( home_url( '/' ) ) . 'wp-content/plugins/ub_hotelbooking/web/img/rooms/' . $newnom . '.' . $extensionUpload;
 
                 $deplacement = move_uploaded_file($tmpname, $chemin);
 
