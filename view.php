@@ -4,6 +4,7 @@ require 'src/autoload.php';
 global $wpdb, $table_prefix;
 $resa_table = $table_prefix . 'hb_resa';
 $rooms_table = $table_prefix . 'hb_rooms';
+$config_table = $table_prefix . 'hb_config';
 
 $manager = new RoomManager($wpdb);
 $resaManager = new ResaManager($wpdb);
@@ -128,7 +129,7 @@ if (isset($_GET['chambre']) && isset($_GET['chambreid']) ){
           echo $room->max . $manager->returnImg('max');
           echo $room->lits . $manager->returnImg('lits');
           echo '</div>';
-          echo '<div class="tarif">' . $_GET['tarif'] . ' € - ' . $_GET['nuits'] . ' <img src="../wp-content/plugins/ub_hotelbooking/web/img/nuit.png" class="icon" /></div>';
+          echo '<div class="tarif">' . $_GET['tarif'] . ' ' . $getConfig[0]->devise . ' - ' . $_GET['nuits'] . ' <img src="../wp-content/plugins/ub_hotelbooking/web/img/nuit.png" class="icon" /></div>';
 
           if ($room->douche == 1){
             echo $manager->returnImg('douche');
@@ -304,13 +305,14 @@ if (isset($_GET['chambre']) && isset($_GET['chambreid']) ){
 
               if (isset($_POST['arrivee']) && isset($_POST['depart'])){
                 $countRoom = 0;
+                $getConfig = $wpdb->get_results("SELECT * FROM $config_table WHERE id = 1");
                   foreach ($manager->roomList($_POST['arrivee'], $_POST['depart'], $_POST['nombrepersonnes']) as $room){
                       $countRoom += 1;
                       echo '<div class="rchambre">';
                       echo '<center>';
                       $pagename = basename(get_permalink());
                       $nbreNuits = $resaManager->nombreNuits($_POST['arrivee'], $_POST['depart']);
-                      $tarif = $resaManager->calculTarif($nbreNuits, $room->id, $_POST['nombrepersonnes']);
+                      $tarif = $resaManager->calculTarif($nbreNuits, $room->id, $_POST['nombrepersonnes'], 0);
                       echo '<a href="../' . $pagename . '/?chambre=' . $room->chambre . '&dateA=' . $_POST['arrivee'] . '&dateB=' . $_POST['depart'] . '&nuits=' . $nbreNuits . '&tarif=' . $tarif . '&nbp=' . $_POST['nombrepersonnes'] . '&chambreid=' . $room->id . '" >';
                       echo '<img src="../wp-content/plugins/ub_hotelbooking/web/img/rooms/' . $room->photo . '" class="photo" />';
                       echo '<br/>';
@@ -321,7 +323,7 @@ if (isset($_GET['chambre']) && isset($_GET['chambreid']) ){
                       echo $room->max . $maxImg . $room->lits . $litsImg;
                       echo '</div>';
 
-                      echo '<div class="tarif">' . $tarif . ' € - ' . $nbreNuits . ' <img src="../wp-content/plugins/ub_hotelbooking/web/img/nuit.png" class="icon" /></div>';
+                      echo '<div class="tarif">' . $tarif . ' ' . $getConfig[0]->devise . ' - ' . $nbreNuits . ' <img src="../wp-content/plugins/ub_hotelbooking/web/img/nuit.png" class="icon" /></div>';
 
                       echo '<div class="option">';
                       if ($room->douche == 1){
@@ -365,7 +367,7 @@ if (isset($_GET['chambre']) && isset($_GET['chambreid']) ){
                         echo $room->max . $maxImg . $room->lits . $litsImg;
                         echo '</div>';
 
-                        echo '<div class="tarif">' . $tarif . ' € - ' . $nbreNuits . ' <img src="../wp-content/plugins/ub_hotelbooking/web/img/nuit.png" class="icon" /></div>';
+                        echo '<div class="tarif">' . $tarif . ' ' . $getConfig[0]->devise . ' - ' . $nbreNuits . ' <img src="../wp-content/plugins/ub_hotelbooking/web/img/nuit.png" class="icon" /></div>';
 
                         echo '<div class="option">';
                         if ($room->douche == 1){
