@@ -119,8 +119,12 @@ class ResaManager{
         //$id = $this->db->lastInsertId();
 
         $resa_table = $table_prefix . 'hb_resa';
+        $config_table = $table_prefix . 'hb_config';
 
         $id = $wpdb->insert_id;
+
+        $getInfos = $wpdb->get_results("SELECT * FROM $resa_table WHERE id = $id");
+        $getConfig = $wpdb->get_results("SELECT * FROM $config_table WHERE id = 1");
 
         $url_actuel = 'http://' . $_SERVER['SERVER_NAME'] . $_SERVER['REQUEST_URI'];
         $decoupe = explode('?', $url_actuel);
@@ -134,12 +138,20 @@ class ResaManager{
         }
         add_filter( 'wp_mail_content_type', 'wpdocs_set_html_mail_content_type' );
 
-
+        $dateA = date("d-m-Y", strtotime($getInfos[0]->datearrivee));
+        $dateB = date("d-m-Y", strtotime($getInfos[0]->datedepart));
 
         $sujet = "Confirmez votre réservation";
-        $entete = "From: " . $siteName . " <robot@" . $siteNameAtt . ".com>";
+        $entete = "From: " . $siteName . " <robotUB@" . $siteNameAtt . ".com>";
 
         $message = 'Merci d\'avoir réservé une chambre dans notre hotel ' . $siteName . '.
+<br/><br/>
+<strong>
+Du '. $dateA .'<br/>
+Au '. $dateB .'<br/>
+('. $getInfos[0]->nuits .' nuit(s))<br/>
+Pour '. $getInfos[0]->tarif . $getConfig[0]->devise . '<br/>
+</strong>
 <br/><br/>
 <strong>Pour CONFIRMER votre réservation au nom de ' . $nom . ',<br/>
 merci de cliquer sur le lien ci dessous ou copier/coller dans votre navigateur internet :<br/>

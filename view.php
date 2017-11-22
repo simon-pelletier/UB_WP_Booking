@@ -257,6 +257,7 @@ if (isset($_GET['chambre']) && isset($_GET['chambreid']) ){
 
 
     } else {
+
           ?>
           <!DOCTYPE HTML>
           <html>
@@ -296,7 +297,7 @@ if (isset($_GET['chambre']) && isset($_GET['chambreid']) ){
              <div class="liste">
               <?php
 
-              
+
 
 
 
