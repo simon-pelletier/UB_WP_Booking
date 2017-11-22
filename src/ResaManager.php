@@ -150,7 +150,7 @@ class ResaManager{
 Du '. $dateA .'<br/>
 Au '. $dateB .'<br/>
 ('. $getInfos[0]->nuits .' nuit(s))<br/>
-Pour '. $getInfos[0]->tarif . $getConfig[0]->devise . '<br/>
+Pour '. $getInfos[0]->tarif . ' ' . $getConfig[0]->devise . '<br/>
 </strong>
 <br/><br/>
 <strong>Pour CONFIRMER votre réservation au nom de ' . $nom . ',<br/>
