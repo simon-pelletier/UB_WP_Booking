@@ -287,12 +287,11 @@ if (isset($_GET['chambre']) && isset($_GET['chambreid']) ){
           <div class="recherche">
           <form method="POST" action=".">
           <center>
-          <label>Date d'arrivée &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="date" name="arrivee" value="<?php echo $selectedA; ?>" min="<?php echo $mindaya; ?>" max="<?php echo $maxday; ?>" class="date"/></label>
-           &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-          <label>Date de départ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="date" name="depart" value="<?php echo $selectedB; ?>" min="<?php echo $mindaya; ?>" max="<?php echo $maxday; ?>" class="date"/></label>
+          <label>Arrival &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="date" name="arrivee" value="<?php echo $selectedA; ?>" min="<?php echo $mindaya; ?>" max="<?php echo $maxday; ?>" class="date"/></label>
+          <label>Start &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="date" name="depart" value="<?php echo $selectedB; ?>" min="<?php echo $mindaya; ?>" max="<?php echo $maxday; ?>" class="date"/></label>
 
           <div class="choixnbpersonnes">
-          <p><label>Nombre de personnes :
+          <p><label>Number of persons :
           <select name="nombrepersonnes" size="1" class="nbpersonnes">
              <?php
               for ($i = 1; $i <= $personnesMax; $i++){
@@ -307,7 +306,7 @@ if (isset($_GET['chambre']) && isset($_GET['chambreid']) ){
           </label>
               </p>
       </div>
-          <input type="submit" name="selecteddate" class="btn" value="Rechercher"/>
+          <input type="submit" name="selecteddate" class="btn" value="Search"/>
           </center>
           </form>
           </div>

@@ -55,6 +55,10 @@ if(isset($_POST['reserver'])){
 
       $resaManager->sendMail($email, $cle, $_POST['nom']);
 
+      $messageResa = 'Vous allez recevoir un e-mail pour confirmer votre réservation.<br/>
+      Vous allez être redirigé dans 3 secondes...
+      <br/>';
+      ?><meta http-equiv="refresh" content="3; url=."><?php
 
     } else {
       $messageResaError = 'Merci de renseigner une adresse e-mail valide.';
@@ -198,7 +202,6 @@ if (isset($_GET['chambre']) && isset($_GET['chambreid']) ){
       $check = $resaManager->confirmResa($_GET['id'], $_GET['cle']);
       if ($check == 'valid'){
         $messageResa = 'Réservation confirmée !';
-        header("refresh:5;url=index.php");
       } else if ($check == 'notvalid'){
         $messageResaError = 'La clé ne correspond pas !';
       } else if ($check == 'already'){
@@ -246,6 +249,13 @@ if (isset($_GET['chambre']) && isset($_GET['chambreid']) ){
 
 
 
+
+
+
+
+
+
+
     } else {
           ?>
           <!DOCTYPE HTML>
@@ -261,7 +271,6 @@ if (isset($_GET['chambre']) && isset($_GET['chambreid']) ){
           <form method="POST" action=".">
           <center>
           <label>Date d'arrivée &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="date" name="arrivee" value="<?php echo $selectedA; ?>" min="<?php echo $mindaya; ?>" max="<?php echo $maxday; ?>" class="date"/></label>
-           &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
           <label>Date de départ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="date" name="depart" value="<?php echo $selectedB; ?>" min="<?php echo $mindaya; ?>" max="<?php echo $maxday; ?>" class="date"/></label>
 
           <div class="choixnbpersonnes">
