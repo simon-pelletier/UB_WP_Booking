@@ -21,19 +21,17 @@
 
 .liste{
     text-align: center;
-    margin-left: auto;
-    margin-right: auto;
-
 }
 
 .rchambre{
-    margin-left: auto;
     margin-right: 20px;
     margin-top: 20px;
-    float: left;
+    display: inline-block;
     width: 200px;
+    height: 450px;
     padding: 30px;
-  background-color: #ededed;
+    background-color: #ededed;
+    vertical-align: top;
 }
 
 .photo{
