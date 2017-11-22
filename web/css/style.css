@@ -1,14 +1,3 @@
-//@import url('https://fonts.googleapis.com/css?family=Lato');
-
-body{
-    //overflow: auto;
-    //background: #ffffff;
-    //padding-top: 50px;
-    //font-family: 'Lato', sans-serif;
-    //width: 100%;
-    margin: 0;
-}
-
 .choixnbpersonnes{
   padding-top: 20px;
 }
@@ -18,7 +7,6 @@ body{
 }
 
 .recherche{
-    top: 20px;
     width: 300px;
     display: block;
 
@@ -29,20 +17,9 @@ body{
     font-size: 12pt;
     font-weight: 600;
 
-
 }
 
 .liste{
-    //display:table;
-    //display: block;
-
-
-    top: 300px;
-    width: 780px;
-
-
-    //columns: 3 200px;
-
     text-align: center;
     margin-left: auto;
     margin-right: auto;
@@ -50,36 +27,17 @@ body{
 }
 
 .rchambre{
-    //display: inline-block;
     margin-left: auto;
     margin-right: 20px;
     margin-top: 20px;
     float: left;
     width: 200px;
     padding: 30px;
-  //border: 1px solid #000;
   background-color: #ededed;
-}
-
-.menu{
-    display: block;
-    //position: fixed;
-    position: absolute;
-    right: 20px;
-    top: 20px;
-    height: 20px;
-}
-.menuAdmin{
-    display: block;
-
-
-    top: 20px;
-    height: 20px;
 }
 
 .photo{
     width: 200px;
-
     box-shadow: 2px 2px 5px 1px rgba(0, 0, 0, 0.75);
     -moz-box-shadow: 2px 2px 5px 1px rgba(0, 0, 0, 0.75);
     -webkit-box-shadow: 2px 2px 5px 1px rgba(0, 0, 0, 0.75);
@@ -90,6 +48,8 @@ body{
     font-weight: 800;
     font-size: 18pt;
 }
+
+
 
 .tarif{
     font-weight: 600;
@@ -107,17 +67,6 @@ a, a:hover, a:visited, a:active{
     color: #000000;
 }
 
-
-img {
-  vertical-align:top;
-  //float:left;
-  //clear: left;
-  display: inline-block !important;
-  //display: inline-block;
-}
-
-
-
 .btn{
     color: #ffffff;
     background-color: #333333;
@@ -129,6 +78,7 @@ img {
 
 .icon{
     padding-right: 10px;
+    display: inline-block !important;
 }
 
 .date{
@@ -151,7 +101,6 @@ img {
 }
 
 .retour{
-
     font-weight: 600;
     text-decoration: none;
     background-color: #333333;
@@ -160,22 +109,7 @@ img {
     width: 120px;
 }
 a.retour, a:hover.retour, a:visited.retour, a:active.retour{
-
     color: #ffffff;!important
-
-}
-
-
-menu{
-    text-align: center;
-    width: 100%;
-    top: -20px;
-    padding-top: 20px;
-    height: 40px;
-    position: absolute;
-    background-color: #333333;
-    color: #ffffff;
-
 }
 
 .btndeco{

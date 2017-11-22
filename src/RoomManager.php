@@ -108,7 +108,7 @@ class RoomManager{
     }
 
     public function returnImg($att){
-      $img = ' <img src="' . esc_url( home_url( '/' ) ) . 'wp-content/plugins/ub_hotelbooking/web/img/' . $att . '.png"/>';
+      $img = ' <img src="' . esc_url( home_url( '/' ) ) . 'wp-content/plugins/ub_hotelbooking/web/img/' . $att . '.png" class="icon"/>';
       return $img;
     }
 
