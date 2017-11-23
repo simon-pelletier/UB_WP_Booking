@@ -108,7 +108,7 @@ class RoomManager{
     }
 
     public function returnImg($att){
-      $img = ' <img src="' . esc_url( home_url( '/' ) ) . 'wp-content/plugins/ub_hotelbooking/web/img/' . $att . '.png" class="icon"/>';
+      $img = ' <img src="' . esc_url( home_url( '/' ) ) . 'wp-content/plugins/ub_hotelbooking/web/img/' . $att . '.svg" class="icon"/>';
       return $img;
     }
 
@@ -121,7 +121,7 @@ class RoomManager{
 
     public function addRoom($chambre, $max, $lits, $douche, $wc, $tel, $tv, $baignoire, $wifi, $photo, $for1, $for2, $for3, $for4, $supp){
       global $wpdb, $table_prefix;
-      $photo = 'default';
+      $photo = 'default.png';
       if($douche !== NULL){
           $douche = 1;
       } else {
@@ -196,10 +196,12 @@ class RoomManager{
       global $wpdb, $table_prefix;
       $room_table = $table_prefix . 'hb_rooms';
 
-      if ($photo != 'default'){
+      if ($photo != 'default.png'){
 
         unlink('../wp-content/plugins/ub_hotelbooking/web/img/rooms/' . $photo);
 
+        $wpdb->delete( 'wp_hb_rooms', array( 'ID' => $id ) );
+      } else {
         $wpdb->delete( 'wp_hb_rooms', array( 'ID' => $id ) );
       }
 

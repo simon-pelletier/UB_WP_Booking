@@ -126,11 +126,11 @@ if (isset($_GET['chambre']) && isset($_GET['chambreid']) ){
           echo '<br/>';
           echo '<div class="titre">Chambre ' . $room->chambre . '</div>';
           echo '<div class="infos">';
-          echo $room->max . $manager->returnImg('max');
+          echo $room->max . $manager->returnImg('max') . ' - ';
           echo $room->lits . $manager->returnImg('lits');
           echo '</div>';
-          echo '<div class="tarif">' . $_GET['tarif'] . ' ' . $getConfig[0]->devise . ' - ' . $_GET['nuits'] . ' <img src="' . esc_url( home_url( '/' ) ) . 'wp-content/plugins/ub_hotelbooking/web/img/nuit.png" class="icon" /></div>';
-
+          echo '<div class="tarif">' . $_GET['tarif'] . ' ' . $getConfig[0]->devise . ' - ' . $_GET['nuits'] . ' <img src="' . esc_url( home_url( '/' ) ) . 'wp-content/plugins/ub_hotelbooking/web/img/nuit.svg" class="icon" /></div>';
+          echo '<div class="option">';
           if ($room->douche == 1){
             echo $manager->returnImg('douche');
           }
@@ -149,7 +149,7 @@ if (isset($_GET['chambre']) && isset($_GET['chambreid']) ){
           if ($room->wifi == 1){
             echo $manager->returnImg('wifi');
           }
-
+          echo '</div>';
           echo '</center>';
           echo '</div>';
         }
@@ -318,12 +318,12 @@ if (isset($_GET['chambre']) && isset($_GET['chambreid']) ){
                       echo '<br/>';
                       echo '<div class="titre">Chambre ' . $room->chambre . '</div>';
                       echo '<div class="infos">';
-                      $maxImg = ' <img src="' . esc_url( home_url( '/' ) ) . 'wp-content/plugins/ub_hotelbooking/web/img/max.png"/>';
-                      $litsImg = ' <img src="' . esc_url( home_url( '/' ) ) . 'wp-content/plugins/ub_hotelbooking/web/img/lits.png"/>';
-                      echo $room->max . $maxImg . $room->lits . $litsImg;
+                      $maxImg = ' <img src="' . esc_url( home_url( '/' ) ) . 'wp-content/plugins/ub_hotelbooking/web/img/max.svg"/>';
+                      $litsImg = ' <img src="' . esc_url( home_url( '/' ) ) . 'wp-content/plugins/ub_hotelbooking/web/img/lits.svg"/>';
+                      echo $room->max . $maxImg . ' - ' . $room->lits . $litsImg;
                       echo '</div>';
 
-                      echo '<div class="tarif">' . $tarif . ' ' . $getConfig[0]->devise . ' - ' . $nbreNuits . ' <img src="' . esc_url( home_url( '/' ) ) . 'wp-content/plugins/ub_hotelbooking/web/img/nuit.png" class="icon" /></div>';
+                      echo '<div class="tarif">' . $tarif . ' ' . $getConfig[0]->devise . ' - ' . $nbreNuits . ' <img src="' . esc_url( home_url( '/' ) ) . 'wp-content/plugins/ub_hotelbooking/web/img/nuit.svg" class="icon" /></div>';
 
                       echo '<div class="option">';
                       if ($room->douche == 1){
@@ -362,12 +362,12 @@ if (isset($_GET['chambre']) && isset($_GET['chambreid']) ){
                         echo '<br/>';
                         echo '<div class="titre">Chambre ' . $room->chambre . '</div>';
                         echo '<div class="infos">';
-                        $maxImg = ' <img src="' . esc_url( home_url( '/' ) ) . 'wp-content/plugins/ub_hotelbooking/web/img/max.png" class="icon"/>';
-                        $litsImg = ' <img src="' . esc_url( home_url( '/' ) ) . 'wp-content/plugins/ub_hotelbooking/web/img/lits.png" class="icon"/>';
-                        echo $room->max . $maxImg . $room->lits . $litsImg;
+                        $maxImg = ' <img src="' . esc_url( home_url( '/' ) ) . 'wp-content/plugins/ub_hotelbooking/web/img/max.svg" class="icon"/>';
+                        $litsImg = ' <img src="' . esc_url( home_url( '/' ) ) . 'wp-content/plugins/ub_hotelbooking/web/img/lits.svg" class="icon"/>';
+                        echo $room->max . $maxImg . ' - ' . $room->lits . $litsImg;
                         echo '</div>';
 
-                        echo '<div class="tarif">' . $tarif . ' ' . $getConfig[0]->devise . ' - ' . $nbreNuits . ' <img src="' . esc_url( home_url( '/' ) ) . 'wp-content/plugins/ub_hotelbooking/web/img/nuit.png" class="icon" /></div>';
+                        echo '<div class="tarif">' . $tarif . ' ' . $getConfig[0]->devise . ' - ' . $nbreNuits . ' <img src="' . esc_url( home_url( '/' ) ) . 'wp-content/plugins/ub_hotelbooking/web/img/nuit.svg" class="icon" /></div>';
 
                         echo '<div class="option">';
                         if ($room->douche == 1){
