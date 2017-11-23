@@ -86,10 +86,19 @@ if(isset($_POST['reserver'])){
 
   }
 
-/*
-  if (isset($message)){
-  echo $message . '<br/>';
-*/
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 if (isset($_GET['chambre']) && isset($_GET['chambreid']) ){
   global $wpdb, $table_prefix;
@@ -115,13 +124,15 @@ if (isset($_GET['chambre']) && isset($_GET['chambreid']) ){
         }
         ?>
         <br/>
-        <center>
 
+
+        <div class="resaArea">
         <?php
 
         foreach($manager->roomAlone($_GET['chambre']) as $room){
-          echo '<div>';
-          echo '<center>';
+          echo '<div class="chambreResa">';
+          echo '<br/>';
+
           echo '<img src="' . esc_url( home_url( '/' ) ) . 'wp-content/plugins/ub_hotelbooking/web/img/rooms/' . $room->photo . '" class="photo" />';
           echo '<br/>';
           echo '<div class="titre">Chambre ' . $room->chambre . '</div>';
@@ -130,7 +141,8 @@ if (isset($_GET['chambre']) && isset($_GET['chambreid']) ){
           echo $room->lits . $manager->returnImg('lits');
           echo '</div>';
           echo '<div class="tarif">' . $_GET['tarif'] . ' ' . $getConfig[0]->devise . ' - ' . $_GET['nuits'] . ' <img src="' . esc_url( home_url( '/' ) ) . 'wp-content/plugins/ub_hotelbooking/web/img/nuit.svg" class="icon" /></div>';
-          echo '<div class="option">';
+
+          echo '<div class="optionResa">';
           if ($room->douche == 1){
             echo $manager->returnImg('douche');
           }
@@ -150,23 +162,11 @@ if (isset($_GET['chambre']) && isset($_GET['chambreid']) ){
             echo $manager->returnImg('wifi');
           }
           echo '</div>';
-          echo '</center>';
           echo '</div>';
         }
-
         ?>
 
-        <br/><br/>
-        <form method="POST" action="">
-          <label>Votre nom* : <br/><input type="text" name="nom" class="champs"/></label>
-          <br/>
-          <label>Votre e-mail* : <br/><input type="text" name="email" class="champs"/></label>
-          <br/>
-          <label>Téléphone : <br/><input type="text" name="tel" class="champs"/></label>
-          <br/>
-          <label>Informations complémentaires : <br/><input type="text" name="infos" class="champs"/></label>
-          <br/><br/>
-
+        <div class="formResa">
           Arrivée le <strong><?php $dateA = $_GET['dateA']; echo date("d-m-Y", strtotime($dateA));?></strong>
           <br/>
           Départ le <strong><?php $dateB = $_GET['dateB']; echo date("d-m-Y", strtotime($dateB));?></strong>
@@ -175,21 +175,36 @@ if (isset($_GET['chambre']) && isset($_GET['chambreid']) ){
           <br/>
           Total : <strong><?php echo $_GET['tarif'] . ' ' . $getConfig[0]->devise  ?> pour <?php echo $_GET['nuits']; ?> nuit(s).</strong>
           <br/><br/>
-
-          <?php
-          if ($_GET['nbp'] == 2){
-              ?>
-              <label>Option lit séparé : ( + <?php echo $room->supp . ' ' . $getConfig[0]->devise ?> ) <input type="checkbox" value="1" name="litsep" /> </label>
-              <?php
-          }
-          ?>
-
-          <br/><br/>
-          <input type="submit" name="reserver" value="Réserver" class="btn"/>
+          <form method="POST" action="">
+            <label>Votre nom* : <br/><input type="text" name="nom" class="champs"/></label>
+            <br/>
+            <label>Votre e-mail* : <br/><input type="text" name="email" class="champs"/></label>
+            <br/>
+            <label>Téléphone : <br/><input type="text" name="tel" class="champs"/></label>
+            <br/>
+            <label>Informations complémentaires : <br/><input type="text" name="infos" class="champs"/></label>
+            <br/>
+            <?php
+            if ($_GET['nbp'] == 2){
+                ?>
+                <label>Option lit séparé :<br/><input type="checkbox" value="1" name="litsep" /> ( + <?php echo $room->supp . ' ' . $getConfig[0]->devise ?> )</label>
+                <?php
+            }
+            ?>
+            <br/><br/><br/>
+            </div>
+            <center><input type="submit" name="reserver" value="Réserver" class="btn"/></center>
           </form>
-          </center>
-        </body>
-      </html>
+
+      </div>
+    </body>
+  </html>
+
+
+
+
+
+
 
 
 
@@ -250,6 +265,11 @@ if (isset($_GET['chambre']) && isset($_GET['chambreid']) ){
        </html>
 
        <?php
+
+
+
+
+
 
 
 

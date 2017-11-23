@@ -87,10 +87,19 @@ class RoomManager{
 
     public function yesOrNo($answer){
         if ($answer == 1){
-            return 'oui';
+            return 'Yes';
         } elseif ($answer == 0) {
-            return 'non';
+            return 'No';
         }
+    }
+
+    public function imgOrNot($question, $name){
+      if($question == 1){
+        echo '<td><img src="' . esc_url( home_url( '/' ) ) . 'wp-content/plugins/ub_hotelbooking/web/img/' . $name . '.svg" class="resaImgList"/></td>';
+      } else {
+        echo '<td></td>';
+      }
+
     }
 
     public function prix($nbreP){

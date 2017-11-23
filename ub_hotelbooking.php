@@ -68,7 +68,7 @@ function create_plugin_database_table()
       $admin_email = get_option( 'admin_email' );
       $wpdb->insert($wp_table_config, array(
         'adminmail' => $admin_email,
-        'personnesmax' => '5',
+        'personnesmax' => '4',
         'devise' => '€'
       ));
   }

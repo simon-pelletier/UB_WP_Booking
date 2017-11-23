@@ -78,19 +78,19 @@ if (isset($_POST['ajouterResa'])){
         <table>
           <tr>
           <th>ID</th>
-          <th>Nom</th>
+          <th>Name</th>
           <th>@</th>
-          <th>TEL</th>
-          <th><img src="<?php echo esc_url( home_url( '/' ) ) ?>wp-content/plugins/ub_hotelbooking/web/img/max.png" class="resaImg"/></th>
-          <th>Chambre</th>
-          <th>Date Arrivée</th>
-          <th>Date Départ</th>
-          <th>Infos</th>
-          <th>2Lits</th>
+          <th><img src="<?php echo esc_url( home_url( '/' ) ) ?>wp-content/plugins/ub_hotelbooking/web/img/tel.svg" class="resaImg"/></th>
+          <th><img src="<?php echo esc_url( home_url( '/' ) ) ?>wp-content/plugins/ub_hotelbooking/web/img/max.svg" class="resaImg"/></th>
+          <th>Room</th>
+          <th>Arrival</th>
+          <th>Departure</th>
+          <th>Comment</th>
+          <th>2<img src="<?php echo esc_url( home_url( '/' ) ) ?>wp-content/plugins/ub_hotelbooking/web/img/lits.svg" class="resaImg"/></th>
           <th><?php echo $config[0]->devise ?></th>
-          <th><img src="<?php echo esc_url( home_url( '/' ) ) ?>wp-content/plugins/ub_hotelbooking/web/img/nuit.png" class="resaImg"/></th>
-          <th>Confirmé</th>
-          <th>Actions</th>
+          <th><img src="<?php echo esc_url( home_url( '/' ) ) ?>wp-content/plugins/ub_hotelbooking/web/img/nuit.svg" class="resaImg"/></th>
+          <th>Confirmed</th>
+          <th></th>
           </tr>
           <tr>
              <form method="POST" action="admin.php?page=UBHBRESA">
@@ -133,13 +133,17 @@ if (isset($_POST['ajouterResa'])){
                 <td></td>
                 <td></td>
                 <td></td>
-                <td><input type="submit" name="ajouterResa" value="Ajouter"/></td>
+                <td><input type="submit" name="ajouterResa" value="Add"/></td>
               </form></tr>
 
         <?php
         $resa = $wpdb->get_results("SELECT * FROM $resa_table");
         foreach ($resaManager->resaList() as $resa)
           {
+
+            $rdA = date("d-m-Y", strtotime($resa->datearrivee));
+            $rdB = date("d-m-Y", strtotime($resa->datedepart));
+
             echo '<tr>';
             echo '<td>', $resa->id, '</td>';
             echo '<td>', $resa->nom, '</td>';
@@ -147,14 +151,14 @@ if (isset($_POST['ajouterResa'])){
             echo '<td>', $resa->tel, '</td>';
             echo '<td>', $resa->nombrep, '</td>';
             echo '<td>', $resa->chambre, '</td>';
-            echo '<td>', $resa->datearrivee, '</td>';
-            echo '<td>', $resa->datedepart, '</td>';
+            echo '<td>', $rdA, '</td>';
+            echo '<td>', $rdB, '</td>';
             echo '<td>', $resa->infos, '</td>';
             if($resa->supp == 1)
             {
-                echo '<td>oui</td>';
+                echo '<td>Yes</td>';
             }else{
-                echo '<td>non</td>';
+                echo '<td>No</td>';
             }
             echo '<td>', $resa->tarif, ' ', $config[0]->devise, '</td>';
             echo '<td>', $resa->nuits, '</td>';
@@ -164,7 +168,7 @@ if (isset($_POST['ajouterResa'])){
             }else{
                 echo '<td class="confirmnon">non</td>';
             }
-            echo '<td><a href="admin.php?page=UBHBRESA&supprimerResa=', $resa->id, '">Supprimer</a></td>';
+            echo '<td><a href="admin.php?page=UBHBRESA&supprimerResa=', $resa->id, '">Delete</a></td>';
             echo '</tr>';
           }
         ?>

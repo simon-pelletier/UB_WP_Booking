@@ -70,9 +70,9 @@ if (isset($_POST['update'])){
           $config = $wpdb->get_results("SELECT * FROM $config_table");
           ?>
         <form method="POST" action="admin.php?page=UBHBADMIN">
-          <label>Email admin : <input type="text" style="max-width:250px;" name="adminmail" value="<?php echo $config[0]->adminmail ?>"/></label>
+          <label>Admin E-mail : <input type="text" style="max-width:250px;" name="adminmail" value="<?php echo $config[0]->adminmail ?>"/></label>
 
-          <label>Personnnes Max : <select name="persmax" size="1" class="nbpersonnes">
+          <label>Max people : <select name="persmax" size="1" class="nbpersonnes">
              <?php
               for ($i=1; $i <= 10; $i++){
                 if ($config[0]->personnesmax == $i){
@@ -84,9 +84,9 @@ if (isset($_POST['update'])){
               }
               ?></select></label>
 
-              <label>Devise : <input type="text" style="max-width:30px;" name="devise" value="<?php echo $config[0]->devise ?>"/></label>
+              <label>Currency : <input type="text" style="max-width:30px;" name="devise" value="<?php echo $config[0]->devise ?>"/></label>
 
-          <input type="submit" name="update" value="Enregistrer"/>
+          <input type="submit" name="update" value="Save"/>
         </form>
         </center>
       </div>
@@ -94,7 +94,7 @@ if (isset($_POST['update'])){
 
 <br/>
         <div>
-        <h1><center>Chambres : </center></h1>
+        <h1><center>Rooms : </center></h1>
         <?php
         if (isset($messageRoom)){
         echo '<div class="messageRoom">' . $messageRoom . '</div><br/>';
@@ -106,22 +106,22 @@ if (isset($_POST['update'])){
         <center>
         <table>
           <tr>
-          <th>Chambre</th>
-          <th>Capacité</th>
-          <th>Lits</th>
-          <th>douche</th>
-          <th>wc</th>
-          <th>tel</th>
-          <th>tv</th>
-          <th>bain</th>
-          <th>wifi</th>
-          <th>photo 300*300px</th>
-          <th>for1</th>
-          <th>for2</th>
-          <th>for3</th>
-          <th>for4</th>
-          <th>2Lits</th>
-          <th>Actions</th>
+          <th>Room</th>
+          <th>Nb<img src="<?php echo esc_url( home_url( '/' ) ) ?>wp-content/plugins/ub_hotelbooking/web/img/max.svg" class="resaImg"/></th>
+          <th><img src="<?php echo esc_url( home_url( '/' ) ) ?>wp-content/plugins/ub_hotelbooking/web/img/lits.svg" class="resaImg"/></th>
+          <th><img src="<?php echo esc_url( home_url( '/' ) ) ?>wp-content/plugins/ub_hotelbooking/web/img/douche.svg" class="resaImg"/></th>
+          <th><img src="<?php echo esc_url( home_url( '/' ) ) ?>wp-content/plugins/ub_hotelbooking/web/img/wc.svg" class="resaImg"/></th>
+          <th><img src="<?php echo esc_url( home_url( '/' ) ) ?>wp-content/plugins/ub_hotelbooking/web/img/tel.svg" class="resaImg"/></th>
+          <th><img src="<?php echo esc_url( home_url( '/' ) ) ?>wp-content/plugins/ub_hotelbooking/web/img/tv.svg" class="resaImg"/></th>
+          <th><img src="<?php echo esc_url( home_url( '/' ) ) ?>wp-content/plugins/ub_hotelbooking/web/img/baignoire.svg" class="resaImg"/></th>
+          <th><img src="<?php echo esc_url( home_url( '/' ) ) ?>wp-content/plugins/ub_hotelbooking/web/img/wifi.svg" class="resaImg"/></th>
+          <th>Photo 300*300px</th>
+          <th>1<img src="<?php echo esc_url( home_url( '/' ) ) ?>wp-content/plugins/ub_hotelbooking/web/img/max.svg" class="resaImg"/></th>
+          <th>2<img src="<?php echo esc_url( home_url( '/' ) ) ?>wp-content/plugins/ub_hotelbooking/web/img/max.svg" class="resaImg"/></th>
+          <th>3<img src="<?php echo esc_url( home_url( '/' ) ) ?>wp-content/plugins/ub_hotelbooking/web/img/max.svg" class="resaImg"/></th>
+          <th>4<img src="<?php echo esc_url( home_url( '/' ) ) ?>wp-content/plugins/ub_hotelbooking/web/img/max.svg" class="resaImg"/></th>
+          <th>2<img src="<?php echo esc_url( home_url( '/' ) ) ?>wp-content/plugins/ub_hotelbooking/web/img/lits.svg" class="resaImg"/></th>
+          <th></th>
           </tr>
         <tr>
            <form method="POST" action="admin.php?page=UBHBADMIN" enctype="multipart/form-data">
@@ -154,7 +154,7 @@ if (isset($_POST['update'])){
             <td><input type="text" style="max-width:30px;" name="for3"/></td>
             <td><input type="text" style="max-width:30px;" name="for4"/></td>
             <td><input type="text" style="max-width:30px;" name="supp"/></td>
-            <td><input type="submit" name="ajouterChambre" value="Ajouter"/></td>
+            <td><input type="submit" name="ajouterChambre" value="Add"/></td>
             </form>
         </tr>
         <?php
@@ -163,19 +163,21 @@ if (isset($_POST['update'])){
           echo '<td>', $room->chambre, '</td>';
           echo '<td>', $room->max, '</td>';
           echo '<td>', $room->lits, '</td>';
-          echo '<td>', $roomManager->yesOrNo($room->douche), '</td>';
-          echo '<td>', $roomManager->yesOrNo($room->wc), '</td>';
-          echo '<td>', $roomManager->yesOrNo($room->tel), '</td>';
-          echo '<td>', $roomManager->yesOrNo($room->tv), '</td>';
-          echo '<td>', $roomManager->yesOrNo($room->baignoire), '</td>';
-          echo '<td>', $roomManager->yesOrNo($room->wifi), '</td>';
+
+          $roomManager->imgOrNot($room->douche, 'douche');
+          $roomManager->imgOrNot($room->wc, 'wc');
+          $roomManager->imgOrNot($room->tel, 'tel');
+          $roomManager->imgOrNot($room->tv, 'tv');
+          $roomManager->imgOrNot($room->baignoire, 'baignoire');
+          $roomManager->imgOrNot($room->wifi, 'wifi');
+
           echo '<td><center><img src="' . esc_url( home_url( '/' ) ) . '/wp-content/plugins/ub_hotelbooking/web/img/rooms/', $room->photo,'" style="max-width:60px;"/></center></td>'; //$resAdmin->photo()
           echo '<td>', $room->for1, ' ', $config[0]->devise, '</td>';
           echo '<td>', $room->for2, ' ', $config[0]->devise, '</td>';
           echo '<td>', $room->for3, ' ', $config[0]->devise, '</td>';
           echo '<td>', $room->for4, ' ', $config[0]->devise, '</td>';
           echo '<td>', $room->supp, ' ', $config[0]->devise, '</td>';
-          echo '<td><a href="admin.php?page=UBHBADMIN&supprimerRoom=', $room->id, '&photo=', $room->photo, '">Supprimer</a></td>';
+          echo '<td><a href="admin.php?page=UBHBADMIN&supprimerRoom=', $room->id, '&photo=', $room->photo, '">Delete</a></td>';
           echo '</tr>';
         }
         ?>
