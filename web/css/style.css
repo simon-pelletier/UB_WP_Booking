@@ -28,7 +28,8 @@
     margin-top: 20px;
     display: inline-block;
     width: 200px;
-    height: 450px;
+    //height: 450px;
+    height: auto;
     padding: 30px;
     background-color: #ededed;
     vertical-align: top;

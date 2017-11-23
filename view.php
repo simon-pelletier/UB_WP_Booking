@@ -318,8 +318,8 @@ if (isset($_GET['chambre']) && isset($_GET['chambreid']) ){
                       echo '<br/>';
                       echo '<div class="titre">Chambre ' . $room->chambre . '</div>';
                       echo '<div class="infos">';
-                      $maxImg = ' <img src="' . esc_url( home_url( '/' ) ) . 'wp-content/plugins/ub_hotelbooking/web/img/max.svg"/>';
-                      $litsImg = ' <img src="' . esc_url( home_url( '/' ) ) . 'wp-content/plugins/ub_hotelbooking/web/img/lits.svg"/>';
+                      $maxImg = ' <img src="' . esc_url( home_url( '/' ) ) . 'wp-content/plugins/ub_hotelbooking/web/img/max.svg" class="icon"/>';
+                      $litsImg = ' <img src="' . esc_url( home_url( '/' ) ) . 'wp-content/plugins/ub_hotelbooking/web/img/lits.svg" class="icon"/>';
                       echo $room->max . $maxImg . ' - ' . $room->lits . $litsImg;
                       echo '</div>';
 
