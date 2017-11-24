@@ -2,7 +2,7 @@
 
 class ConfigManager{
 
-    public function update($mail, $persmax, $devise){
+    public function update($mail, $persmax, $devise, $fumeur, $animaux, $parking, $cb, $cvac, $infoscomp, $suppsaisonstatus, $suppsaison, $supptidejstatus, $supptidej, $tidejcompris, $suppdiversstatus, $suppdiverstext, $suppdivers){
       global $wpdb, $table_prefix;
       $config_table = $table_prefix . 'hb_config';
       $wpdb->update(
