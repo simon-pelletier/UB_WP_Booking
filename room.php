@@ -98,7 +98,7 @@ if (isset($_POST['update'])){
           <label>Admin E-mail : <input type="text" style="max-width:250px;" name="adminmail" value="<?php echo $config[0]->adminmail ?>"/></label>
           <label>Max people : <select name="persmax" size="1" class="nbpersonnes">
              <?php
-              for ($i=1; $i <= 10; $i++){
+              for ($i=1; $i <= 4; $i++){
                 if ($config[0]->personnesmax == $i){
                   echo '<option selected>' . $i . '</option>';
                 } else {
