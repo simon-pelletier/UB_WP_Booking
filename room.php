@@ -48,7 +48,27 @@ if (isset($_POST['ajouterChambre'])){
 if (isset($_POST['update'])){
 
   if (filter_var($_POST['adminmail'], FILTER_VALIDATE_EMAIL)) {
-    $configManager->update($_POST['adminmail'], $_POST['persmax'], $_POST['devise']);
+    $configManager->update(
+      $_POST['adminmail'],
+      $_POST['persmax'],
+      $_POST['devise'],
+      $_POST['fumeur'],
+      $_POST['animaux'],
+      $_POST['parking'],
+      $_POST['cb'],
+      $_POST['cvac'],
+      $_POST['infoscomp'],
+      $_POST['suppsaisonstatus'],
+      $_POST['suppsaison'],
+      $_POST['supptidejstatus'],
+      $_POST['supptidej'],
+      $_POST['tidejcompris'],
+      $_POST['suppdiversstatus'],
+      $_POST['suppdiverstext'],
+      $_POST['suppdivers']
+    );
+    $messageConfig = 'Configuration sauvegardée.';
+    ?><meta http-equiv="refresh" content="0; url=admin.php?page=UBHBADMIN"><?php
   } else {
     $messageRoomError = 'Merci d\'entrer une adresse e-mail valide.';
   }
@@ -68,6 +88,9 @@ if (isset($_POST['update'])){
         <center>
           <?php
           $config = $wpdb->get_results("SELECT * FROM $config_table");
+          if (isset($messageConfig)){
+          echo '<div class="messageRoom">' . $messageConfig . '</div><br/>';
+          }
           ?>
         <form method="POST" action="admin.php?page=UBHBADMIN">
           <label>Admin E-mail : <input type="text" style="max-width:250px;" name="adminmail" value="<?php echo $config[0]->adminmail ?>"/></label>
@@ -83,8 +106,48 @@ if (isset($_POST['update'])){
               }
               ?></select></label>
               <label>Currency : <input type="text" style="max-width:30px;" name="devise" value="<?php echo $config[0]->devise ?>"/></label>
+              <br/>
 
-          <input type="submit" name="update" value="Save"/>
+
+              <td>Fumeur : <input type="checkbox" name="fumeur" value="1" <?php echo $configManager->checkedOrNot($config[0]->fumeur); ?>/></td>
+              <td>Animaux : <input type="checkbox" name="animaux" value="1" <?php echo $configManager->checkedOrNot($config[0]->animaux); ?>/></td>
+              <td>Parking : <input type="checkbox" name="parking" value="1" <?php echo $configManager->checkedOrNot($config[0]->parking); ?>/></td>
+              <td>CB : <input type="checkbox" name="cb" value="1" <?php echo $configManager->checkedOrNot($config[0]->cb); ?>/></td>
+              <td>Chèques Vacance : <input type="checkbox" name="cvac" value="1" <?php echo $configManager->checkedOrNot($config[0]->cvac); ?>/></td>
+
+              <br/>
+
+              <td>Infos générales : <input type="text" name="infoscomp" value="<?php echo $config[0]->infoscomp ?>" class="infoscomp"/></td>
+
+              <br/>
+
+              <td>Supp Saison : <input type="checkbox" name="suppsaisonstatus" value="1" <?php echo $configManager->checkedOrNot($config[0]->suppsaisonstatus); ?>/></td>
+              <td>Montant : <input type="text" name="suppsaison" value="<?php echo $config[0]->suppsaison ?>" class="supp"/></td>
+
+              <br/>
+
+              <td>Supp Petit déjeuner : <input type="checkbox" name="supptidejstatus" value="1" <?php echo $configManager->checkedOrNot($config[0]->supptidejstatus); ?>/></td>
+              <td>Montant : <input type="text" name="supptidej" value="<?php echo $config[0]->supptidej ?>" class="supp"/></td>
+              -
+              <td>Petit déjeuner compris : <input type="checkbox" name="tidejcompris" value="1" <?php echo $configManager->checkedOrNot($config[0]->tidejcompris); ?>/></td>
+
+              <br/>
+
+              <td>Supp Divers : <input type="checkbox" name="suppdiversstatus" value="1" <?php echo $configManager->checkedOrNot($config[0]->suppdiversstatus); ?>/></td>
+              <td>Intitulé : <input type="text" name="suppdiverstext" value="<?php echo $config[0]->suppdiverstext ?>" class="suppdiverstext"/></td>
+              <td>Montant : <input type="text" name="suppdivers" value="<?php echo $config[0]->suppdivers ?>" class="supp"/></td>
+
+
+
+
+
+
+
+
+
+
+              <br/><br/>
+          <input type="submit" name="update" value="Save" class="btn"/>
         </form>
         </center>
       </div>

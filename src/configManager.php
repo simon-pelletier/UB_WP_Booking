@@ -50,4 +50,12 @@ class ConfigManager{
 
     }
 
+    public function checkedOrNot($question){
+      if ($question == 1){
+        return 'checked';
+      } else {
+        return '';
+      }
+    }
+
   }
