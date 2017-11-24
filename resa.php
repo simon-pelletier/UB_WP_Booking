@@ -31,7 +31,10 @@ if (isset($_POST['ajouterResa'])){
 
       $nuitsTimestamp = $dateB - $dateA;
       $nuits = intval($nuitsTimestamp / 86400); //60*60*24
-      if(isset($_POST['supp'])){
+
+
+/*
+      if(isset($_POST['litsupp'])){
           $supp = 1;
           $tarif = $resaManager->calculTarif($nuits, (int) $chambreid,  (int) $_POST['nombrep'], $supp);
       } else {
@@ -39,8 +42,10 @@ if (isset($_POST['ajouterResa'])){
           $tarif = $resaManager->calculTarif($nuits, (int) $chambreid,  (int) $_POST['nombrep'], $supp);
       }
 
+*/
+      $tarif = $resaManager->calculTarif($nuits, (int) $chambreid,  (int) $_POST['nombrep'], $_POST['litsupp']);
 
-      $resaManager->addResaManuel($_POST['nom'], $_POST['email'], $_POST['tel'], $_POST['nombrep'], $_POST['chambre'], $chambreid, $_POST['datearrivee'], $_POST['datedepart'], $_POST['infos'], $tarif, $nuits, $confirmclient, 0, $supp, $_POST['tidej'], $_POST['divers']);
+      $resaManager->addResaManuel($_POST['nom'], $_POST['email'], $_POST['tel'], $_POST['nombrep'], $_POST['chambre'], $chambreid, $_POST['datearrivee'], $_POST['datedepart'], $_POST['infos'], $tarif, $nuits, $confirmclient, 0, $_POST['litsupp'], $_POST['tidej'], $_POST['divers']);
 
       $messageResa = 'La réservation a bien été ajoutée !';
 
@@ -87,8 +92,6 @@ if (isset($_POST['ajouterResa'])){
           <th>Departure</th>
           <th>Comment</th>
           <th>2<img src="<?php echo esc_url( home_url( '/' ) ) ?>wp-content/plugins/ub_hotelbooking/web/img/lits.svg" class="resaImg"/></th>
-          <th>Dej</th>
-          <th><?php echo $config[0]->suppdiverstext ?></th>
           <th><?php echo $config[0]->devise ?></th>
           <th><img src="<?php echo esc_url( home_url( '/' ) ) ?>wp-content/plugins/ub_hotelbooking/web/img/nuit.svg" class="resaImg"/></th>
           <th>Confirmed</th>
@@ -130,9 +133,7 @@ if (isset($_POST['ajouterResa'])){
                 <td><input type="date" name="datearrivee" value="<?php echo $selectedA; ?>" min="<?php echo $mindaya; ?>" max="<?php echo $maxday; ?>" class="date"/></td>
                 <td><input type="date" name="datedepart" value="<?php echo $selectedB; ?>" min="<?php echo $mindaya; ?>" max="<?php echo $maxday; ?>" class="date"/></td>
                 <td><input type="text" style="max-width:100px;" name="infos"/></td>
-                <td><input type="checkbox" value="1" name="supp"/></td>
-                <td><input type="checkbox" value="1" name="tidej"/></td>
-                <td><input type="checkbox" value="1" name="divers"/></td>
+                <td><input type="checkbox" value="1" name="litsupp"/></td>
                 <td></td>
                 <td></td>
                 <td></td>
@@ -157,19 +158,7 @@ if (isset($_POST['ajouterResa'])){
             echo '<td>', $rdA, '</td>';
             echo '<td>', $rdB, '</td>';
             echo '<td>', $resa->infos, '</td>';
-            if($resa->supp == 1)
-            {
-                echo '<td class="confirmoui">Yes</td>';
-            }else{
-                echo '<td>No</td>';
-            }
-            if($resa->tidej == 1)
-            {
-                echo '<td class="confirmoui">Yes</td>';
-            }else{
-                echo '<td>No</td>';
-            }
-            if($resa->divers == 1)
+            if($resa->litsupp == 1)
             {
                 echo '<td class="confirmoui">Yes</td>';
             }else{

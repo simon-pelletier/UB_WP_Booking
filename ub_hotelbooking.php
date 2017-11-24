@@ -182,9 +182,7 @@ function create_plugin_database_table()
       $sqla .= "  `nuits`  int(11) DEFAULT 1, ";
       $sqla .= "  `confirmclient` int(11) DEFAULT 0, ";
       $sqla .= "  `cleconfirm`  varchar(255), ";
-      $sqla .= "  `litssup`  int(11) DEFAULT 0, ";
-      $sqla .= "  `tidej`  int(11) DEFAULT 0, ";
-      $sqla .= "  `divers`  int(11) DEFAULT 0, ";
+      $sqla .= "  `litsupp`  int(11) DEFAULT 0, ";
       $sqla .= "  PRIMARY KEY `order_id` (`id`) ";
       $sqla .= ") ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ; ";
       require_once( ABSPATH . '/wp-admin/includes/upgrade.php' );
@@ -205,9 +203,7 @@ function create_plugin_database_table()
         'nuits' => '15',
         'confirmclient' => '1',
         'cleconfirm' => '00000000',
-        'litssup' => '0',
-        'tidej' => '1',
-        'divers' => '0'
+        'litsupp' => '1'
       ));
     }
 }

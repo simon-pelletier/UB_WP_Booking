@@ -128,7 +128,7 @@ if (isset($_POST['update'])){
               -
               <td>Petit déjeuner compris : <input type="checkbox" name="tidejcompris" value="1" <?php echo $configManager->checkedOrNot($config[0]->tidejcompris); ?>/></td>
               <br/>
-              <td>Supp Divers : <input type="checkbox" name="suppdiversstatus" value="1" <?php echo $configManager->checkedOrNot($config[0]->suppdiversstatus); ?>/></td>
+              <td>Autre supplément : <input type="checkbox" name="suppdiversstatus" value="1" <?php echo $configManager->checkedOrNot($config[0]->suppdiversstatus); ?>/></td>
               <td>Intitulé : <input type="text" name="suppdiverstext" value="<?php echo $config[0]->suppdiverstext ?>" class="suppdiverstext"/></td>
               <td>Montant : <input type="text" name="suppdivers" value="<?php echo $config[0]->suppdivers ?>" class="supp"/></td> <?php echo $config[0]->devise ?>
               <br/><br/>
