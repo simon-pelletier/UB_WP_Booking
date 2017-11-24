@@ -165,6 +165,11 @@ if (isset($_GET['chambre']) && isset($_GET['chambreid']) ){
             echo $manager->returnImg('clim');
           }
           echo '</div>';
+          if (!empty($room->infosup)){
+            echo '<div class="infosupResa">';
+            echo $room->infosup;
+            echo '</div>';
+          }
           echo '</div>';
         }
         ?>
@@ -195,8 +200,9 @@ if (isset($_GET['chambre']) && isset($_GET['chambreid']) ){
             }
             ?>
             <br/><br/><br/>
-            </div>
             <center><input type="submit" name="reserver" value="Réserver" class="btn"/></center>
+            </div>
+
           </form>
 
       </div>
@@ -379,6 +385,13 @@ if (isset($_GET['chambre']) && isset($_GET['chambreid']) ){
                         echo $manager->returnImg('clim');
                       }
                       echo '</div>';
+
+                      if (!empty($room->infosup)){
+                        echo '<div class="infosup">';
+                        echo $room->infosup;
+                        echo '</div>';
+                      }
+
                       echo '</a>';
                       echo '</center>';
                       echo '</div>';
@@ -426,6 +439,13 @@ if (isset($_GET['chambre']) && isset($_GET['chambreid']) ){
                           echo $manager->returnImg('clim');
                         }
                         echo '</div>';
+
+                        if (!empty($room->infosup)){
+                          echo '<div class="infosup">';
+                          echo $room->infosup;
+                          echo '</div>';
+                        }
+
                         echo '</a>';
                         echo '</center>';
                         echo '</div>';
