@@ -161,6 +161,9 @@ if (isset($_GET['chambre']) && isset($_GET['chambreid']) ){
           if ($room->wifi == 1){
             echo $manager->returnImg('wifi');
           }
+          if ($room->clim == 1){
+            echo $manager->returnImg('clim');
+          }
           echo '</div>';
           echo '</div>';
         }
@@ -372,6 +375,9 @@ if (isset($_GET['chambre']) && isset($_GET['chambreid']) ){
                       if ($room->wifi == 1){
                         echo $manager->returnImg('wifi');
                       }
+                      if ($room->clim == 1){
+                        echo $manager->returnImg('clim');
+                      }
                       echo '</div>';
                       echo '</a>';
                       echo '</center>';
@@ -415,6 +421,9 @@ if (isset($_GET['chambre']) && isset($_GET['chambreid']) ){
                         }
                         if ($room->wifi == 1){
                           echo $manager->returnImg('wifi');
+                        }
+                        if ($room->clim == 1){
+                          echo $manager->returnImg('clim');
                         }
                         echo '</div>';
                         echo '</a>';
