@@ -57,7 +57,8 @@ if (isset($_POST['update'])){
       $_POST['parking'],
       $_POST['cb'],
       $_POST['cvac'],
-      $_POST['infoscomp'],
+      $_POST['infoscompen'],
+      $_POST['infoscompfr'],
       $_POST['supplitsstatus'],
       $_POST['supplits'],
       $_POST['suppsaisonstatus'],
@@ -66,7 +67,8 @@ if (isset($_POST['update'])){
       $_POST['supptidej'],
       $_POST['tidejcompris'],
       $_POST['suppdiversstatus'],
-      $_POST['suppdiverstext'],
+      $_POST['suppdiverstexten'],
+      $_POST['suppdiverstextfr'],
       $_POST['suppdivers']
     );
     $messageConfig = 'Saved configuration.';
@@ -115,7 +117,8 @@ if (isset($_POST['update'])){
               <td><input type="checkbox" name="cb" value="1" <?php echo $configManager->checkedOrNot($config[0]->cb); ?>/>Credit card</td> -
               <td><input type="checkbox" name="cvac" value="1" <?php echo $configManager->checkedOrNot($config[0]->cvac); ?>/>Holiday vouchers</td>
               <br/><br/>
-              <td>General info : <input type="text" name="infoscomp" value="<?php echo $config[0]->infoscomp ?>" class="infoscomp"/></td>
+              <td>EN - General info : <input type="text" name="infoscompen" value="<?php echo $config[0]->infoscompen ?>" class="infoscomp"/></td><br/>
+              <td>FR - General info : <input type="text" name="infoscompfr" value="<?php echo $config[0]->infoscompfr ?>" class="infoscomp"/></td>
               <br/>
               <td><input type="checkbox" name="supplitsstatus" value="1" <?php echo $configManager->checkedOrNot($config[0]->supplitsstatus); ?>/>Extra Separated beds</td> -
               <td>Amount : <input type="text" name="supplits" value="<?php echo $config[0]->supplits ?>" class="supp"/></td> <?php echo $config[0]->devise ?>
@@ -129,7 +132,8 @@ if (isset($_POST['update'])){
               <td><input type="checkbox" name="tidejcompris" value="1" <?php echo $configManager->checkedOrNot($config[0]->tidejcompris); ?>/>Breakfast included</td>
               <br/>
               <td><input type="checkbox" name="suppdiversstatus" value="1" <?php echo $configManager->checkedOrNot($config[0]->suppdiversstatus); ?>/>Other supplement</td> -
-              <td>Entitled : <input type="text" name="suppdiverstext" value="<?php echo $config[0]->suppdiverstext ?>" class="suppdiverstext"/></td>
+              <td>EN-Entitled : <input type="text" name="suppdiverstexten" value="<?php echo $config[0]->suppdiverstexten ?>" class="suppdiverstexten"/></td>
+              <td>FR-Entitled : <input type="text" name="suppdiverstextfr" value="<?php echo $config[0]->suppdiverstextfr ?>" class="suppdiverstextfr"/></td>
               <td>Amount : <input type="text" name="suppdivers" value="<?php echo $config[0]->suppdivers ?>" class="supp"/></td> <?php echo $config[0]->devise ?>
               <br/><br/>
           <input type="submit" name="update" value="Save" class="btn"/>

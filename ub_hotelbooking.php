@@ -63,7 +63,8 @@ function create_plugin_database_table()
       $sql .= "  `parking`  int(11), ";
       $sql .= "  `cb`  int(11), ";
       $sql .= "  `cvac`  int(11), ";
-      $sql .= "  `infoscomp`  text, ";
+      $sql .= "  `infoscompen`  text, ";
+      $sql .= "  `infoscompfr`  text, ";
       $sql .= "  `supplitsstatus`  int(11), ";
       $sql .= "  `supplits`  int(11), ";
       $sql .= "  `suppsaisonstatus`  int(11), ";
@@ -72,7 +73,8 @@ function create_plugin_database_table()
       $sql .= "  `supptidej`  int(11), ";
       $sql .= "  `tidejcompris`  int(11), ";
       $sql .= "  `suppdiversstatus`  int(11), ";
-      $sql .= "  `suppdiverstext`  text, ";
+      $sql .= "  `suppdiverstexten`  text, ";
+      $sql .= "  `suppdiverstextfr`  text, ";
       $sql .= "  `suppdivers`  int(11), ";
       $sql .= "  PRIMARY KEY `order_id` (`id`) ";
       $sql .= ") ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ; ";
@@ -90,7 +92,8 @@ function create_plugin_database_table()
         'parking' => '1',
         'cb' => '1',
         'cvac' => '1',
-        'infoscomp' => 'Un restaurant est à votre disposition au RDC',
+        'infoscompen' => 'A restaurant is at your disposal on the ground floor',
+        'infoscompfr' => 'Un restaurant est à votre disposition au RDC',
         'supplitsstatus' => '1',
         'supplits' => '5',
         'suppsaison' => '13',
@@ -98,7 +101,8 @@ function create_plugin_database_table()
         'supptidej' => '5',
         'tidejcompris' => NULL,
         'suppdiversstatus' => '1',
-        'suppdiverstext' => 'Pressing',
+        'suppdiverstexten' => 'Dry cleaning',
+        'suppdiverstextfr' => 'Pressing',
         'suppdivers' => '8'
       ));
   }

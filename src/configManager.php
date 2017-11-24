@@ -2,7 +2,7 @@
 
 class ConfigManager{
 
-    public function update($mail, $persmax, $devise, $fumeur, $animaux, $parking, $cb, $cvac, $infoscomp, $supplitsstatus, $supplits, $suppsaisonstatus, $suppsaison, $supptidejstatus, $supptidej, $tidejcompris, $suppdiversstatus, $suppdiverstext, $suppdivers){
+    public function update($mail, $persmax, $devise, $fumeur, $animaux, $parking, $cb, $cvac, $infoscompen, $infoscompfr, $supplitsstatus, $supplits, $suppsaisonstatus, $suppsaison, $supptidejstatus, $supptidej, $tidejcompris, $suppdiversstatus, $suppdiverstexten, $suppdiverstextfr, $suppdivers){
       global $wpdb, $table_prefix;
       $config_table = $table_prefix . 'hb_config';
       $wpdb->update(
@@ -16,7 +16,8 @@ class ConfigManager{
           'parking' => $parking,
           'cb' => $cb,
           'cvac' => $cvac,
-          'infoscomp' => $infoscomp,
+          'infoscompen' => $infoscompen,
+          'infoscompfr' => $infoscompfr,
           'supplitsstatus' => $supplitsstatus,
           'supplits' => $supplits,
           'suppsaisonstatus' => $suppsaisonstatus,
@@ -25,7 +26,8 @@ class ConfigManager{
           'supptidej' => $supptidej,
           'tidejcompris' => $tidejcompris,
           'suppdiversstatus' => $suppdiversstatus,
-          'suppdiverstext' => $suppdiverstext,
+          'suppdiverstexten' => $suppdiverstexten,
+          'suppdiverstextfr' => $suppdiverstextfr,
           'suppdivers' => $suppdivers
       	),
       	array( 'ID' => 1 ),
@@ -39,6 +41,7 @@ class ConfigManager{
           '%d',
           '%d',
           '%s',
+          '%s',
           '%d',
           '%d',
           '%d',
@@ -47,6 +50,7 @@ class ConfigManager{
           '%d',
           '%d',
           '%d',
+          '%s',
           '%s',
           '%d'
       	)
