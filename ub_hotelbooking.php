@@ -86,6 +86,7 @@ function create_plugin_database_table()
       $sqlr .= "  `tv`  int(11) DEFAULT 0, ";
       $sqlr .= "  `baignoire`  int(11) DEFAULT 0, ";
       $sqlr .= "  `wifi`  int(11) DEFAULT 0, ";
+      $sqlr .= "  `clim`  int(11) DEFAULT 0, ";
       $sqlr .= "  `photo`  varchar(255) DEFAULT 'default.png', ";
       $sqlr .= "  `for1`  int(11), ";
       $sqlr .= "  `for2`  int(11), ";
@@ -108,6 +109,7 @@ function create_plugin_database_table()
         'tv' => '1',
         'baignoire' => '1',
         'wifi' => '1',
+        'clim' => '1',
         'for1' => '65',
         'for2' => '70',
         'for3' => '80',
@@ -124,6 +126,7 @@ function create_plugin_database_table()
         'tv' => '1',
         'baignoire' => '0',
         'wifi' => '1',
+        'wifi' => '0',
         'for1' => '55',
         'for2' => '55',
         'for3' => '75',
