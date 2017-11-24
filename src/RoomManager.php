@@ -13,7 +13,7 @@ class RoomManager{
             $dateAup = date("Y-m-d", strtotime($dateA . ' +1 day'));
             $dateBup = date("Y-m-d", strtotime($dateB . ' -1 day'));
 
-            $room = $wpdb->get_results("SELECT C.id, C.chambre, C.max, C.lits, C.douche, C.wc, C.tel, C.tv, C.baignoire, C.wifi, C.clim, C.photo, C.for1, C.for2, C.for3, C.for4, C.supp, C.infosup, R.datedepart
+            $room = $wpdb->get_results("SELECT C.id, C.chambre, C.max, C.lits, C.douche, C.wc, C.tel, C.tv, C.baignoire, C.wifi, C.clim, C.photo, C.for1, C.for2, C.for3, C.for4, C.infosup, R.datedepart
             FROM $rooms_table C
             LEFT JOIN $resa_table R
             ON C.chambre = R.chambre
@@ -46,7 +46,7 @@ class RoomManager{
             $dateBup = date("Y-m-d", strtotime($dateB . ' -1 day'));
 
 
-              $room = $wpdb->get_results("SELECT C.id, C.chambre, C.max, C.lits, C.douche, C.wc, C.tel, C.tv, C.baignoire, C.wifi, C.clim, C.photo, C.for1, C.for2, C.for3, C.for4, C.supp, C.infosup
+              $room = $wpdb->get_results("SELECT C.id, C.chambre, C.max, C.lits, C.douche, C.wc, C.tel, C.tv, C.baignoire, C.wifi, C.clim, C.photo, C.for1, C.for2, C.for3, C.for4, C.infosup
               FROM $rooms_table C
               LEFT JOIN $resa_table R
               ON C.chambre = R.chambre
@@ -128,7 +128,7 @@ class RoomManager{
       return $room[0]->nombre;
     }
 
-    public function addRoom($chambre, $max, $lits, $douche, $wc, $tel, $tv, $baignoire, $wifi, $clim, $photo, $for1, $for2, $for3, $for4, $supp, $infosup){
+    public function addRoom($chambre, $max, $lits, $douche, $wc, $tel, $tv, $baignoire, $wifi, $clim, $photo, $for1, $for2, $for3, $for4, $infosup){
       global $wpdb, $table_prefix;
       $photo = 'default.png';
       if($douche !== NULL){
@@ -192,7 +192,6 @@ class RoomManager{
           'for2' => $for2,
           'for3' => $for3,
           'for4' => $for4,
-          'supp' => $supp,
           'infosup' => $infosup
         ),
         array(
@@ -207,7 +206,6 @@ class RoomManager{
           '%d',
           '%d',
           '%s',
-          '%d',
           '%d',
           '%d',
           '%d',

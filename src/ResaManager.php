@@ -9,7 +9,7 @@ class ResaManager{
         return $post;
     }
 
-    public function addResaManuel($nom, $email, $tel, $nombrep, $chambre, $chambreid, $dateA, $dateD, $infos, $tarif, $nuits, $confirmclient, $cleconfirm, $supp){
+    public function addResaManuel($nom, $email, $tel, $nombrep, $chambre, $chambreid, $dateA, $dateD, $infos, $tarif, $nuits, $confirmclient, $cleconfirm, $supp, $tidej, $divers){
       global $wpdb, $table_prefix;
       $wpdb->insert(
         'wp_hb_resa',
@@ -27,7 +27,9 @@ class ResaManager{
            'nuits' => $nuits,
            'confirmclient' => $confirmclient,
            'cleconfirm' => $cleconfirm,
-           'supp' => $supp
+           'supp' => $supp,
+           'tidej' => $tidej,
+           'divers' => $divers
         ),
         array(
           '%s',
@@ -43,12 +45,14 @@ class ResaManager{
           '%d',
           '%d',
           '%s',
+          '%d',
+          '%d',
           '%d'
         )
       );
     }
 
-    public function resaAuto($nom, $email, $tel, $nbp, $chambre, $chambreid, $dateA, $dateB, $infos, $tarif, $nuits, $confirm, $cle, $supp){
+    public function resaAuto($nom, $email, $tel, $nbp, $chambre, $chambreid, $dateA, $dateB, $infos, $tarif, $nuits, $confirm, $cle, $supp, $tidej, $divers){
       global $wpdb, $table_prefix;
       $wpdb->insert(
         'wp_hb_resa',
@@ -66,7 +70,9 @@ class ResaManager{
            'nuits' => $nuits,
            'confirmclient' => $confirm,
            'cleconfirm' => $cle,
-           'supp' => $supp
+           'supp' => $supp,
+           'tidej' => $tidej,
+           'divers' => $divers
         ),
         array(
           '%s',
@@ -82,6 +88,8 @@ class ResaManager{
           '%d',
           '%d',
           '%s',
+          '%d',
+          '%d',
           '%d'
         )
       );
@@ -236,8 +244,44 @@ Ceci est un mail automatique, Merci de ne pas y répondre.';
     }
 
     public function calculTarif($nuits, $roomId, $nombrep, $supp){
+
         global $wpdb, $table_prefix;
         $rooms_table = $table_prefix . 'hb_rooms';
+
+
+
+
+
+
+
+
+
+
+
+        $config_table = $table_prefix . 'hb_config';
+
+        $getConfig = $wpdb->get_results("SELECT * FROM $config_table WHERE id = 1");
+
+        $suppSaison = 0;
+
+        if ($getConfig[0]->suppsaisonstatus == 1){
+          $suppSaison = $getConfig[0]->suppsaison;
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
         if ($nombrep == 1){
             $nb = 'for1';
@@ -255,9 +299,9 @@ Ceci est un mail automatique, Merci de ne pas y répondre.';
 
         if ((int)$supp == 1){
           $suppAdd = $requete[0]->supp;
-          $tarif = (int) $nuits * ((int) $prix + (int) $suppAdd);
+          $tarif = (int) $nuits * ((int) $prix + (int) $suppAdd + (int) $suppSaison);
         } else {
-          $tarif = (int) $nuits * (int) $prix;
+          $tarif = (int) $nuits * ((int) $prix + + (int) $suppSaison);
         }
 
 

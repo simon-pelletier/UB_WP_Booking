@@ -28,7 +28,7 @@ if (isset($_POST['ajouterChambre'])){
             $longueur = $dimensions[0];
             $largeur = $dimensions[1];
              if ($longueur==300 && $largeur==300) {
-               $roomManager->addRoom($_POST['chambre'], $_POST['max'], $_POST['lits'], $_POST['douche'], $_POST['wc'], $_POST['tel'], $_POST['tv'], $_POST['baignoire'], $_POST['wifi'], $_POST['clim'], $_POST['photo'], $_POST['for1'], $_POST['for2'], $_POST['for3'], $_POST['for4'], $_POST['supp'], $_POST['infosup']);
+               $roomManager->addRoom($_POST['chambre'], $_POST['max'], $_POST['lits'], $_POST['douche'], $_POST['wc'], $_POST['tel'], $_POST['tv'], $_POST['baignoire'], $_POST['wifi'], $_POST['clim'], $_POST['photo'], $_POST['for1'], $_POST['for2'], $_POST['for3'], $_POST['for4'], $_POST['infosup']);
                $messageRoom = 'La chambre a bien été ajoutée';
 
                 $roomManager->ajoutPhoto($_FILES['photo']['name'], $_FILES['photo']['tmp_name']);
@@ -39,7 +39,7 @@ if (isset($_POST['ajouterChambre'])){
              $messageRoomError = 'Votre photo ne doit pas dépasser 2Mo<br/>';
          }
     } else {
-      $roomManager->addRoom($_POST['chambre'], $_POST['max'], $_POST['lits'], $_POST['douche'], $_POST['wc'], $_POST['tel'], $_POST['tv'], $_POST['baignoire'], $_POST['wifi'], $_POST['clim'], $_POST['photo'], $_POST['for1'], $_POST['for2'], $_POST['for3'], $_POST['for4'], $_POST['supp'], $_POST['infosup']);
+      $roomManager->addRoom($_POST['chambre'], $_POST['max'], $_POST['lits'], $_POST['douche'], $_POST['wc'], $_POST['tel'], $_POST['tv'], $_POST['baignoire'], $_POST['wifi'], $_POST['clim'], $_POST['photo'], $_POST['for1'], $_POST['for2'], $_POST['for3'], $_POST['for4'], $_POST['infosup']);
       $messageRoom = 'La chambre a bien été ajoutée';
     }
   }
@@ -58,6 +58,8 @@ if (isset($_POST['update'])){
       $_POST['cb'],
       $_POST['cvac'],
       $_POST['infoscomp'],
+      $_POST['supplitsstatus'],
+      $_POST['supplits'],
       $_POST['suppsaisonstatus'],
       $_POST['suppsaison'],
       $_POST['supptidejstatus'],
@@ -115,6 +117,9 @@ if (isset($_POST['update'])){
               <br/>
               <td>Infos générales : <input type="text" name="infoscomp" value="<?php echo $config[0]->infoscomp ?>" class="infoscomp"/></td>
               <br/>
+              <td>Supp Lits séparés : <input type="checkbox" name="supplitsstatus" value="1" <?php echo $configManager->checkedOrNot($config[0]->supplitsstatus); ?>/></td>
+              <td>Montant : <input type="text" name="supplits" value="<?php echo $config[0]->supplits ?>" class="supp"/></td> <?php echo $config[0]->devise ?>
+              <br/>
               <td>Supp Saison : <input type="checkbox" name="suppsaisonstatus" value="1" <?php echo $configManager->checkedOrNot($config[0]->suppsaisonstatus); ?>/></td>
               <td>Montant : <input type="text" name="suppsaison" value="<?php echo $config[0]->suppsaison ?>" class="supp"/></td> <?php echo $config[0]->devise ?>
               <br/>
@@ -162,7 +167,6 @@ if (isset($_POST['update'])){
           <th>2<img src="<?php echo esc_url( home_url( '/' ) ) ?>wp-content/plugins/ub_hotelbooking/web/img/max.svg" class="resaImg"/></th>
           <th>3<img src="<?php echo esc_url( home_url( '/' ) ) ?>wp-content/plugins/ub_hotelbooking/web/img/max.svg" class="resaImg"/></th>
           <th>4<img src="<?php echo esc_url( home_url( '/' ) ) ?>wp-content/plugins/ub_hotelbooking/web/img/max.svg" class="resaImg"/></th>
-          <th>2<img src="<?php echo esc_url( home_url( '/' ) ) ?>wp-content/plugins/ub_hotelbooking/web/img/lits.svg" class="resaImg"/></th>
           <th>Infos</th>
           <th></th>
           </tr>
@@ -196,7 +200,6 @@ if (isset($_POST['update'])){
             <td><input type="text" style="max-width:30px;" name="for2"/></td>
             <td><input type="text" style="max-width:30px;" name="for3"/></td>
             <td><input type="text" style="max-width:30px;" name="for4"/></td>
-            <td><input type="text" style="max-width:30px;" name="supp"/></td>
             <td><input type="text" style="max-width:100px;" name="infosup"/></td>
             <td><input type="submit" name="ajouterChambre" value="Add"/></td>
             </form>
@@ -221,7 +224,6 @@ if (isset($_POST['update'])){
           echo '<td>', $room->for2, ' ', $config[0]->devise, '</td>';
           echo '<td>', $room->for3, ' ', $config[0]->devise, '</td>';
           echo '<td>', $room->for4, ' ', $config[0]->devise, '</td>';
-          echo '<td>', $room->supp, ' ', $config[0]->devise, '</td>';
           echo '<td>', $room->infosup, '</td>';
           echo '<td><a href="admin.php?page=UBHBADMIN&supprimerRoom=', $room->id, '&photo=', $room->photo, '">Delete</a></td>';
           echo '</tr>';

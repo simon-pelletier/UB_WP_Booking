@@ -64,6 +64,8 @@ function create_plugin_database_table()
       $sql .= "  `cb`  int(11), ";
       $sql .= "  `cvac`  int(11), ";
       $sql .= "  `infoscomp`  text, ";
+      $sql .= "  `supplitsstatus`  int(11), ";
+      $sql .= "  `supplits`  int(11), ";
       $sql .= "  `suppsaisonstatus`  int(11), ";
       $sql .= "  `suppsaison`  int(11), ";
       $sql .= "  `supptidejstatus`  int(11), ";
@@ -89,7 +91,8 @@ function create_plugin_database_table()
         'cb' => '1',
         'cvac' => '1',
         'infoscomp' => 'Un restaurant est à votre disposition au RDC',
-        'suppsaisonstatus' => NULL,
+        'supplitsstatus' => '1',
+        'supplits' => '5',
         'suppsaison' => '13',
         'supptidejstatus' => '1',
         'supptidej' => '5',
@@ -119,7 +122,6 @@ function create_plugin_database_table()
       $sqlr .= "  `for2`  int(11), ";
       $sqlr .= "  `for3`  int(11), ";
       $sqlr .= "  `for4`  int(11), ";
-      $sqlr .= "  `supp`  int(11), ";
       $sqlr .= "  `infosup`  text, ";
       $sqlr .= "  PRIMARY KEY `order_id` (`id`) ";
       $sqlr .= ") ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ; ";
@@ -142,7 +144,6 @@ function create_plugin_database_table()
         'for2' => '70',
         'for3' => '80',
         'for4' => '85',
-        'supp' => '5',
         'infosup' => 'Vue sur la mer'
       ));
       $wpdb->insert($wp_table_room, array(
@@ -160,7 +161,6 @@ function create_plugin_database_table()
         'for2' => '55',
         'for3' => '75',
         'for4' => '85',
-        'supp' => '5',
         'infosup' => ''
       ));
   }
@@ -182,7 +182,9 @@ function create_plugin_database_table()
       $sqla .= "  `nuits`  int(11) DEFAULT 1, ";
       $sqla .= "  `confirmclient` int(11) DEFAULT 0, ";
       $sqla .= "  `cleconfirm`  varchar(255), ";
-      $sqla .= "  `supp`  int(11) DEFAULT 0, ";
+      $sqla .= "  `litssup`  int(11) DEFAULT 0, ";
+      $sqla .= "  `tidej`  int(11) DEFAULT 0, ";
+      $sqla .= "  `divers`  int(11) DEFAULT 0, ";
       $sqla .= "  PRIMARY KEY `order_id` (`id`) ";
       $sqla .= ") ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ; ";
       require_once( ABSPATH . '/wp-admin/includes/upgrade.php' );
@@ -203,7 +205,9 @@ function create_plugin_database_table()
         'nuits' => '15',
         'confirmclient' => '1',
         'cleconfirm' => '00000000',
-        'supp' => '0',
+        'litssup' => '0',
+        'tidej' => '1',
+        'divers' => '0'
       ));
     }
 }
