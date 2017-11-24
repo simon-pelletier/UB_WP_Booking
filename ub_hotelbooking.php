@@ -126,7 +126,8 @@ function create_plugin_database_table()
       $sqlr .= "  `for2`  int(11), ";
       $sqlr .= "  `for3`  int(11), ";
       $sqlr .= "  `for4`  int(11), ";
-      $sqlr .= "  `infosup`  text, ";
+      $sqlr .= "  `infosupen`  text, ";
+      $sqlr .= "  `infosupfr`  text, ";
       $sqlr .= "  PRIMARY KEY `order_id` (`id`) ";
       $sqlr .= ") ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ; ";
       require_once( ABSPATH . '/wp-admin/includes/upgrade.php' );
@@ -148,7 +149,8 @@ function create_plugin_database_table()
         'for2' => '70',
         'for3' => '80',
         'for4' => '85',
-        'infosup' => 'Vue sur la mer'
+        'infosupen' => 'View on the sea',
+        'infosupfr' => 'Vue sur la mer'
       ));
       $wpdb->insert($wp_table_room, array(
         'chambre' => "2",
@@ -165,7 +167,8 @@ function create_plugin_database_table()
         'for2' => '55',
         'for3' => '75',
         'for4' => '85',
-        'infosup' => ''
+        'infosupen' => '',
+        'infosupfr' => ''
       ));
   }
 

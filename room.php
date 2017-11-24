@@ -28,7 +28,7 @@ if (isset($_POST['ajouterChambre'])){
             $longueur = $dimensions[0];
             $largeur = $dimensions[1];
              if ($longueur==300 && $largeur==300) {
-               $roomManager->addRoom($_POST['chambre'], $_POST['max'], $_POST['lits'], $_POST['douche'], $_POST['wc'], $_POST['tel'], $_POST['tv'], $_POST['baignoire'], $_POST['wifi'], $_POST['clim'], $_POST['photo'], $_POST['for1'], $_POST['for2'], $_POST['for3'], $_POST['for4'], $_POST['infosup']);
+               $roomManager->addRoom($_POST['chambre'], $_POST['max'], $_POST['lits'], $_POST['douche'], $_POST['wc'], $_POST['tel'], $_POST['tv'], $_POST['baignoire'], $_POST['wifi'], $_POST['clim'], $_POST['photo'], $_POST['for1'], $_POST['for2'], $_POST['for3'], $_POST['for4'], $_POST['infosupen'], $_POST['infosupfr']);
                $messageRoom = 'The room has been added.';
 
                 $roomManager->ajoutPhoto($_FILES['photo']['name'], $_FILES['photo']['tmp_name']);
@@ -39,7 +39,7 @@ if (isset($_POST['ajouterChambre'])){
              $messageRoomError = 'Your photo must not exceed 2MB<br/>';
          }
     } else {
-      $roomManager->addRoom($_POST['chambre'], $_POST['max'], $_POST['lits'], $_POST['douche'], $_POST['wc'], $_POST['tel'], $_POST['tv'], $_POST['baignoire'], $_POST['wifi'], $_POST['clim'], $_POST['photo'], $_POST['for1'], $_POST['for2'], $_POST['for3'], $_POST['for4'], $_POST['infosup']);
+      $roomManager->addRoom($_POST['chambre'], $_POST['max'], $_POST['lits'], $_POST['douche'], $_POST['wc'], $_POST['tel'], $_POST['tv'], $_POST['baignoire'], $_POST['wifi'], $_POST['clim'], $_POST['photo'], $_POST['for1'], $_POST['for2'], $_POST['for3'], $_POST['for4'], $_POST['infosupen'], $_POST['infosupfr']);
       $messageRoom = 'The room has been added.';
     }
   }
@@ -171,7 +171,8 @@ if (isset($_POST['update'])){
           <th>2<img src="<?php echo esc_url( home_url( '/' ) ) ?>wp-content/plugins/ub_hotelbooking/web/img/max.svg" class="resaImg"/></th>
           <th>3<img src="<?php echo esc_url( home_url( '/' ) ) ?>wp-content/plugins/ub_hotelbooking/web/img/max.svg" class="resaImg"/></th>
           <th>4<img src="<?php echo esc_url( home_url( '/' ) ) ?>wp-content/plugins/ub_hotelbooking/web/img/max.svg" class="resaImg"/></th>
-          <th>Info</th>
+          <th>EN-Info</th>
+          <th>FR-Info</th>
           <th></th>
           </tr>
         <tr>
@@ -204,7 +205,8 @@ if (isset($_POST['update'])){
             <td><input type="text" style="max-width:30px;" name="for2"/></td>
             <td><input type="text" style="max-width:30px;" name="for3"/></td>
             <td><input type="text" style="max-width:30px;" name="for4"/></td>
-            <td><input type="text" style="max-width:100px;" name="infosup"/></td>
+            <td><input type="text" style="max-width:100px;" name="infosupen"/></td>
+            <td><input type="text" style="max-width:100px;" name="infosupfr"/></td>
             <td><input type="submit" name="ajouterChambre" value="Add"/></td>
             </form>
         </tr>
@@ -228,7 +230,8 @@ if (isset($_POST['update'])){
           echo '<td>', $room->for2, ' ', $config[0]->devise, '</td>';
           echo '<td>', $room->for3, ' ', $config[0]->devise, '</td>';
           echo '<td>', $room->for4, ' ', $config[0]->devise, '</td>';
-          echo '<td>', $room->infosup, '</td>';
+          echo '<td>', $room->infosupen, '</td>';
+          echo '<td>', $room->infosupfr, '</td>';
           echo '<td><a href="admin.php?page=UBHBADMIN&supprimerRoom=', $room->id, '&photo=', $room->photo, '">Delete</a></td>';
           echo '</tr>';
         }

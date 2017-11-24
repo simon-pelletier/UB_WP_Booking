@@ -177,9 +177,9 @@ if (isset($_GET['chambre']) && isset($_GET['chambreid']) ){
             echo $manager->returnImg('clim');
           }
           echo '</div>';
-          if (!empty($room->infosup)){
+          if (!empty($room->infosupen)){
             echo '<div class="infosupResa">';
-            echo $room->infosup;
+            echo $room->infosupen;
             echo '</div>';
           }
           echo '<div class="infosupGeneral">';
@@ -471,9 +471,9 @@ if (isset($_GET['chambre']) && isset($_GET['chambreid']) ){
                       }
                       echo '</div>';
 
-                      if (!empty($room->infosup)){
+                      if (!empty($room->infosupen)){
                         echo '<div class="infosup">';
-                        echo $room->infosup;
+                        echo $room->infosupen;
                         echo '</div>';
                       }
 
@@ -527,9 +527,9 @@ if (isset($_GET['chambre']) && isset($_GET['chambreid']) ){
                         }
                         echo '</div>';
 
-                        if (!empty($room->infosup)){
+                        if (!empty($room->infosupen)){
                           echo '<div class="infosup">';
-                          echo $room->infosup;
+                          echo $room->infosupen;
                           echo '</div>';
                         }
 
