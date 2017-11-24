@@ -17,7 +17,7 @@ if (isset($_GET['supprimerResa'])){
 }
 
 if (isset($_POST['ajouterResa'])){
-    $confirmclient = 1;
+    $confirmclient = 3;
 
 
 
@@ -156,11 +156,12 @@ if (isset($_POST['ajouterResa'])){
             }
             echo '<td>', $resa->tarif, ' ', $config[0]->devise, '</td>';
             echo '<td>', $resa->nuits, '</td>';
-            if($resa->confirmclient == 1)
-            {
+            if ($resa->confirmclient == 1){
                 echo '<td class="confirmoui">oui</td>';
-            }else{
+            }else if ($resa->confirmclient == 2){
                 echo '<td class="confirmnon">non</td>';
+            }else if ($resa->confirmclient == 3){
+              echo '<td class="confirmmanuel">manuel</td>';
             }
             echo '<td><a href="admin.php?page=UBHBRESA&supprimerResa=', $resa->id, '">Delete</a></td>';
             echo '</tr>';
