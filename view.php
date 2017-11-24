@@ -76,7 +76,7 @@ if(isset($_POST['reserver'])){
         $litsupp
       );
 
-      //$resaManager->sendMail($email, $cle, $_POST['nom']);
+      $resaManager->sendMail($email, $cle, $_POST['nom']);
 
       $messageResa = 'Vous allez recevoir un e-mail pour confirmer votre réservation.<br/>
       Vous allez être redirigé dans 3 secondes...
