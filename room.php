@@ -9,7 +9,7 @@ $roomManager = new RoomManager();
 $configManager = new ConfigManager();
 
 if (isset($_GET['supprimerRoom'])){
-    $messageRoom = 'La chambre a bien été supprimée';
+    $messageRoom = 'The room has been removed.';
 
     $roomManager->deleteRoom($_GET['supprimerRoom'], $_GET['photo']);
 
@@ -19,7 +19,7 @@ if (isset($_GET['supprimerRoom'])){
 if (isset($_POST['ajouterChambre'])){
 
   if($roomManager->chambreExistance($_POST['chambre']) > 0){
-    $messageRoomError = 'Ce nom de chambre existe déjà.';
+    $messageRoomError = 'This room name already exists.';
   } else {
     if (!empty($_FILES['photo']['name'])){
         $tailleMax = 2097152;
@@ -29,18 +29,18 @@ if (isset($_POST['ajouterChambre'])){
             $largeur = $dimensions[1];
              if ($longueur==300 && $largeur==300) {
                $roomManager->addRoom($_POST['chambre'], $_POST['max'], $_POST['lits'], $_POST['douche'], $_POST['wc'], $_POST['tel'], $_POST['tv'], $_POST['baignoire'], $_POST['wifi'], $_POST['clim'], $_POST['photo'], $_POST['for1'], $_POST['for2'], $_POST['for3'], $_POST['for4'], $_POST['infosup']);
-               $messageRoom = 'La chambre a bien été ajoutée';
+               $messageRoom = 'The room has been added.';
 
                 $roomManager->ajoutPhoto($_FILES['photo']['name'], $_FILES['photo']['tmp_name']);
             } else {
-                 $messageRoomError = 'Votre photo doit faire 300*300px<br/>';
+                 $messageRoomError = 'Your photo must be 300 * 300px<br/>';
              }
          } else {
-             $messageRoomError = 'Votre photo ne doit pas dépasser 2Mo<br/>';
+             $messageRoomError = 'Your photo must not exceed 2MB<br/>';
          }
     } else {
       $roomManager->addRoom($_POST['chambre'], $_POST['max'], $_POST['lits'], $_POST['douche'], $_POST['wc'], $_POST['tel'], $_POST['tv'], $_POST['baignoire'], $_POST['wifi'], $_POST['clim'], $_POST['photo'], $_POST['for1'], $_POST['for2'], $_POST['for3'], $_POST['for4'], $_POST['infosup']);
-      $messageRoom = 'La chambre a bien été ajoutée';
+      $messageRoom = 'The room has been added.';
     }
   }
 }
@@ -69,10 +69,10 @@ if (isset($_POST['update'])){
       $_POST['suppdiverstext'],
       $_POST['suppdivers']
     );
-    $messageConfig = 'Configuration sauvegardée.';
+    $messageConfig = 'Saved configuration.';
     ?><meta http-equiv="refresh" content="0; url=admin.php?page=UBHBADMIN"><?php
   } else {
-    $messageRoomError = 'Merci d\'entrer une adresse e-mail valide.';
+    $messageRoomError = 'Please enter a valid email address.';
   }
 }
 ?>

@@ -12,7 +12,7 @@ $resaManager = new ResaManager();
 $roomManager = new RoomManager();
 
 if (isset($_GET['supprimerResa'])){
-    $messageResa = 'La réservation a bien été supprimée';
+    $messageResa = 'The reservation has been deleted.';
     $wpdb->delete( 'wp_hb_resa', array( 'ID' => $_GET['supprimerResa'] ) );
 }
 
@@ -36,13 +36,13 @@ if (isset($_POST['ajouterResa'])){
 
       $resaManager->addResaManuel($_POST['nom'], $_POST['email'], $_POST['tel'], $_POST['nombrep'], $_POST['chambre'], $chambreid, $_POST['datearrivee'], $dateB, $_POST['infos'], $tarif, $nuits, $confirmclient, 0, $_POST['litsupp'], $_POST['tidej'], $_POST['divers']);
 
-      $messageResa = 'La réservation a bien été ajoutée !';
+      $messageResa = 'The reservation has been added!';
 
     } else {
-      $messageResaError = 'L\'email entré n\'est pas correct.';
+      $messageResaError = 'The email entered is not correct.';
     }
     } else {
-      $messageResaError = 'Merci de renseigner le Nom du client';
+      $messageResaError = 'Please fill in the Customer Name';
     }
 
 }
@@ -120,7 +120,6 @@ if (isset($_POST['ajouterResa'])){
                 $selectedB = $mindayd;
                  ?>
                 <td><input type="date" name="datearrivee" value="<?php echo $selectedA; ?>" min="<?php echo $mindaya; ?>" max="<?php echo $maxday; ?>" class="date"/></td>
-                <!--<td><input type="date" name="datedepart" value="<?php echo $selectedB; ?>" min="<?php echo $mindaya; ?>" max="<?php echo $maxday; ?>" class="date"/></td>-->
                 <td></td>
                 <td><input type="text" style="max-width:100px;" name="infos"/></td>
                 <td><input type="checkbox" value="1" name="litsupp"/></td>
