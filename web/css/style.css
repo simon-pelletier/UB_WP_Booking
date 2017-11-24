@@ -269,3 +269,13 @@ td{
 .suppdiverstext{
   width: 200px !important;
 }
+
+.infosupGeneral{
+  margin-top: 20px;
+  padding-top: 20px;
+  width: 100%;
+}
+
+.infoscomp{
+  font-size: 9pt;
+}

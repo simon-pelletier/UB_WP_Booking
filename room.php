@@ -169,7 +169,6 @@ if (isset($_POST['update'])){
         <tr>
            <form method="POST" action="admin.php?page=UBHBADMIN" enctype="multipart/form-data">
 
-
             <td><input type="text" style="max-width:50px;" name="chambre"/></td>
 
             <td><select name="max" size="1" class="nbpersonnes">

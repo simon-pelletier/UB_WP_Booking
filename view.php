@@ -170,6 +170,39 @@ if (isset($_GET['chambre']) && isset($_GET['chambreid']) ){
             echo $room->infosup;
             echo '</div>';
           }
+          echo '<div class="infosupGeneral">';
+          if($getConfig[0]->fumeur == 1){
+            echo $manager->returnImg('fumeur');
+          } else {
+            echo $manager->returnImg('nofumeur');
+          }
+          if($getConfig[0]->animaux == 1){
+            echo $manager->returnImg('animaux');
+          } else {
+            echo $manager->returnImg('noanimaux');
+          }
+          if($getConfig[0]->parking == 1){
+            echo $manager->returnImg('parking');
+          } else {
+
+          }
+          if($getConfig[0]->cb == 1){
+            echo $manager->returnImg('cb');
+          } else {
+            echo $manager->returnImg('nocb');
+          }
+          if($getConfig[0]->cvac == 1){
+            echo $manager->returnImg('cvac');
+          } else {
+            echo $manager->returnImg('nocvac');
+          }
+          if($getConfig[0]->infoscomp !== NULL){
+            echo '<br/>';
+            echo '<span class="infoscomp">' . $getConfig[0]->infoscomp . '</span>';
+          } else {
+            echo $manager->returnImg('nocvac');
+          }
+          echo '</div>';
           echo '</div>';
         }
         ?>
