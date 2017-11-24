@@ -57,8 +57,21 @@ function create_plugin_database_table()
       $sql .= "  `id`  int(11)   NOT NULL auto_increment, ";
       $sql .= "  `adminmail`  varchar(255), ";
       $sql .= "  `personnesmax`  int(10), ";
-      $sql .= "  `language`  text, ";
       $sql .= "  `devise`  text, ";
+      $sql .= "  `fumeur`  int(11), ";
+      $sql .= "  `animaux`  int(11), ";
+      $sql .= "  `parking`  int(11), ";
+      $sql .= "  `cb`  int(11), ";
+      $sql .= "  `cvac`  int(11), ";
+      $sql .= "  `infoscomp`  text, ";
+      $sql .= "  `suppsaisonstatus`  int(11), ";
+      $sql .= "  `suppsaison`  int(11), ";
+      $sql .= "  `supptidejstatus`  int(11), ";
+      $sql .= "  `supptidej`  int(11), ";
+      $sql .= "  `tidejcompris`  int(11), ";
+      $sql .= "  `suppdiversstatus`  int(11), ";
+      $sql .= "  `suppdiverstext`  text, ";
+      $sql .= "  `suppdivers`  int(11), ";
       $sql .= "  PRIMARY KEY `order_id` (`id`) ";
       $sql .= ") ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ; ";
       require_once( ABSPATH . '/wp-admin/includes/upgrade.php' );
@@ -69,7 +82,21 @@ function create_plugin_database_table()
       $wpdb->insert($wp_table_config, array(
         'adminmail' => $admin_email,
         'personnesmax' => '4',
-        'devise' => '€'
+        'devise' => '€',
+        'fumeur' => '0',
+        'animaux' => '1',
+        'parking' => '1',
+        'cb' => '1',
+        'cvac' => '1',
+        'infoscomp' => 'Un restaurant est à votre disposition au RDC',
+        'suppsaisonstatus' => '0',
+        'suppsaison' => '13',
+        'supptidejstatus' => '1',
+        'supptidej' => '5',
+        'tidejcompris' => '0',
+        'suppdiversstatus' => '1',
+        'suppdiverstext' => 'Pressing',
+        'suppdivers' => '8'
       ));
   }
 
