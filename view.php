@@ -123,7 +123,6 @@ if (isset($_GET['chambre']) && isset($_GET['chambreid']) ){
   <!DOCTYPE HTML>
   <html>
     <head>
-       <title>Hotel Booking Page</title>
        <meta charset="utf-8"/>
        <link rel="stylesheet" type="text/css" href="<?php echo esc_url( home_url( '/' ) ) ?>wp-content/plugins/ub_hotelbooking/web/css/style.css">
      </head>
@@ -325,7 +324,6 @@ if (isset($_GET['chambre']) && isset($_GET['chambreid']) ){
     <!DOCTYPE HTML>
     <html>
        <head>
-           <title>Hotel Booking Page</title>
            <meta charset="utf-8"/>
            <meta http-equiv="refresh" content="3; url=.">
            <link rel="stylesheet" type="text/css" href="<?php echo esc_url( home_url( '/' ) ) ?>wp-content/plugins/ub_hotelbooking/web/css/style.css">
@@ -368,7 +366,6 @@ if (isset($_GET['chambre']) && isset($_GET['chambreid']) ){
           <!DOCTYPE HTML>
           <html>
              <head>
-                 <title>Hotel Booking Page</title>
                  <meta charset="utf-8"/>
                  <link rel="stylesheet" type="text/css" href="<?php echo esc_url( home_url( '/' ) ) ?>wp-content/plugins/ub_hotelbooking/web/css/style.css">
              </head>
