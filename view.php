@@ -298,9 +298,14 @@ if (isset($_GET['chambre']) && isset($_GET['chambreid']) ){
           <form method="POST" action=".">
           <center>
           <label>Date d'arrivée <input type="date" name="arrivee" value="<?php echo $selectedA; ?>" min="<?php echo $mindaya; ?>" max="<?php echo $maxday; ?>" class="date"/></label>
-          <!--<label>Date de départ <input type="date" name="depart" value="<?php echo $selectedB; ?>" min="<?php echo $mindaya; ?>" max="<?php echo $maxday; ?>" class="date"/></label>-->
-
-          <label>Nombre de nuits <input type="text" name="nbnuits" value="1" class="nbnuits"/></label>
+          <?php
+          if (isset($_POST['nbnuits'])){
+            $nval = $_POST['nbnuits'];
+          } else {
+            $nval = 1;
+          }
+          ?>
+          <label>Nombre de nuits <input type="text" name="nbnuits" value="<?php echo $nval; ?>" class="nbnuits"/></label>
 
           <div class="choixnbpersonnes">
           <p><label>Nombre de personnes :
