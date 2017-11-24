@@ -200,12 +200,11 @@ td{
     font-size: 20pt;
 }
 
-#resaArea{
+.resaArea{
     display: block;
     margin: auto;
     width: 100%;
     text-align: center;
-    padding-top: 40px;
 }
 
 .chambreResa{
@@ -240,4 +239,8 @@ td{
   width: 50%;
   margin-left: 0px;
   text-align: center;
+}
+
+.nbnuits{
+
 }
