@@ -26,6 +26,11 @@ if (isset($_POST['nombrepersonnes'])){
 } else {
   $nombreDePersonnes = 1;
 }
+if (isset($_POST['nbnuits'])){
+  $nombreDeNuits = $_POST['nbnuits'];
+} else {
+  $nombreDeNuits = 1;
+}
 if(isset($_POST['selecteddate'])){
   $selectedA = $_POST['arrivee'];
   $selectedB = $_POST['depart'];
@@ -380,7 +385,19 @@ if (isset($_GET['chambre']) && isset($_GET['chambreid']) ){
             $nval = 1;
           }
           ?>
-          <label>Nombre de nuits <input type="text" name="nbnuits" value="<?php echo $nval; ?>" class="nbnuits"/></label>
+          <label>Nombre de nuits :
+          <select name="nbnuits" size="1" class="nbpersonnes">
+          <?php
+           for ($j = 1; $j <= 30; $j++){
+               if ($nombreDeNuits == $j){
+                   echo '<option selected>' . $j . '</option>';
+               } else {
+                   echo '<option>' . $j . '</option>';
+               }
+           }
+          ?>
+        </select>
+        </label>
 
           <div class="choixnbpersonnes">
           <p><label>Nombre de personnes :
