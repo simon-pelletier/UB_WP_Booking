@@ -71,7 +71,6 @@ if (isset($_POST['update'])){
           ?>
         <form method="POST" action="admin.php?page=UBHBADMIN">
           <label>Admin E-mail : <input type="text" style="max-width:250px;" name="adminmail" value="<?php echo $config[0]->adminmail ?>"/></label>
-
           <label>Max people : <select name="persmax" size="1" class="nbpersonnes">
              <?php
               for ($i=1; $i <= 10; $i++){
@@ -83,7 +82,6 @@ if (isset($_POST['update'])){
 
               }
               ?></select></label>
-
               <label>Currency : <input type="text" style="max-width:30px;" name="devise" value="<?php echo $config[0]->devise ?>"/></label>
 
           <input type="submit" name="update" value="Save"/>

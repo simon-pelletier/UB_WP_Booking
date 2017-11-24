@@ -10,13 +10,41 @@ class ConfigManager{
       	array(
       		'adminmail' => $mail,
       		'personnesmax' => $persmax,
-      		'devise' => $devise
+      		'devise' => $devise,
+          'fumeur' => $fumeur,
+          'animaux' => $animaux,
+          'parking' => $parking,
+          'cb' => $cb,
+          'cvac' => $cvac,
+          'infoscomp' => $infoscomp,
+          'suppsaisonstatus' => $suppsaisonstatus,
+          'suppsaison' => $suppsaison,
+          'supptidejstatus' => $supptidejstatus,
+          'supptidej' => $supptidej,
+          'tidejcompris' => $tidejcompris,
+          'suppdiversstatus' => $suppdiversstatus,
+          'suppdiverstext' => $suppdiverstext,
+          'suppdivers' => $suppdivers
       	),
       	array( 'ID' => 1 ),
       	array(
       		'%s',
       		'%d',
-      		'%s'
+      		'%s',
+          '%d',
+          '%d',
+          '%d',
+          '%d',
+          '%d',
+          '%s',
+          '%d',
+          '%d',
+          '%d',
+          '%d',
+          '%d',
+          '%d',
+          '%s',
+          '%d',
       	)
       );
 
