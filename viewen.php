@@ -262,15 +262,13 @@ if (isset($_GET['chambre']) && isset($_GET['chambreid']) ){
             if ($_GET['nbp'] == 2){
               if ($getConfig[0]->supplitsstatus !== NULL){
                 ?>
-                <label>Separate beds :<br/><input type="checkbox" value="1" name="litsep" /> ( + <?php echo $getConfig[0]->supplits . ' ' . $getConfig[0]->devise ?> )</label>
+                <label>Separate beds :<br/><input type="checkbox" value="1" name="litsep" /> ( + <?php echo $getConfig[0]->supplits . ' ' . $getConfig[0]->devise ?> )</label><br/>
                 <?php
               }
             }
-
-
             ?>
-            <br/><br/><br/>
-            <center><input type="submit" name="reserver" value="Book" class="btn"/></center>
+            <br/>
+            <center><input type="submit" name="reserver" value="Book" class="btnr"/></center>
             </div>
 
           </form>

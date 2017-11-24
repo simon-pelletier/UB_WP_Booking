@@ -74,6 +74,14 @@ a, a:hover, a:visited, a:active{
     cursor: pointer;
     font-weight: 600;
 }
+.btnr{
+    color: #ffffff;
+    background-color: #57af46 !important;
+    border: none;
+    padding: 15px;
+    cursor: pointer;
+    font-weight: 600;
+}
 
 .icon{
     //padding-right: 10px;
@@ -254,6 +262,7 @@ td{
   width: 50%;
   margin-left: 0px;
   text-align: center;
+  margin-top: 40px;
 }
 
 .nbnuits{
