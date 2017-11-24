@@ -28,7 +28,7 @@ if (isset($_POST['ajouterChambre'])){
             $longueur = $dimensions[0];
             $largeur = $dimensions[1];
              if ($longueur==300 && $largeur==300) {
-               $roomManager->addRoom($_POST['chambre'], $_POST['max'], $_POST['lits'], $_POST['douche'], $_POST['wc'], $_POST['tel'], $_POST['tv'], $_POST['baignoire'], $_POST['wifi'], $_POST['photo'], $_POST['for1'], $_POST['for2'], $_POST['for3'], $_POST['for4'], $_POST['supp']);
+               $roomManager->addRoom($_POST['chambre'], $_POST['max'], $_POST['lits'], $_POST['douche'], $_POST['wc'], $_POST['tel'], $_POST['tv'], $_POST['baignoire'], $_POST['wifi'], $_POST['clim'], $_POST['photo'], $_POST['for1'], $_POST['for2'], $_POST['for3'], $_POST['for4'], $_POST['supp']);
                $messageRoom = 'La chambre a bien été ajoutée';
 
                 $roomManager->ajoutPhoto($_FILES['photo']['name'], $_FILES['photo']['tmp_name']);
@@ -39,7 +39,7 @@ if (isset($_POST['ajouterChambre'])){
              $messageRoomError = 'Votre photo ne doit pas dépasser 2Mo<br/>';
          }
     } else {
-      $roomManager->addRoom($_POST['chambre'], $_POST['max'], $_POST['lits'], $_POST['douche'], $_POST['wc'], $_POST['tel'], $_POST['tv'], $_POST['baignoire'], $_POST['wifi'], $_POST['photo'], $_POST['for1'], $_POST['for2'], $_POST['for3'], $_POST['for4'], $_POST['supp']);
+      $roomManager->addRoom($_POST['chambre'], $_POST['max'], $_POST['lits'], $_POST['douche'], $_POST['wc'], $_POST['tel'], $_POST['tv'], $_POST['baignoire'], $_POST['wifi'], $_POST['clim'], $_POST['photo'], $_POST['for1'], $_POST['for2'], $_POST['for3'], $_POST['for4'], $_POST['supp']);
       $messageRoom = 'La chambre a bien été ajoutée';
     }
   }
@@ -115,6 +115,7 @@ if (isset($_POST['update'])){
           <th><img src="<?php echo esc_url( home_url( '/' ) ) ?>wp-content/plugins/ub_hotelbooking/web/img/tv.svg" class="resaImg"/></th>
           <th><img src="<?php echo esc_url( home_url( '/' ) ) ?>wp-content/plugins/ub_hotelbooking/web/img/baignoire.svg" class="resaImg"/></th>
           <th><img src="<?php echo esc_url( home_url( '/' ) ) ?>wp-content/plugins/ub_hotelbooking/web/img/wifi.svg" class="resaImg"/></th>
+          <th><img src="<?php echo esc_url( home_url( '/' ) ) ?>wp-content/plugins/ub_hotelbooking/web/img/clim.svg" class="resaImg"/></th>
           <th>Photo 300*300px</th>
           <th>1<img src="<?php echo esc_url( home_url( '/' ) ) ?>wp-content/plugins/ub_hotelbooking/web/img/max.svg" class="resaImg"/></th>
           <th>2<img src="<?php echo esc_url( home_url( '/' ) ) ?>wp-content/plugins/ub_hotelbooking/web/img/max.svg" class="resaImg"/></th>
@@ -148,6 +149,7 @@ if (isset($_POST['update'])){
             <td><input type="checkbox" name="tv" value="1"/></td>
             <td><input type="checkbox" name="baignoire" value="1"/></td>
             <td><input type="checkbox" name="wifi" value="1"/></td>
+            <td><input type="checkbox" name="clim" value="1"/></td>
             <td><input type="file" name="photo"/></td>
             <td><input type="text" style="max-width:30px;" name="for1"/></td>
             <td><input type="text" style="max-width:30px;" name="for2"/></td>
@@ -170,6 +172,7 @@ if (isset($_POST['update'])){
           $roomManager->imgOrNot($room->tv, 'tv');
           $roomManager->imgOrNot($room->baignoire, 'baignoire');
           $roomManager->imgOrNot($room->wifi, 'wifi');
+          $roomManager->imgOrNot($room->clim, 'clim');
 
           echo '<td><center><img src="' . esc_url( home_url( '/' ) ) . '/wp-content/plugins/ub_hotelbooking/web/img/rooms/', $room->photo,'" style="max-width:60px;"/></center></td>'; //$resAdmin->photo()
           echo '<td>', $room->for1, ' ', $config[0]->devise, '</td>';
