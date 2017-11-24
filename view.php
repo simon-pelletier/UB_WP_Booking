@@ -298,7 +298,9 @@ if (isset($_GET['chambre']) && isset($_GET['chambreid']) ){
           <form method="POST" action=".">
           <center>
           <label>Date d'arrivée <input type="date" name="arrivee" value="<?php echo $selectedA; ?>" min="<?php echo $mindaya; ?>" max="<?php echo $maxday; ?>" class="date"/></label>
-          <label>Date de départ <input type="date" name="depart" value="<?php echo $selectedB; ?>" min="<?php echo $mindaya; ?>" max="<?php echo $maxday; ?>" class="date"/></label>
+          <!--<label>Date de départ <input type="date" name="depart" value="<?php echo $selectedB; ?>" min="<?php echo $mindaya; ?>" max="<?php echo $maxday; ?>" class="date"/></label>-->
+
+          <label>Nombre de nuits <input type="text" name="nbnuits" value="1" class="nbnuits"/></label>
 
           <div class="choixnbpersonnes">
           <p><label>Nombre de personnes :
@@ -323,17 +325,18 @@ if (isset($_GET['chambre']) && isset($_GET['chambreid']) ){
              <div class="liste">
               <?php
 
-              if (isset($_POST['arrivee']) && isset($_POST['depart'])){
+              if (isset($_POST['arrivee']) && isset($_POST['nbnuits'])){
                 $countRoom = 0;
                 $getConfig = $wpdb->get_results("SELECT * FROM $config_table WHERE id = 1");
-                  foreach ($manager->roomList($_POST['arrivee'], $_POST['depart'], $_POST['nombrepersonnes']) as $room){
+                $departure = date("Y-m-d", strtotime($_POST['arrivee'] . ' +' . $_POST['nbnuits'] . ' day'));
+                  foreach ($manager->roomList($_POST['arrivee'], $departure, $_POST['nombrepersonnes']) as $room){
                       $countRoom += 1;
                       echo '<div class="rchambre">';
                       echo '<center>';
                       $pagename = basename(get_permalink());
-                      $nbreNuits = $resaManager->nombreNuits($_POST['arrivee'], $_POST['depart']);
+                      $nbreNuits = $_POST['nbnuits'];
                       $tarif = $resaManager->calculTarif($nbreNuits, $room->id, $_POST['nombrepersonnes'], 0);
-                      echo '<a href="../' . $pagename . '/?chambre=' . $room->chambre . '&dateA=' . $_POST['arrivee'] . '&dateB=' . $_POST['depart'] . '&nuits=' . $nbreNuits . '&tarif=' . $tarif . '&nbp=' . $_POST['nombrepersonnes'] . '&chambreid=' . $room->id . '" >';
+                      echo '<a href="../' . $pagename . '/?chambre=' . $room->chambre . '&dateA=' . $_POST['arrivee'] . '&dateB=' . $departure . '&nuits=' . $nbreNuits . '&tarif=' . $tarif . '&nbp=' . $_POST['nombrepersonnes'] . '&chambreid=' . $room->id . '" >';
                       echo '<img src="' . esc_url( home_url( '/' ) ) . 'wp-content/plugins/ub_hotelbooking/web/img/rooms/' . $room->photo . '" class="photo" />';
                       echo '<br/>';
                       echo '<div class="titre">Chambre ' . $room->chambre . '</div>';
@@ -370,14 +373,14 @@ if (isset($_GET['chambre']) && isset($_GET['chambreid']) ){
                       echo '</div>';
                   }
                   if ($countRoom == 0){
-                    foreach ($manager->roomListBis($_POST['arrivee'], $_POST['depart'], $_POST['nombrepersonnes']) as $room){
+                    foreach ($manager->roomListBis($_POST['arrivee'], $departure, $_POST['nombrepersonnes']) as $room){
                         $countRoom += 1;
                         echo '<div class="rchambre">';
                         echo '<center>';
                         $pagename = basename(get_permalink());
-                        $nbreNuits = $resaManager->nombreNuits($_POST['arrivee'], $_POST['depart']);
+                        $nbreNuits = $_POST['nbnuits'];
                         $tarif = $resaManager->calculTarif($nbreNuits, $room->id, $_POST['nombrepersonnes'], 0);
-                        echo '<a href="../' . $pagename . '/?chambre=' . $room->chambre . '&dateA=' . $_POST['arrivee'] . '&dateB=' . $_POST['depart'] . '&nuits=' . $nbreNuits . '&tarif=' . $tarif . '&nbp=' . $_POST['nombrepersonnes'] . '&chambreid=' . $room->id . '" >';
+                        echo '<a href="../' . $pagename . '/?chambre=' . $room->chambre . '&dateA=' . $_POST['arrivee'] . '&dateB=' . $departure . '&nuits=' . $nbreNuits . '&tarif=' . $tarif . '&nbp=' . $_POST['nombrepersonnes'] . '&chambreid=' . $room->id . '" >';
                         echo '<img src="' . esc_url( home_url( '/' ) ) . 'wp-content/plugins/ub_hotelbooking/web/img/rooms/' . $room->photo . '" class="photo" />';
                         echo '<br/>';
                         echo '<div class="titre">Chambre ' . $room->chambre . '</div>';

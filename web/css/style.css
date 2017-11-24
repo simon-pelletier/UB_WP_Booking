@@ -242,5 +242,10 @@ td{
 }
 
 .nbnuits{
+<<<<<<< HEAD
 
+=======
+  margin-top: 20px;
+  width: 30px !important;
+>>>>>>> nb_nuits
 }
