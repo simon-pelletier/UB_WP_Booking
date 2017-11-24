@@ -27,25 +27,14 @@ if (isset($_POST['ajouterResa'])){
       $chambreid = $resaManager->quelIdDeChambre($_POST['chambre']);
 
       $dateA = strtotime($_POST['datearrivee']);
-      $dateB = strtotime($_POST['datedepart']);
 
-      $nuitsTimestamp = $dateB - $dateA;
-      $nuits = intval($nuitsTimestamp / 86400); //60*60*24
+      $dateB = date("Y-m-d", strtotime($_POST['datearrivee'] . ' +' . (int)$_POST['nuits'] . ' day'));
 
+      $nuits = $_POST['nuits'];
 
-/*
-      if(isset($_POST['litsupp'])){
-          $supp = 1;
-          $tarif = $resaManager->calculTarif($nuits, (int) $chambreid,  (int) $_POST['nombrep'], $supp);
-      } else {
-          $supp = 0;
-          $tarif = $resaManager->calculTarif($nuits, (int) $chambreid,  (int) $_POST['nombrep'], $supp);
-      }
-
-*/
       $tarif = $resaManager->calculTarif($nuits, (int) $chambreid,  (int) $_POST['nombrep'], $_POST['litsupp']);
 
-      $resaManager->addResaManuel($_POST['nom'], $_POST['email'], $_POST['tel'], $_POST['nombrep'], $_POST['chambre'], $chambreid, $_POST['datearrivee'], $_POST['datedepart'], $_POST['infos'], $tarif, $nuits, $confirmclient, 0, $_POST['litsupp'], $_POST['tidej'], $_POST['divers']);
+      $resaManager->addResaManuel($_POST['nom'], $_POST['email'], $_POST['tel'], $_POST['nombrep'], $_POST['chambre'], $chambreid, $_POST['datearrivee'], $dateB, $_POST['infos'], $tarif, $nuits, $confirmclient, 0, $_POST['litsupp'], $_POST['tidej'], $_POST['divers']);
 
       $messageResa = 'La réservation a bien été ajoutée !';
 
@@ -131,11 +120,12 @@ if (isset($_POST['ajouterResa'])){
                 $selectedB = $mindayd;
                  ?>
                 <td><input type="date" name="datearrivee" value="<?php echo $selectedA; ?>" min="<?php echo $mindaya; ?>" max="<?php echo $maxday; ?>" class="date"/></td>
-                <td><input type="date" name="datedepart" value="<?php echo $selectedB; ?>" min="<?php echo $mindaya; ?>" max="<?php echo $maxday; ?>" class="date"/></td>
+                <!--<td><input type="date" name="datedepart" value="<?php echo $selectedB; ?>" min="<?php echo $mindaya; ?>" max="<?php echo $maxday; ?>" class="date"/></td>-->
+                <td></td>
                 <td><input type="text" style="max-width:100px;" name="infos"/></td>
                 <td><input type="checkbox" value="1" name="litsupp"/></td>
                 <td></td>
-                <td></td>
+                <td><input type="text" style="max-width:30px;" name="nuits" value="1"/></td>
                 <td></td>
                 <td><input type="submit" name="ajouterResa" value="Add"/></td>
               </form></tr>
