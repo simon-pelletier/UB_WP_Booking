@@ -133,12 +133,13 @@ div.ub-liste{
 }
 
 .ub-nbpersonnes{
-    color: #ffffff;
-    background-color: #333333;
+    color: #ffffff !important;
+    background-color: #333333 !important;
     border: none;
     height: 30px;
     text-align: center;
     padding-left: 10px;
+    width: 60px;
 }
 
 .ub-resaImg{
@@ -186,7 +187,7 @@ div.ub-liste a, div.liste a:hover, div.liste a:visited, div.liste a:active{
 /* ------------------------ BTNS ------------------------ */
 
 .ub-btnrecherche{
-    color: #ffffff;
+    color: #ffffff !important;
     background-color: #333333 !important;
     border: none;
     padding: 15px;

@@ -16,19 +16,19 @@ add_action('admin_menu', 'UBHBADMIN');
 add_action('admin_menu', 'UBHBRESA');
 
 function UBHBADMIN(){
-  add_menu_page( 'UB Hotel Booking', 'Rooms', 'manage_options', 'UBHBADMIN', 'chambreView', 'dashicons-building' );
+  add_menu_page( 'Rooms', 'Rooms', 'manage_options', 'UBHBADMIN', 'chambreView', 'dashicons-building' );
 }
 
 function UBHBRESA(){
-  add_menu_page( 'UB Hotel Booking', 'Booking', 'manage_options', 'UBHBRESA', 'resaView', 'dashicons-book-alt' );
+  add_menu_page( 'Booking', 'Booking', 'manage_options', 'UBHBRESA', 'resaView', 'dashicons-book-alt' );
 }
 
 function chambreView(){
-  include('../wp-content/plugins/ub_hotelbooking/room.php');
+  include('room.php');
 }
 
 function resaView(){
-  include('../wp-content/plugins/ub_hotelbooking/resa.php');
+  include('resa.php');
 }
 
 function searchViewen(){
@@ -38,7 +38,6 @@ function searchViewen(){
 function searchView(){
   include('view.php');
 }
-
 
 function create_plugin_database_table()
 {

@@ -372,6 +372,7 @@ if (isset($_GET['chambre']) && isset($_GET['chambreid']) ){
           <div class="ub-recherche">
           <form method="POST" action=".">
           <center>
+          <br/>
           <label>Arrival date <input type="date" name="arrivee" value="<?php echo $selectedA; ?>" min="<?php echo $mindaya; ?>" max="<?php echo $maxday; ?>" class="ub-date"/></label>
           <?php
           if (isset($_POST['nbnuits'])){
@@ -380,6 +381,7 @@ if (isset($_GET['chambre']) && isset($_GET['chambreid']) ){
             $nval = 1;
           }
           ?>
+          <br/>
           <label>Number of nights :
           <select name="nbnuits" size="1" class="ub-nbpersonnes">
           <?php

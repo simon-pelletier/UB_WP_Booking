@@ -1,7 +1,9 @@
 <?php
+
 require 'src/autoload.php';
 
 global $wpdb, $table_prefix;
+$resa_table = $table_prefix . 'hb_resa';
 $rooms_table = $table_prefix . 'hb_rooms';
 $config_table = $table_prefix . 'hb_config';
 
@@ -82,7 +84,7 @@ if (isset($_POST['update'])){
 <!DOCTYPE HTML>
 <html>
    <head>
-       <title>Hotel Booking Admin</title>
+       <title>Rooms</title>
        <meta charset="utf-8"/>
        <link rel="stylesheet" type="text/css" href="<?php echo esc_url( home_url( '/' ) ) ?>wp-content/plugins/ub_hotelbooking/web/css/style.css"/>
    </head>

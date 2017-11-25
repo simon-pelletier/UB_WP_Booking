@@ -51,7 +51,7 @@ if (isset($_POST['ajouterResa'])){
 <!DOCTYPE HTML>
 <html>
    <head>
-       <title>Hotel Booking Admin</title>
+       <title>Booking</title>
        <meta charset="utf-8"/>
        <link rel="stylesheet" type="text/css" href="<?php echo esc_url( home_url( '/' ) ) ?>wp-content/plugins/ub_hotelbooking/web/css/style.css"/>
    </head>

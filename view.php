@@ -374,6 +374,7 @@ if (isset($_GET['chambre']) && isset($_GET['chambreid']) ){
           <div class="ub-recherche">
           <form method="POST" action=".">
           <center>
+          <br/>
           <label>Date d'arrivée <input type="date" name="arrivee" value="<?php echo $selectedA; ?>" min="<?php echo $mindaya; ?>" max="<?php echo $maxday; ?>" class="ub-date"/></label>
           <?php
           if (isset($_POST['nbnuits'])){
@@ -382,8 +383,9 @@ if (isset($_GET['chambre']) && isset($_GET['chambreid']) ){
             $nval = 1;
           }
           ?>
+          <br/>
           <label>Nombre de nuits :
-          <select name="nbnuits" size="1" class="nbpersonnes">
+          <select name="nbnuits" size="1" class="ub-nbpersonnes">
           <?php
            for ($j = 1; $j <= 30; $j++){
                if ($nombreDeNuits == $j){
@@ -398,7 +400,7 @@ if (isset($_GET['chambre']) && isset($_GET['chambreid']) ){
 
           <div class="ub-choixnbpersonnes">
           <p><label>Nombre de personnes :
-          <select name="nombrepersonnes" size="1" class="nbpersonnes">
+          <select name="nombrepersonnes" size="1" class="ub-nbpersonnes">
              <?php
               for ($i = 1; $i <= $personnesMax; $i++){
                   if ($nombreDePersonnes == $i){
