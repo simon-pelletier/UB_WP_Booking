@@ -95,7 +95,7 @@ class RoomManager{
 
     public function imgOrNot($question, $name){
       if($question == 1){
-        echo '<td><img src="' . esc_url( home_url( '/' ) ) . 'wp-content/plugins/ub_hotelbooking/web/img/' . $name . '.svg" class="resaImgList"/></td>';
+        echo '<td><img src="' . esc_url( home_url( '/' ) ) . 'wp-content/plugins/ub_hotelbooking/web/img/' . $name . '.svg" class="ub-resaImgList"/></td>';
       } else {
         echo '<td></td>';
       }
@@ -117,7 +117,7 @@ class RoomManager{
     }
 
     public function returnImg($att){
-      $img = ' <img src="' . esc_url( home_url( '/' ) ) . 'wp-content/plugins/ub_hotelbooking/web/img/' . $att . '.svg" class="icon"/>';
+      $img = ' <img src="' . esc_url( home_url( '/' ) ) . 'wp-content/plugins/ub_hotelbooking/web/img/' . $att . '.svg" class="ub-icon"/>';
       return $img;
     }
 

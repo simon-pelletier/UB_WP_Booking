@@ -61,10 +61,10 @@ if (isset($_POST['ajouterResa'])){
         <h1><center>Booking</center></h1>
         <?php
         if (isset($messageResa)){
-        echo '<div class="messageResa">' . $messageResa . '</div><br/>';
+        echo '<div class="ub-messageResa">' . $messageResa . '</div><br/>';
         }
         if (isset($messageResaError)){
-        echo '<div class="messageResaError">' . $messageResaError . '</div><br/>';
+        echo '<div class="ub-messageResaError">' . $messageResaError . '</div><br/>';
         }
 
         ?>
@@ -74,15 +74,15 @@ if (isset($_POST['ajouterResa'])){
           <th>ID</th>
           <th>Name</th>
           <th>@</th>
-          <th><img src="<?php echo esc_url( home_url( '/' ) ) ?>wp-content/plugins/ub_hotelbooking/web/img/tel.svg" class="resaImg"/></th>
-          <th><img src="<?php echo esc_url( home_url( '/' ) ) ?>wp-content/plugins/ub_hotelbooking/web/img/max.svg" class="resaImg"/></th>
+          <th><img src="<?php echo esc_url( home_url( '/' ) ) ?>wp-content/plugins/ub_hotelbooking/web/img/tel.svg" class="ub-resaImg"/></th>
+          <th><img src="<?php echo esc_url( home_url( '/' ) ) ?>wp-content/plugins/ub_hotelbooking/web/img/max.svg" class="ub-resaImg"/></th>
           <th>Room</th>
           <th>Arrival</th>
           <th>Departure</th>
           <th>Comment</th>
-          <th>2<img src="<?php echo esc_url( home_url( '/' ) ) ?>wp-content/plugins/ub_hotelbooking/web/img/lits.svg" class="resaImg"/></th>
+          <th>2<img src="<?php echo esc_url( home_url( '/' ) ) ?>wp-content/plugins/ub_hotelbooking/web/img/lits.svg" class="ub-resaImg"/></th>
           <th><?php echo $config[0]->devise ?></th>
-          <th><img src="<?php echo esc_url( home_url( '/' ) ) ?>wp-content/plugins/ub_hotelbooking/web/img/nuit.svg" class="resaImg"/></th>
+          <th><img src="<?php echo esc_url( home_url( '/' ) ) ?>wp-content/plugins/ub_hotelbooking/web/img/nuit.svg" class="ub-resaImg"/></th>
           <th>Confirmed</th>
           <th></th>
           </tr>
@@ -93,14 +93,14 @@ if (isset($_POST['ajouterResa'])){
                 <td><input type="text" style="max-width:100px;" name="email"/></td>
                 <td><input type="text" style="max-width:100px;" name ="tel"/></td>
 
-                <td><select name="nombrep" size="1" class="nbpersonnes">
+                <td><select name="nombrep" size="1" class="ub-nbpersonnes">
                <?php
                 for ($i=1; $i <= 4; $i++){
                     echo '<option>' . $i . '</option>';
                 }
                 ?></select></td>
 
-                <td><select name="chambre" size="1" class="nbpersonnes">
+                <td><select name="chambre" size="1" class="ub-nbpersonnes">
                <?php
                $room = $wpdb->get_results("SELECT * FROM $rooms_table");
                foreach ($room as $room) {
@@ -119,7 +119,7 @@ if (isset($_POST['ajouterResa'])){
                 $selectedA = $mindaya;
                 $selectedB = $mindayd;
                  ?>
-                <td><input type="date" name="datearrivee" value="<?php echo $selectedA; ?>" min="<?php echo $mindaya; ?>" max="<?php echo $maxday; ?>" class="date"/></td>
+                <td><input type="date" name="datearrivee" value="<?php echo $selectedA; ?>" min="<?php echo $mindaya; ?>" max="<?php echo $maxday; ?>" class="ub-date"/></td>
                 <td></td>
                 <td><input type="text" style="max-width:100px;" name="infos"/></td>
                 <td><input type="checkbox" value="1" name="litsupp"/></td>
@@ -149,18 +149,18 @@ if (isset($_POST['ajouterResa'])){
             echo '<td>', $resa->infos, '</td>';
             if($resa->litsupp == 1)
             {
-                echo '<td class="confirmoui">Yes</td>';
+                echo '<td class="ub-confirmoui">Yes</td>';
             }else{
                 echo '<td>No</td>';
             }
             echo '<td>', $resa->tarif, ' ', $config[0]->devise, '</td>';
             echo '<td>', $resa->nuits, '</td>';
             if ($resa->confirmclient == 1){
-                echo '<td class="confirmoui">Yes</td>';
+                echo '<td class="ub-confirmoui">Yes</td>';
             }else if ($resa->confirmclient == 2){
-                echo '<td class="confirmnon">No</td>';
+                echo '<td class="ub-confirmnon">No</td>';
             }else if ($resa->confirmclient == 3){
-              echo '<td class="confirmmanuel">Manual</td>';
+              echo '<td class="ub-confirmmanuel">Manual</td>';
             }
             echo '<td><a href="admin.php?page=UBHBRESA&supprimerResa=', $resa->id, '">Delete</a></td>';
             echo '</tr>';

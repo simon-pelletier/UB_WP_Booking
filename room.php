@@ -93,12 +93,12 @@ if (isset($_POST['update'])){
           <?php
           $config = $wpdb->get_results("SELECT * FROM $config_table");
           if (isset($messageConfig)){
-          echo '<div class="messageRoom">' . $messageConfig . '</div><br/>';
+          echo '<div class="ub-messageRoom">' . $messageConfig . '</div><br/>';
           }
           ?>
         <form method="POST" action="admin.php?page=UBHBADMIN">
           <label>Admin E-mail : <input type="text" style="max-width:250px;" name="adminmail" value="<?php echo $config[0]->adminmail ?>"/></label>
-          <label>Max people : <select name="persmax" size="1" class="nbpersonnes">
+          <label>Max people : <select name="persmax" size="1" class="ub-nbpersonnes">
              <?php
               for ($i=1; $i <= 4; $i++){
                 if ($config[0]->personnesmax == $i){
@@ -117,26 +117,26 @@ if (isset($_POST['update'])){
               <td><input type="checkbox" name="cb" value="1" <?php echo $configManager->checkedOrNot($config[0]->cb); ?>/>Credit card</td> -
               <td><input type="checkbox" name="cvac" value="1" <?php echo $configManager->checkedOrNot($config[0]->cvac); ?>/>Holiday vouchers</td>
               <br/><br/>
-              <td>EN - General info : <input type="text" name="infoscompen" value="<?php echo $config[0]->infoscompen ?>" class="infoscomp"/></td><br/>
-              <td>FR - General info : <input type="text" name="infoscompfr" value="<?php echo $config[0]->infoscompfr ?>" class="infoscomp"/></td>
+              <td>EN - General info : <input type="text" name="infoscompen" value="<?php echo $config[0]->infoscompen ?>" class="ub-infoscomp"/></td><br/>
+              <td>FR - General info : <input type="text" name="infoscompfr" value="<?php echo $config[0]->infoscompfr ?>" class="ub-infoscomp"/></td>
               <br/>
               <td><input type="checkbox" name="supplitsstatus" value="1" <?php echo $configManager->checkedOrNot($config[0]->supplitsstatus); ?>/>Extra Separated beds</td> -
-              <td>Amount : <input type="text" name="supplits" value="<?php echo $config[0]->supplits ?>" class="supp"/></td> <?php echo $config[0]->devise ?>
+              <td>Amount : <input type="text" name="supplits" value="<?php echo $config[0]->supplits ?>" class="ub-supp"/></td> <?php echo $config[0]->devise ?>
               <br/>
               <td><input type="checkbox" name="suppsaisonstatus" value="1" <?php echo $configManager->checkedOrNot($config[0]->suppsaisonstatus); ?>/>Extra Season</td> -
-              <td>Amount : <input type="text" name="suppsaison" value="<?php echo $config[0]->suppsaison ?>" class="supp"/></td> <?php echo $config[0]->devise ?>
+              <td>Amount : <input type="text" name="suppsaison" value="<?php echo $config[0]->suppsaison ?>" class="ub-supp"/></td> <?php echo $config[0]->devise ?>
               <br/>
               <td><input type="checkbox" name="supptidejstatus" value="1" <?php echo $configManager->checkedOrNot($config[0]->supptidejstatus); ?>/>Extra Breakfast</td> -
-              <td>Amount : <input type="text" name="supptidej" value="<?php echo $config[0]->supptidej ?>" class="supp"/></td> <?php echo $config[0]->devise ?>
+              <td>Amount : <input type="text" name="supptidej" value="<?php echo $config[0]->supptidej ?>" class="ub-supp"/></td> <?php echo $config[0]->devise ?>
               -
               <td><input type="checkbox" name="tidejcompris" value="1" <?php echo $configManager->checkedOrNot($config[0]->tidejcompris); ?>/>Breakfast included</td>
               <br/>
               <td><input type="checkbox" name="suppdiversstatus" value="1" <?php echo $configManager->checkedOrNot($config[0]->suppdiversstatus); ?>/>Other supplement</td> -
               <td>EN-Entitled : <input type="text" name="suppdiverstexten" value="<?php echo $config[0]->suppdiverstexten ?>" class="suppdiverstexten"/></td>
               <td>FR-Entitled : <input type="text" name="suppdiverstextfr" value="<?php echo $config[0]->suppdiverstextfr ?>" class="suppdiverstextfr"/></td>
-              <td>Amount : <input type="text" name="suppdivers" value="<?php echo $config[0]->suppdivers ?>" class="supp"/></td> <?php echo $config[0]->devise ?>
+              <td>Amount : <input type="text" name="suppdivers" value="<?php echo $config[0]->suppdivers ?>" class="ub-supp"/></td> <?php echo $config[0]->devise ?>
               <br/><br/>
-          <input type="submit" name="update" value="Save" class="btn"/>
+          <input type="submit" name="update" value="Save" class="ub-btn"/>
         </form>
         </center>
       </div>
@@ -147,30 +147,30 @@ if (isset($_POST['update'])){
         <h1><center>Rooms : </center></h1>
         <?php
         if (isset($messageRoom)){
-        echo '<div class="messageRoom">' . $messageRoom . '</div><br/>';
+        echo '<div class="ub-messageRoom">' . $messageRoom . '</div><br/>';
         }
         if (isset($messageRoomError)){
-        echo '<div class="messageRoomError">' . $messageRoomError . '</div><br/>';
+        echo '<div class="ub-messageRoomError">' . $messageRoomError . '</div><br/>';
         }
         ?>
         <center>
         <table>
           <tr>
           <th>Room</th>
-          <th>Nb<img src="<?php echo esc_url( home_url( '/' ) ) ?>wp-content/plugins/ub_hotelbooking/web/img/max.svg" class="resaImg"/></th>
-          <th><img src="<?php echo esc_url( home_url( '/' ) ) ?>wp-content/plugins/ub_hotelbooking/web/img/lits.svg" class="resaImg"/></th>
-          <th><img src="<?php echo esc_url( home_url( '/' ) ) ?>wp-content/plugins/ub_hotelbooking/web/img/douche.svg" class="resaImg"/></th>
-          <th><img src="<?php echo esc_url( home_url( '/' ) ) ?>wp-content/plugins/ub_hotelbooking/web/img/wc.svg" class="resaImg"/></th>
-          <th><img src="<?php echo esc_url( home_url( '/' ) ) ?>wp-content/plugins/ub_hotelbooking/web/img/tel.svg" class="resaImg"/></th>
-          <th><img src="<?php echo esc_url( home_url( '/' ) ) ?>wp-content/plugins/ub_hotelbooking/web/img/tv.svg" class="resaImg"/></th>
-          <th><img src="<?php echo esc_url( home_url( '/' ) ) ?>wp-content/plugins/ub_hotelbooking/web/img/baignoire.svg" class="resaImg"/></th>
-          <th><img src="<?php echo esc_url( home_url( '/' ) ) ?>wp-content/plugins/ub_hotelbooking/web/img/wifi.svg" class="resaImg"/></th>
-          <th><img src="<?php echo esc_url( home_url( '/' ) ) ?>wp-content/plugins/ub_hotelbooking/web/img/clim.svg" class="resaImg"/></th>
+          <th>Nb<img src="<?php echo esc_url( home_url( '/' ) ) ?>wp-content/plugins/ub_hotelbooking/web/img/max.svg" class="ub-resaImg"/></th>
+          <th><img src="<?php echo esc_url( home_url( '/' ) ) ?>wp-content/plugins/ub_hotelbooking/web/img/lits.svg" class="ub-resaImg"/></th>
+          <th><img src="<?php echo esc_url( home_url( '/' ) ) ?>wp-content/plugins/ub_hotelbooking/web/img/douche.svg" class="ub-resaImg"/></th>
+          <th><img src="<?php echo esc_url( home_url( '/' ) ) ?>wp-content/plugins/ub_hotelbooking/web/img/wc.svg" class="ub-resaImg"/></th>
+          <th><img src="<?php echo esc_url( home_url( '/' ) ) ?>wp-content/plugins/ub_hotelbooking/web/img/tel.svg" class="ub-resaImg"/></th>
+          <th><img src="<?php echo esc_url( home_url( '/' ) ) ?>wp-content/plugins/ub_hotelbooking/web/img/tv.svg" class="ub-resaImg"/></th>
+          <th><img src="<?php echo esc_url( home_url( '/' ) ) ?>wp-content/plugins/ub_hotelbooking/web/img/baignoire.svg" class="ub-resaImg"/></th>
+          <th><img src="<?php echo esc_url( home_url( '/' ) ) ?>wp-content/plugins/ub_hotelbooking/web/img/wifi.svg" class="ub-resaImg"/></th>
+          <th><img src="<?php echo esc_url( home_url( '/' ) ) ?>wp-content/plugins/ub_hotelbooking/web/img/clim.svg" class="ub-resaImg"/></th>
           <th>Photo 300*300px</th>
-          <th>1<img src="<?php echo esc_url( home_url( '/' ) ) ?>wp-content/plugins/ub_hotelbooking/web/img/max.svg" class="resaImg"/></th>
-          <th>2<img src="<?php echo esc_url( home_url( '/' ) ) ?>wp-content/plugins/ub_hotelbooking/web/img/max.svg" class="resaImg"/></th>
-          <th>3<img src="<?php echo esc_url( home_url( '/' ) ) ?>wp-content/plugins/ub_hotelbooking/web/img/max.svg" class="resaImg"/></th>
-          <th>4<img src="<?php echo esc_url( home_url( '/' ) ) ?>wp-content/plugins/ub_hotelbooking/web/img/max.svg" class="resaImg"/></th>
+          <th>1<img src="<?php echo esc_url( home_url( '/' ) ) ?>wp-content/plugins/ub_hotelbooking/web/img/max.svg" class="ub-resaImg"/></th>
+          <th>2<img src="<?php echo esc_url( home_url( '/' ) ) ?>wp-content/plugins/ub_hotelbooking/web/img/max.svg" class="ub-resaImg"/></th>
+          <th>3<img src="<?php echo esc_url( home_url( '/' ) ) ?>wp-content/plugins/ub_hotelbooking/web/img/max.svg" class="ub-resaImg"/></th>
+          <th>4<img src="<?php echo esc_url( home_url( '/' ) ) ?>wp-content/plugins/ub_hotelbooking/web/img/max.svg" class="ub-resaImg"/></th>
           <th>EN-Info</th>
           <th>FR-Info</th>
           <th></th>
@@ -180,14 +180,14 @@ if (isset($_POST['update'])){
 
             <td><input type="text" style="max-width:50px;" name="chambre"/></td>
 
-            <td><select name="max" size="1" class="nbpersonnes">
+            <td><select name="max" size="1" class="ub-nbpersonnes">
                <?php
                 for ($i=1; $i <= $config[0]->personnesmax; $i++){
                     echo '<option>' . $i . '</option>';
                 }
                 ?></select></td>
 
-            <td><select name="lits" size="1" class="nbpersonnes">
+            <td><select name="lits" size="1" class="ub-nbpersonnes">
                <?php
                 for ($i=1; $i <= 4; $i++){
                     echo '<option>' . $i . '</option>';

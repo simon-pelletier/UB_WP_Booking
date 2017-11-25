@@ -1,29 +1,33 @@
-.choixnbpersonnes{
+/* ------------------------ ADMIN AREA ------------------------ */
+
+.ub-confirmoui{
+  background-color:aquamarine;
+}
+.ub-confirmnon{
+  background-color: crimson;
+}
+.ub-confirmmanuel{
+  background-color: #e2d676;
+}
+
+/* ------------------------ SEARCH AREA ------------------------ */
+
+.ub-choixnbpersonnes{
   padding-top: 20px;
 }
-
-.champs{
-  width: 250px !important;
-}
-
-.recherche{
+.ub-recherche{
     width: 300px;
     display: block;
-
     text-align: center;
     margin-left: auto;
     margin-right: auto;
-
     font-size: 12pt;
     font-weight: 600;
-
 }
 
-.liste{
-    text-align: center;
-}
+/* ------------------------ RESULTS AREA ------------------------ */
 
-.rchambre{
+.ub-rchambre{
     margin-right: 20px;
     margin-top: 20px;
     display: inline-block;
@@ -33,64 +37,92 @@
     padding: 30px;
     background-color: #ededed;
     vertical-align: top;
+    box-shadow: 2px 2px 5px 1px rgba(0, 0, 0, 0.25);
+    -moz-box-shadow: 2px 2px 5px 1px rgba(0, 0, 0, 0.25);
+    -webkit-box-shadow: 2px 2px 5px 1px rgba(0, 0, 0, 0.25);
 }
-
-.photo{
-    width: 140px;
-    box-shadow: 2px 2px 5px 1px rgba(0, 0, 0, 0.75);
-    -moz-box-shadow: 2px 2px 5px 1px rgba(0, 0, 0, 0.75);
-    -webkit-box-shadow: 2px 2px 5px 1px rgba(0, 0, 0, 0.75);
-}
-
-.titre{
+.ub-titre{
     margin-top: 10px;
     font-weight: 800;
     font-size: 18pt;
 }
-
-
-
-.tarif{
+.ub-tarif{
     font-weight: 600;
-
 }
-
-.infos, .tarif{
+.ub-infos, .ub-tarif{
     font-size: 16pt;
-
-
 }
 
-a, a:hover, a:visited, a:active{
-    text-decoration:none;
-    color: #000000;
+
+.ub-resaArea{
+  display: block;
+  margin: auto;
+  width: 800px;
+  height: auto;
+  min-height: 600px;
+  text-align: center;
+}
+.ub-chambreResa{
+  display: block;
+  float: left;
+  width: 50%;
+  //height: auto;
+  border-right: 2px solid #d1d1d1;
+  margin-top: 20px;
+  padding-bottom: 80px;
+  text-align: center;
+}
+.ub-formResa{
+  display: block;
+  float: left;
+  width: 50%;
+  margin-left: 0px;
+  text-align: center;
+  margin-top: 40px;
 }
 
-.btn{
-    color: #ffffff;
-    background-color: #333333;
-    border: none;
-    padding: 15px;
-    cursor: pointer;
-    font-weight: 600;
-}
-.btnr{
-    color: #ffffff;
-    background-color: #57af46 !important;
-    border: none;
-    padding: 15px;
-    cursor: pointer;
-    font-weight: 600;
-}
 
-.icon{
+.ub-option{
+  border-top: 1px solid #d1d1d1;
+  margin-top: 20px;
+  padding-top: 20px;
+  width: 100%;
+}
+.ub-infosup{
+  border-top: 1px solid #d1d1d1;
+  margin-top: 10px;
+  padding-top: 20px;
+  width: 100%;
+}
+.ub-infosupResa{
+  margin-top: 20px;
+  padding-top: 20px;
+  width: 100%;
+}
+.ub-optionResa{
+  margin-top: 10px;
+  padding-top: 20px;
+  width: 100%;
+}
+div.ub-liste img{
+  background-color: transparent !important;
+}
+div.ub-liste{
+  width: auto;
+  text-align: center;
+  display: block;
+  margin: 0px !important;
+  padding: 0px !important;
+}
+.ub-icon{
     //padding-right: 10px;
     display: inline-block !important;
+    background-color: transparent !important;
     width: 25px;
     height: 25px;
 }
 
-.date{
+.ub-date{
     color: #ffffff;
     background-color: #333333;
     border: none;
@@ -100,7 +132,7 @@ a, a:hover, a:visited, a:active{
     font-size: 12pt;
 }
 
-.nbpersonnes{
+.ub-nbpersonnes{
     color: #ffffff;
     background-color: #333333;
     border: none;
@@ -109,32 +141,105 @@ a, a:hover, a:visited, a:active{
     padding-left: 10px;
 }
 
-.retour{
+.ub-resaImg{
+    filter: invert(100%);
+    width: 20px;
+    height: 20px;
+}
+
+.ub-resaImgList{
+    width: 20px;
+    height: 20px;
+}
+
+.ub-infoscomp{
+  width: 400px !important;
+  font-size: 9pt;
+}
+
+.ub-supp{
+  width: 30px !important;
+}
+
+.ub-infosupGeneral{
+  margin-top: 20px;
+  padding-top: 20px;
+  width: 100%;
+}
+
+/* ------------------------ GLOBAL ------------------------ */
+
+.ub-champs{
+  width: 250px !important;
+}
+.ub-photo{
+    width: 140px;
+    box-shadow: 2px 2px 5px 1px rgba(0, 0, 0, 0.25);
+    -moz-box-shadow: 2px 2px 5px 1px rgba(0, 0, 0, 0.25);
+    -webkit-box-shadow: 2px 2px 5px 1px rgba(0, 0, 0, 0.25);
+}
+div.ub-liste a, div.liste a:hover, div.liste a:visited, div.liste a:active{
+    text-decoration:none !important;
+    color: #000000 !important;
+}
+
+/* ------------------------ BTNS ------------------------ */
+
+.ub-btnrecherche{
+    color: #ffffff;
+    background-color: #333333 !important;
+    border: none;
+    padding: 15px;
+    cursor: pointer;
     font-weight: 600;
+}
+.ub-btnreserve{
+    color: #ffffff;
+    background-color: #57af46 !important;
+    border: none;
+    padding: 15px;
+    cursor: pointer;
+    font-weight: 600;
+}
+.ub-retour{
+    font-weight: 600;
+    color: #ffffff !important;
     text-decoration: none;
     background-color: #333333;
     display: block;
-    padding: 15px;
+    padding: 8px;
     width: 120px;
+    border-radius: 5px;
 }
 
+/* ------------------------ ERRORS ------------------------ */
 
-a.retour, a:hover.retour, a:visited.retour, a:active.retour{
-    color: #ffffff !important;
+.ub-messageRoom{
+    text-align: center;
+    width: 100%;
+    color:darkgreen;
+    font-size: 15pt;
+}
+.ub-messageResa{
+   text-align: center;
+    width: 100%;
+    color:darkgreen;
+    font-size: 15pt;
+}
+.ub-messageRoomError{
+    text-align: center;
+    width: 100%;
+    color: crimson;
+    font-size: 15pt;
+}
+.ub-messageResaError{
+   text-align: center;
+    width: 100%;
+    color: crimson;
+    font-size: 15pt;
 }
 
-.btndeco{
-    position: absolute;
-    top: 20px;
-    right: 20px;
-    color: #ffffff;
-}
-
-a.btndeco, a:hover.btndeco, a:visited.btndeco, a:active.btndeco{
-
-    color: #ffffff !important;
-
-}
+/* ------------------------ TABLEAUX ------------------------ */
 
 tr:nth-child(even) {
     background-color: #f2f2f2;
@@ -152,142 +257,4 @@ th {
 td{
     height: 30px;
     text-align: center;
-}
-
-
-.confirmoui{
-    background-color:aquamarine;
-}
-
-.confirmnon{
-    background-color: crimson;
-}
-.confirmmanuel{
-  background-color: #e2d676;
-}
-
-.resaImg{
-    filter: invert(100%);
-    width: 20px;
-    height: 20px;
-}
-
-.resaImgList{
-  width: 20px;
-  height: 20px;
-}
-
-.messageRoom{
-    text-align: center;
-    width: 100%;
-    color:darkgreen;
-    font-size: 15pt;
-}
-.messageResa{
-   text-align: center;
-    width: 100%;
-    color:darkgreen;
-    font-size: 15pt;
-}
-.messageRoomError{
-    text-align: center;
-    width: 100%;
-    color: crimson;
-    font-size: 15pt;
-}
-.messageResaError{
-   text-align: center;
-    width: 100%;
-    color: crimson;
-    font-size: 15pt;
-}
-
-.debug{
-    position: absolute;
-    top: 50px;
-    text-align: center;
-    width: 100%;
-    color: crimson;
-    font-size: 20pt;
-}
-
-.resaArea{
-    display: block;
-    margin: auto;
-    width: 100%;
-    text-align: center;
-}
-
-.chambreResa{
-  display: block;
-  float: left;
-  width: 50%;
-  height: auto;
-  border-right: 2px solid #d1d1d1;
-  //padding-top: 20px;
-  margin-top: 20px;
-  //padding-top: 50px;
-  padding-bottom: 80px;
-  text-align: center;
-}
-
-.option{
-  border-top: 1px solid #d1d1d1;
-  margin-top: 10px;
-  padding-top: 20px;
-  width: 100%;
-}
-
-.infosup{
-  border-top: 1px solid #d1d1d1;
-  margin-top: 20px;
-  padding-top: 20px;
-  width: 100%;
-}
-.infosupResa{
-  margin-top: 20px;
-  padding-top: 20px;
-  width: 100%;
-}
-
-.optionResa{
-  margin-top: 10px;
-  padding-top: 20px;
-  width: 100%;
-}
-
-.formResa{
-  display: block;
-  float: left;
-  width: 50%;
-  margin-left: 0px;
-  text-align: center;
-  margin-top: 40px;
-}
-
-.nbnuits{
-  margin-top: 20px;
-  width: 30px !important;
-}
-
-.infoscomp{
-  width: 400px !important;
-}
-
-.supp{
-  width: 30px !important;
-}
-
-.suppdiverstext{
-  width: 200px !important;
-}
-
-.infosupGeneral{
-  margin-top: 20px;
-  padding-top: 20px;
-  width: 100%;
-}
-
-.infoscomp{
-  font-size: 9pt;
 }
