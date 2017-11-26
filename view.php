@@ -238,6 +238,12 @@ if (isset($_GET['chambre']) && isset($_GET['chambreid']) ){
           echo '</div>';
           echo '</div>';
         }
+
+        if ($_GET['nuits'] > 1){
+          $nuitAccord = 'nuits';
+        } else {
+          $nuitAccord = 'nuit';
+        }
         ?>
 
         <div class="ub-formResa">
@@ -247,7 +253,7 @@ if (isset($_GET['chambre']) && isset($_GET['chambreid']) ){
           <br/>
           Nombre de personnes : <strong><?php echo $_GET['nbp']; ?></strong>
           <br/>
-          Total : <strong><?php echo $_GET['tarif'] . ' ' . $getConfig[0]->devise  ?> pour <?php echo $_GET['nuits']; ?> nuit(s).</strong>
+          Total : <strong><?php echo $_GET['tarif'] . ' ' . $getConfig[0]->devise  ?> pour <?php echo $_GET['nuits'] . ' ' . $nuitAccord ?></strong>
           <br/>
           <?php if ($_GET['lits'] == 2){
             echo '<strong>Lits séparés</strong>';

@@ -99,7 +99,7 @@ if (isset($_POST['update'])){
           }
           ?>
         <form method="POST" action="admin.php?page=UBHBADMIN">
-          <label>Admin E-mail : <input type="text" style="max-width:250px;" name="adminmail" value="<?php echo $config[0]->adminmail ?>"/></label>
+          <label>Booking E-mail : <input type="text" style="max-width:250px;" name="adminmail" value="<?php echo $config[0]->adminmail ?>"/></label>
           <label>Max people : <select name="persmax" size="1" class="ub-nbpersonnes">
              <?php
               for ($i=1; $i <= 4; $i++){
