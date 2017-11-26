@@ -2,7 +2,7 @@
 
 class RoomManager{
 
-    public function roomList($dateA, $dateB, $nombreP){
+    public function roomList($dateA, $dateB, $nombreP, $checkedBed){
 
         if ($dateA < $dateB){
 
@@ -23,6 +23,7 @@ class RoomManager{
             )
             WHERE
             $nombreP = C.max
+            AND C.lits >= $checkedBed
             AND R.datearrivee IS NULL
             ORDER BY C.max");
 
@@ -34,7 +35,7 @@ class RoomManager{
         }
     }
 
-    public function roomListBis($dateA, $dateB, $nombreP){
+    public function roomListBis($dateA, $dateB, $nombreP, $checkedBed){
 
         if ($dateA < $dateB){
 
@@ -56,6 +57,7 @@ class RoomManager{
               )
               WHERE
               $nombreP <= C.max
+              AND C.lits >= $checkedBed
               AND R.datearrivee IS NULL
               ORDER BY C.max");
 

@@ -142,6 +142,16 @@ div.ub-liste{
     width: 60px;
 }
 
+.ub-nbnuits{
+    color: #ffffff !important;
+    background-color: #333333 !important;
+    border: none;
+    height: 30px;
+    text-align: center;
+    padding-left: 10px;
+    width: 60px;
+}
+
 .ub-resaImg{
     filter: invert(100%);
     width: 20px;
@@ -179,7 +189,7 @@ div.ub-liste{
     -moz-box-shadow: 2px 2px 5px 1px rgba(0, 0, 0, 0.25);
     -webkit-box-shadow: 2px 2px 5px 1px rgba(0, 0, 0, 0.25);
 }
-div.ub-liste a, div.liste a:hover, div.liste a:visited, div.liste a:active{
+div.ub-liste a, div.ub-liste a:hover, div.ub-liste a:visited, div.ub-liste a:active{
     text-decoration:none !important;
     color: #000000 !important;
 }
@@ -205,7 +215,7 @@ div.ub-liste a, div.liste a:hover, div.liste a:visited, div.liste a:active{
 .ub-retour{
     font-weight: 600;
     color: #ffffff !important;
-    text-decoration: none;
+    text-decoration: none !important;
     background-color: #333333;
     display: block;
     padding: 8px;
@@ -216,6 +226,15 @@ div.ub-liste a, div.liste a:hover, div.liste a:visited, div.liste a:active{
 .ub-deletePast{
   color: #ffffff;
   background-color: #aa0200 !important;
+  border: none;
+  padding: 10px;
+  cursor: pointer;
+  font-weight: 600;
+  border-radius: 5px;
+}
+.ub-add{
+  color: #ffffff;
+  background-color: #57af46 !important;
   border: none;
   padding: 10px;
   cursor: pointer;
@@ -252,29 +271,29 @@ div.ub-liste a, div.liste a:hover, div.liste a:visited, div.liste a:active{
 
 /* ------------------------ TABLEAUX ------------------------ */
 
-tr:nth-child(even) {
+div.ub-Tab tr:nth-child(even) {
     background-color: #f2f2f2;
 
 }
-th {
+div.ub-Tab th {
     padding: 10px;
     background-color: #333333;
     color: white;
 }
-td{
+div.ub-Tab td{
     height: 30px;
     text-align: center;
 }
-.yesteday{
+.ub-yesteday{
   background-color: #f94a4a !important;
 }
-.today{
+.ub-today{
   background-color: #8dd888 !important;
 }
-.tomorrow{
+.ub-tomorrow{
   background-color: #f2f2f2 !important;
 }
-tr:hover {
+div.ub-Tab tr:hover {
     background-color: #717171 !important;
     color: white !important;
 }

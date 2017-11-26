@@ -6,6 +6,8 @@ $resa_table = $table_prefix . 'hb_resa';
 $rooms_table = $table_prefix . 'hb_rooms';
 $config_table = $table_prefix . 'hb_config';
 
+$getConfig = $wpdb->get_results("SELECT * FROM $config_table WHERE id = 1");
+
 $manager = new RoomManager($wpdb);
 $resaManager = new ResaManager($wpdb);
 
@@ -47,7 +49,6 @@ if(isset($_POST['selecteddate'])){
 
 
 
-
 if(isset($_POST['reserver'])){
   if(!empty($_POST['nom'])){
     $email = $_POST['email'];
@@ -55,13 +56,12 @@ if(isset($_POST['reserver'])){
       $cle = md5(microtime(TRUE)*100000);
       $chambreid = (int) $_GET['chambreid'];
 
-
-      if(!empty($_POST['litsep'])){
-          $litsupp = 1;
-          $tarif = $resaManager->calculTarif((int) $_GET['nuits'], (int) $chambreid,  (int) $_GET['nbp'], 1);
+      if ($_GET['lits'] == 2){
+        $litsupp = 1;
+        $tarif = $resaManager->calculTarif((int) $_GET['nuits'], (int) $chambreid,  (int) $_GET['nbp'], 2);
       } else {
-          $litsupp = 0;
-          $tarif = $resaManager->calculTarif((int)$_GET['nuits'], (int) $chambreid,  (int) $_GET['nbp'], 0);
+        $litsupp = 0;
+        $tarif = $resaManager->calculTarif((int)$_GET['nuits'], (int) $chambreid,  (int) $_GET['nbp'], 1);
       }
 
       $resaManager->resaAuto(
@@ -248,6 +248,13 @@ if (isset($_GET['chambre']) && isset($_GET['chambreid']) ){
           Nombre de personnes : <strong><?php echo $_GET['nbp']; ?></strong>
           <br/>
           Total : <strong><?php echo $_GET['tarif'] . ' ' . $getConfig[0]->devise  ?> pour <?php echo $_GET['nuits']; ?> nuit(s).</strong>
+          <br/>
+          <?php if ($_GET['lits'] == 2){
+            echo '<strong>Lits séparés</strong>';
+          } else {
+
+          }
+          ?>
           <br/><br/>
           <form method="POST" action="">
             <label>Votre nom* : <br/><center><input type="text" name="nom" class="ub-champs"/></center></label>
@@ -258,17 +265,6 @@ if (isset($_GET['chambre']) && isset($_GET['chambreid']) ){
             <br/>
             <label>Informations complémentaires : <br/><center><input type="text" name="infos" class="ub-champs"/></center></label>
             <br/><br/>
-            <?php
-            if ($_GET['nbp'] == 2){
-              if ($getConfig[0]->supplitsstatus !== NULL){
-                ?>
-                <label>Lits séparés :<br/><input type="checkbox" value="1" name="litsep" /> ( + <?php echo $getConfig[0]->supplits . ' ' . $getConfig[0]->devise ?> )</label><br/>
-                <?php
-              }
-            }
-
-
-            ?>
             <br/>
             <center><input type="submit" name="reserver" value="Réserver" class="ub-btnreserve"/></center>
             </div>
@@ -371,7 +367,7 @@ if (isset($_GET['chambre']) && isset($_GET['chambreid']) ){
              </head>
              <body>
 
-          <div class="ub-recherche">
+          <div class="ub-recherche" id="search">
           <form method="POST" action=".">
           <center>
           <br/>
@@ -385,7 +381,7 @@ if (isset($_GET['chambre']) && isset($_GET['chambreid']) ){
           ?>
           <br/>
           <label>Nombre de nuits :
-          <select name="nbnuits" size="1" class="ub-nbpersonnes">
+          <select name="nbnuits" size="1" class="ub-nbnuits">
           <?php
            for ($j = 1; $j <= 30; $j++){
                if ($nombreDeNuits == $j){
@@ -400,19 +396,23 @@ if (isset($_GET['chambre']) && isset($_GET['chambreid']) ){
 
           <div class="ub-choixnbpersonnes">
           <p><label>Nombre de personnes :
-          <select name="nombrepersonnes" size="1" class="ub-nbpersonnes">
+          <select name="nombrepersonnes" size="1" class="ub-nbpersonnes" id="nombredepersonnes">
              <?php
               for ($i = 1; $i <= $personnesMax; $i++){
                   if ($nombreDePersonnes == $i){
-                      echo '<option selected>' . $i . '</option>';
+                      echo '<option value="' . $i . '" selected>' . $i . '</option>';
                   } else {
-                      echo '<option>' . $i . '</option>';
+                      echo '<option value="' . $i . '">' . $i . '</option>';
                   }
               }
              ?>
           </select>
           </label>
+
               </p>
+      </div>
+      <div class="litsep">
+
       </div>
       <br/>
           <input type="submit" name="selecteddate" class="ub-btnrecherche" value="Rechercher"/>
@@ -423,19 +423,24 @@ if (isset($_GET['chambre']) && isset($_GET['chambreid']) ){
               <?php
 
               if (isset($_POST['arrivee']) && isset($_POST['nbnuits'])){
+                if (isset($_POST['litsupp'])){
+                  $checkLit = 2;
+                } else {
+                  $checkLit = 1;
+                }
                 $countRoom = 0;
                 $getConfig = $wpdb->get_results("SELECT * FROM $config_table WHERE id = 1");
                 $departure = date("Y-m-d", strtotime($_POST['arrivee'] . ' +' . $_POST['nbnuits'] . ' day'));
-                  foreach ($manager->roomList($_POST['arrivee'], $departure, $_POST['nombrepersonnes']) as $room){
+                  foreach ($manager->roomList($_POST['arrivee'], $departure, $_POST['nombrepersonnes'], $checkLit) as $room){
                       $countRoom += 1;
                       echo '<div class="ub-rchambre">';
                       echo '<center>';
                       $pagename = basename(get_permalink());
                       $nbreNuits = $_POST['nbnuits'];
 
-                      $tarif = $resaManager->calculTarif($nbreNuits, $room->id, $_POST['nombrepersonnes'], 0, 0, 0);
+                      $tarif = $resaManager->calculTarif($nbreNuits, $room->id, $_POST['nombrepersonnes'], $checkLit);
 
-                      echo '<a href="../' . $pagename . '/?chambre=' . $room->chambre . '&dateA=' . $_POST['arrivee'] . '&dateB=' . $departure . '&nuits=' . $nbreNuits . '&tarif=' . $tarif . '&nbp=' . $_POST['nombrepersonnes'] . '&chambreid=' . $room->id . '" >';
+                      echo '<a href="../' . $pagename . '/?chambre=' . $room->chambre . '&dateA=' . $_POST['arrivee'] . '&dateB=' . $departure . '&nuits=' . $nbreNuits . '&tarif=' . $tarif . '&nbp=' . $_POST['nombrepersonnes'] . '&chambreid=' . $room->id . '&lits=' . $checkLit . '" >';
                       echo '<img src="' . esc_url( home_url( '/' ) ) . 'wp-content/plugins/ub_hotelbooking/web/img/rooms/' . $room->photo . '" class="ub-photo" />';
                       echo '<br/>';
                       echo '<div class="ub-titre">Chambre ' . $room->chambre . '</div>';
@@ -482,16 +487,16 @@ if (isset($_GET['chambre']) && isset($_GET['chambreid']) ){
                       echo '</div>';
                   }
                   if ($countRoom == 0){
-                    foreach ($manager->roomListBis($_POST['arrivee'], $departure, $_POST['nombrepersonnes']) as $room){
+                    foreach ($manager->roomListBis($_POST['arrivee'], $departure, $_POST['nombrepersonnes'], $checkLit) as $room){
                         $countRoom += 1;
                         echo '<div class="ub-rchambre">';
                         echo '<center>';
                         $pagename = basename(get_permalink());
                         $nbreNuits = $_POST['nbnuits'];
 
-                        $tarif = $resaManager->calculTarif($nbreNuits, $room->id, $_POST['nombrepersonnes'], 0, 0, 0);
+                        $tarif = $resaManager->calculTarif($nbreNuits, $room->id, $_POST['nombrepersonnes'], $checkLit);
 
-                        echo '<a href="../' . $pagename . '/?chambre=' . $room->chambre . '&dateA=' . $_POST['arrivee'] . '&dateB=' . $departure . '&nuits=' . $nbreNuits . '&tarif=' . $tarif . '&nbp=' . $_POST['nombrepersonnes'] . '&chambreid=' . $room->id . '" >';
+                        echo '<a href="../' . $pagename . '/?chambre=' . $room->chambre . '&dateA=' . $_POST['arrivee'] . '&dateB=' . $departure . '&nuits=' . $nbreNuits . '&tarif=' . $tarif . '&nbp=' . $_POST['nombrepersonnes'] . '&chambreid=' . $room->id . '&lits=' . $checkLit . '" >';
                         echo '<img src="' . esc_url( home_url( '/' ) ) . 'wp-content/plugins/ub_hotelbooking/web/img/rooms/' . $room->photo . '" class="ub-photo" />';
                         echo '<br/>';
                         echo '<div class="ub-titre">Chambre ' . $room->chambre . '</div>';
@@ -541,6 +546,48 @@ if (isset($_GET['chambre']) && isset($_GET['chambreid']) ){
          }
        ?>
      </div>
+
+     <script
+    src="https://code.jquery.com/jquery-3.2.1.min.js"
+    integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+    crossorigin="anonymous"></script>
+
+     <script type="text/javascript">
+
+     $('.ub-nbpersonnes').on('change', function() {
+       myFunc();
+     });
+
+
+
+     function myFunc() {
+          var sel = $('.ub-nbpersonnes').find(":selected").text();
+          <?php
+          if ($getConfig[0]->supplitsstatus == 1){
+           ?>
+          if (sel == 2){
+            <?php
+            if (isset($_POST['litsupp'])){
+              ?>var optionAjout = $('<label>Lits séparés ( +<?php echo $getConfig[0]->supplits . ' ' . $getConfig[0]->devise ?>) <input type="checkbox" value="1" name="litsupp" id="ub-checkbox" checked="checked"/></label>');<?php
+            } else {
+              ?>var optionAjout = $('<label>Lits séparés ( +<?php echo $getConfig[0]->supplits . ' ' . $getConfig[0]->devise ?>) <input type="checkbox" value="1" name="litsupp" id="ub-checkbox"/></label>');<?php
+            }
+
+            ?>
+
+            optionAjout.appendTo('.litsep');
+
+          } else {
+            $('.litsep').html('');
+          }
+          <?php
+        } else {
+
+        }
+           ?>
+      }
+      myFunc();
+    </script>
      </body>
      </html>
 <?php

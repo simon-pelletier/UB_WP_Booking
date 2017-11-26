@@ -253,7 +253,7 @@ Ceci est un mail automatique, Merci de ne pas y répondre.';
 
 
 
-        if($supplits == 1){
+        if($supplits == 2){
           $add = $getConfig[0]->supplits;
         } else {
           $add = 0;

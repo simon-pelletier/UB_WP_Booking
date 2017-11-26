@@ -97,7 +97,7 @@ if(isset($_POST['deletePast'])){
    </head>
 
     <body>
-       <div>
+       <div class="ub-Tab">
         <h1><center>Booking</center></h1>
 
 
@@ -171,7 +171,7 @@ if(isset($_POST['deletePast'])){
                 <td></td>
 
                 <td></td>
-                <td><input type="submit" name="ajouterResa" value="Add"/></td>
+                <td><input type="submit" name="ajouterResa" value="Add" class="ub-add"/></td>
               </form></tr>
 
         <?php
@@ -184,11 +184,11 @@ if(isset($_POST['deletePast'])){
             $ajourdhui = date("Y-m-d");
 
             if ($resa->datedepart < $ajourdhui){
-              echo '<tr class="yesteday">';
+              echo '<tr class="ub-yesteday">';
             } else if ($resa->datearrivee > $ajourdhui){
-              echo '<tr class="tomorrow">';
+              echo '<tr class="ub-tomorrow">';
             } else {
-              echo '<tr class="today">';
+              echo '<tr class="ub-today">';
             }
 
 

@@ -145,7 +145,7 @@ if (isset($_POST['update'])){
 <br/>
 
 <br/>
-        <div>
+        <div class="ub-Tab">
         <h1><center>Rooms : </center></h1>
         <?php
         if (isset($messageRoom)){
@@ -209,7 +209,7 @@ if (isset($_POST['update'])){
             <td><input type="text" style="max-width:30px;" name="for4"/></td>
             <td><input type="text" style="max-width:100px;" name="infosupen"/></td>
             <td><input type="text" style="max-width:100px;" name="infosupfr"/></td>
-            <td><input type="submit" name="ajouterChambre" value="Add"/></td>
+            <td><input type="submit" name="ajouterChambre" value="Add" class="ub-add"/></td>
             </form>
         </tr>
         <?php
