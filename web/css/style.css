@@ -297,3 +297,10 @@ div.ub-Tab tr:hover {
     background-color: #717171 !important;
     color: white !important;
 }
+
+input[type="date"]::-webkit-inner-spin-button {
+  display: none;
+}
+input[type="date"]::-webkit-clear-button {
+    display: none;
+}

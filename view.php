@@ -57,10 +57,10 @@ if(isset($_POST['reserver'])){
       $chambreid = (int) $_GET['chambreid'];
 
       if ($_GET['lits'] == 2){
-        $litsupp = 1;
+        $litsupp = 2;
         $tarif = $resaManager->calculTarif((int) $_GET['nuits'], (int) $chambreid,  (int) $_GET['nbp'], 2);
       } else {
-        $litsupp = 0;
+        $litsupp = 1;
         $tarif = $resaManager->calculTarif((int)$_GET['nuits'], (int) $chambreid,  (int) $_GET['nbp'], 1);
       }
 

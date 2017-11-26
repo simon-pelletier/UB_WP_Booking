@@ -167,7 +167,7 @@ if(isset($_POST['deletePast'])){
                 <td><input type="text" style="max-width:30px;" name="nuits" value="1"/></td>
                 <td></td>
                 <td><input type="text" style="max-width:100px;" name="infos"/></td>
-                <td><input type="checkbox" value="1" name="litsupp"/></td>
+                <td><input type="checkbox" value="2" name="litsupp"/></td>
                 <td></td>
 
                 <td></td>
@@ -202,7 +202,7 @@ if(isset($_POST['deletePast'])){
             echo '<td>', $resa->nuits, '</td>';
             echo '<td>', $rdB, '</td>';
             echo '<td>', $resa->infos, '</td>';
-            if($resa->litsupp == 1)
+            if($resa->litsupp == 2)
             {
                 echo '<td>Yes</td>';
             }else{
@@ -212,7 +212,7 @@ if(isset($_POST['deletePast'])){
 
             if ($resa->confirmclient == 1){
                 echo '<td class="ub-confirmoui">Yes</td>';
-            }else if ($resa->confirmclient == 2){
+            }else if ($resa->confirmclient == 0){
                 echo '<td class="ub-confirmnon">No</td>';
             }else if ($resa->confirmclient == 3){
               echo '<td class="ub-confirmmanuel">Manual</td>';

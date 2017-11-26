@@ -118,10 +118,16 @@ class ResaManager{
         $sujet = "Confirmez votre réservation";
         $entete = "From: " . $siteName . " <robotUB@" . $siteNameAtt . ".com>";
 
-        if($getInfos[0]->litsupp == 1){
+        if($getInfos[0]->litsupp == 2){
           $supplement = 'Option lit séparés '. $getConfig[0]->supplits . ' ' . $getConfig[0]->devise;
         } else {
           $supplement = '';
+        }
+
+        if ($getInfos[0]->nuits > 1){
+          $nuitAccord = 'nuits';
+        } else {
+          $nuitAccord = 'nuit';
         }
 
         $message = 'Merci d\'avoir réservé une chambre dans notre hotel ' . $siteName . '.
@@ -129,7 +135,7 @@ class ResaManager{
 <strong>
 Du '. $dateA .'<br/>
 Au '. $dateB .'<br/>
-'. $getInfos[0]->nuits .' nuit(s)<br/>
+'. $getInfos[0]->nuits . ' ' . $nuitAccord . '<br/><br/>
 <br/>' . $supplement . '<br/>
 Total : '. $getInfos[0]->tarif . ' ' . $getConfig[0]->devise . '
 </strong>
@@ -161,7 +167,7 @@ Ceci est un mail automatique, Merci de ne pas y répondre.';
         Nombre de personnes : ' . $getInfos[0]->nombrep . '<br/><br/>
         Du '. $dateA .'<br/>
         Au '. $dateB .'<br/>
-        '. $getInfos[0]->nuits .' nuit(s)<br/><br/>
+        '. $getInfos[0]->nuits . ' ' . $nuitAccord . '<br/><br/>
         ' . $supplement . '<br/>
         Total : '. $getInfos[0]->tarif . ' ' . $getConfig[0]->devise . '<br/><br/>
         Informations complémentaires : ' . $getInfos[0]->infos . '<br/><br/>
