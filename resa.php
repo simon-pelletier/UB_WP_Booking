@@ -14,6 +14,13 @@ $roomManager = new RoomManager();
 if (isset($_GET['supprimerResa'])){
     $messageResa = 'The reservation has been deleted.';
     $wpdb->delete( 'wp_hb_resa', array( 'ID' => $_GET['supprimerResa'] ) );
+
+}
+
+if (isset($_POST['deletePastConfirm'])){
+    $messageResa = $resaManager->deletePast() . ' obsolete bookings have been removed.';
+    //$resaManager->deletePast;
+    ?><meta http-equiv="refresh" content="1; url=admin.php?page=UBHBRESA"><?php
 }
 
 if (isset($_POST['ajouterResa'])){
@@ -48,6 +55,39 @@ if (isset($_POST['ajouterResa'])){
 }
 ?>
 
+<?php
+
+if(isset($_POST['deletePast'])){
+  ?>
+
+ <!DOCTYPE HTML>
+ <html>
+    <head>
+        <title>Booking</title>
+        <meta charset="utf-8"/>
+        <link rel="stylesheet" type="text/css" href="<?php echo esc_url( home_url( '/' ) ) ?>wp-content/plugins/ub_hotelbooking/web/css/style.css"/>
+    </head>
+
+     <body>
+       <center>
+         <div class="ub-messageRoomError">
+       ! WARNING ! <br/><br/>
+       This action is irreversible.<br/>
+       Do you really want to delete past bookings?<br/><br/>
+       </div>
+       <form method="POST" action="admin.php?page=UBHBRESA">
+         <input type="submit" name="cancel" value="Cancel" class="ub-retour"/><input type="submit" name="deletePastConfirm" value="Confirm cleaning" class="ub-deletePast"/>
+       </form>
+       </center>
+     </body>
+  </html>
+
+<?php
+
+} else {
+
+ ?>
+
 <!DOCTYPE HTML>
 <html>
    <head>
@@ -59,6 +99,9 @@ if (isset($_POST['ajouterResa'])){
     <body>
        <div>
         <h1><center>Booking</center></h1>
+
+
+
         <?php
         if (isset($messageResa)){
         echo '<div class="ub-messageResa">' . $messageResa . '</div><br/>';
@@ -78,11 +121,12 @@ if (isset($_POST['ajouterResa'])){
           <th><img src="<?php echo esc_url( home_url( '/' ) ) ?>wp-content/plugins/ub_hotelbooking/web/img/max.svg" class="ub-resaImg"/></th>
           <th>Room</th>
           <th>Arrival</th>
+          <th><img src="<?php echo esc_url( home_url( '/' ) ) ?>wp-content/plugins/ub_hotelbooking/web/img/nuit.svg" class="ub-resaImg"/></th>
           <th>Departure</th>
           <th>Comment</th>
           <th>2<img src="<?php echo esc_url( home_url( '/' ) ) ?>wp-content/plugins/ub_hotelbooking/web/img/lits.svg" class="ub-resaImg"/></th>
           <th><?php echo $config[0]->devise ?></th>
-          <th><img src="<?php echo esc_url( home_url( '/' ) ) ?>wp-content/plugins/ub_hotelbooking/web/img/nuit.svg" class="ub-resaImg"/></th>
+
           <th>Confirmed</th>
           <th></th>
           </tr>
@@ -120,24 +164,34 @@ if (isset($_POST['ajouterResa'])){
                 $selectedB = $mindayd;
                  ?>
                 <td><input type="date" name="datearrivee" value="<?php echo $selectedA; ?>" min="<?php echo $mindaya; ?>" max="<?php echo $maxday; ?>" class="ub-date"/></td>
+                <td><input type="text" style="max-width:30px;" name="nuits" value="1"/></td>
                 <td></td>
                 <td><input type="text" style="max-width:100px;" name="infos"/></td>
                 <td><input type="checkbox" value="1" name="litsupp"/></td>
                 <td></td>
-                <td><input type="text" style="max-width:30px;" name="nuits" value="1"/></td>
+
                 <td></td>
                 <td><input type="submit" name="ajouterResa" value="Add"/></td>
               </form></tr>
 
         <?php
-        $resa = $wpdb->get_results("SELECT * FROM $resa_table");
+        //$resa = $wpdb->get_results("SELECT * FROM $resa_table ORDER BY tarif");
         foreach ($resaManager->resaList() as $resa)
           {
 
             $rdA = date("d-m-Y", strtotime($resa->datearrivee));
             $rdB = date("d-m-Y", strtotime($resa->datedepart));
+            $ajourdhui = date("Y-m-d");
 
-            echo '<tr>';
+            if ($resa->datedepart < $ajourdhui){
+              echo '<tr class="yesteday">';
+            } else if ($resa->datearrivee > $ajourdhui){
+              echo '<tr class="tomorrow">';
+            } else {
+              echo '<tr class="today">';
+            }
+
+
             echo '<td>', $resa->id, '</td>';
             echo '<td>', $resa->nom, '</td>';
             echo '<td>', $resa->email, '</td>';
@@ -145,16 +199,17 @@ if (isset($_POST['ajouterResa'])){
             echo '<td>', $resa->nombrep, '</td>';
             echo '<td>', $resa->chambre, '</td>';
             echo '<td>', $rdA, '</td>';
+            echo '<td>', $resa->nuits, '</td>';
             echo '<td>', $rdB, '</td>';
             echo '<td>', $resa->infos, '</td>';
             if($resa->litsupp == 1)
             {
-                echo '<td class="ub-confirmoui">Yes</td>';
+                echo '<td>Yes</td>';
             }else{
                 echo '<td>No</td>';
             }
             echo '<td>', $resa->tarif, ' ', $config[0]->devise, '</td>';
-            echo '<td>', $resa->nuits, '</td>';
+
             if ($resa->confirmclient == 1){
                 echo '<td class="ub-confirmoui">Yes</td>';
             }else if ($resa->confirmclient == 2){
@@ -162,10 +217,18 @@ if (isset($_POST['ajouterResa'])){
             }else if ($resa->confirmclient == 3){
               echo '<td class="ub-confirmmanuel">Manual</td>';
             }
-            echo '<td><a href="admin.php?page=UBHBRESA&supprimerResa=', $resa->id, '">Delete</a></td>';
+            echo '<td><a href="admin.php?page=UBHBRESA&supprimerResa=', $resa->id, '"><img src="' . esc_url( home_url( '/' ) ) . 'wp-content/plugins/ub_hotelbooking/web/img/delete.svg" class="ub-icon"/></a></td>';
             echo '</tr>';
           }
         ?>
         </table></center></div>
+        <br/>
+        <form method="POST" action="admin.php?page=UBHBRESA">
+          <center><input type="submit" name="deletePast" value="! Cleaning past bookings !" class="ub-deletePast"/></center>
+        </form>
+        <br/>
     </body>
 </html>
+<?php
+}
+?>

@@ -234,7 +234,7 @@ if (isset($_POST['update'])){
           echo '<td>', $room->for4, ' ', $config[0]->devise, '</td>';
           echo '<td>', $room->infosupen, '</td>';
           echo '<td>', $room->infosupfr, '</td>';
-          echo '<td><a href="admin.php?page=UBHBADMIN&supprimerRoom=', $room->id, '&photo=', $room->photo, '">Delete</a></td>';
+          echo '<td><a href="admin.php?page=UBHBADMIN&supprimerRoom=', $room->id, '&photo=', $room->photo, '"><img src="' . esc_url( home_url( '/' ) ) . 'wp-content/plugins/ub_hotelbooking/web/img/delete.svg" class="ub-icon"/></a></td>';
           echo '</tr>';
         }
         ?>

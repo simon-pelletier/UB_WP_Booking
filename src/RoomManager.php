@@ -81,7 +81,7 @@ class RoomManager{
     public function roomAdminList(){
         global $wpdb, $table_prefix;
         $rooms_table = $table_prefix . 'hb_rooms';
-        $room = $wpdb->get_results("SELECT * FROM $rooms_table");
+        $room = $wpdb->get_results("SELECT * FROM $rooms_table ORDER BY chambre");
         return $room;
     }
 

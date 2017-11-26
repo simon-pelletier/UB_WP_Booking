@@ -209,8 +209,18 @@ div.ub-liste a, div.liste a:hover, div.liste a:visited, div.liste a:active{
     background-color: #333333;
     display: block;
     padding: 8px;
+    cursor: pointer;
     width: 120px;
     border-radius: 5px;
+}
+.ub-deletePast{
+  color: #ffffff;
+  background-color: #aa0200 !important;
+  border: none;
+  padding: 10px;
+  cursor: pointer;
+  font-weight: 600;
+  border-radius: 5px;
 }
 
 /* ------------------------ ERRORS ------------------------ */
@@ -246,10 +256,6 @@ tr:nth-child(even) {
     background-color: #f2f2f2;
 
 }
-tr:hover {
-    background-color: #717171;
-    color: white;
-}
 th {
     padding: 10px;
     background-color: #333333;
@@ -258,4 +264,17 @@ th {
 td{
     height: 30px;
     text-align: center;
+}
+.yesteday{
+  background-color: #f94a4a !important;
+}
+.today{
+  background-color: #8dd888 !important;
+}
+.tomorrow{
+  background-color: #f2f2f2 !important;
+}
+tr:hover {
+    background-color: #717171 !important;
+    color: white !important;
 }

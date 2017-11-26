@@ -5,7 +5,7 @@ class ResaManager{
     public function resaList(){
         global $wpdb, $table_prefix;
         $resa_table = $table_prefix . 'hb_resa';
-        $post = $wpdb->get_results("SELECT * FROM $resa_table");
+        $post = $wpdb->get_results("SELECT * FROM $resa_table ORDER BY datearrivee DESC");
         return $post;
     }
 
@@ -291,5 +291,13 @@ Ceci est un mail automatique, Merci de ne pas y répondre.';
         return $nuits;
     }
 
+    public function deletePast(){
+      global $wpdb, $table_prefix;
+      $resa_table = $table_prefix . 'hb_resa';
+      $today = date("Y-m-d");
 
+      $count = $wpdb->query($wpdb->prepare("DELETE FROM $resa_table WHERE $resa_table.datedepart < %s", $today));
+
+      return $count;
+    }
 }
