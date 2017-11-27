@@ -113,11 +113,46 @@ if (isset($_POST['update'])){
               ?></select></label>
               <label>Currency : <input type="text" style="max-width:30px;" name="devise" value="<?php echo $config[0]->devise ?>"/></label>
               <br/><br/>
-              <td><input type="checkbox" name="fumeur" value="1" <?php echo $configManager->checkedOrNot($config[0]->fumeur); ?>/>Smoking</td> -
-              <td><input type="checkbox" name="animaux" value="1" <?php echo $configManager->checkedOrNot($config[0]->animaux); ?>/>Animals</td> -
-              <td><input type="checkbox" name="parking" value="1" <?php echo $configManager->checkedOrNot($config[0]->parking); ?>/>Parking</td> -
-              <td><input type="checkbox" name="cb" value="1" <?php echo $configManager->checkedOrNot($config[0]->cb); ?>/>Credit card</td> -
-              <td><input type="checkbox" name="cvac" value="1" <?php echo $configManager->checkedOrNot($config[0]->cvac); ?>/>Holiday vouchers</td>
+              <?php
+              if ($configManager->checkedOrNot($config[0]->fumeur) == 'checked'){
+                $fumeurIcon = 'fumeur.svg';
+              } else {
+                $fumeurIcon = 'nofumeur.svg';
+              }
+              ?>
+              <td><input type="checkbox" name="fumeur" value="1" <?php echo $configManager->checkedOrNot($config[0]->fumeur); ?>/><img src="<?php echo esc_url( home_url( '/' ) ) ?>wp-content/plugins/ub_hotelbooking/web/img/<?php echo $fumeurIcon ?>" class="ub-resaImgList"/>Smoking</td> -
+              <?php
+              if ($configManager->checkedOrNot($config[0]->animaux) == 'checked'){
+                $animauxIcon = 'animaux.svg';
+              } else {
+                $animauxIcon = 'noanimaux.svg';
+              }
+              ?>
+              <td><input type="checkbox" name="animaux" value="1" <?php echo $configManager->checkedOrNot($config[0]->animaux); ?>/><img src="<?php echo esc_url( home_url( '/' ) ) ?>wp-content/plugins/ub_hotelbooking/web/img/<?php echo $animauxIcon ?>" class="ub-resaImgList"/>Animals</td> -
+              <?php
+              if ($configManager->checkedOrNot($config[0]->parking) == 'checked'){
+                $parkingIcon = 'parking.svg';
+              } else {
+                $parkingIcon = 'noparking.svg';
+              }
+              ?>
+              <td><input type="checkbox" name="parking" value="1" <?php echo $configManager->checkedOrNot($config[0]->parking); ?>/><img src="<?php echo esc_url( home_url( '/' ) ) ?>wp-content/plugins/ub_hotelbooking/web/img/<?php echo $parkingIcon ?>" class="ub-resaImgList"/>Parking</td> -
+              <?php
+              if ($configManager->checkedOrNot($config[0]->cb) == 'checked'){
+                $cbIcon = 'cb.svg';
+              } else {
+                $cbIcon = 'nocb.svg';
+              }
+              ?>
+              <td><input type="checkbox" name="cb" value="1" <?php echo $configManager->checkedOrNot($config[0]->cb); ?>/><img src="<?php echo esc_url( home_url( '/' ) ) ?>wp-content/plugins/ub_hotelbooking/web/img/<?php echo $cbIcon ?>" class="ub-resaImgList"/>Credit card</td> -
+              <?php
+              if ($configManager->checkedOrNot($config[0]->cvac) == 'checked'){
+                $cvacIcon = 'cvac.svg';
+              } else {
+                $cvacIcon = 'nocvac.svg';
+              }
+              ?>
+              <td><input type="checkbox" name="cvac" value="1" <?php echo $configManager->checkedOrNot($config[0]->cvac); ?>/><img src="<?php echo esc_url( home_url( '/' ) ) ?>wp-content/plugins/ub_hotelbooking/web/img/<?php echo $cvacIcon ?>" class="ub-resaImgList"/>Holiday vouchers</td>
               <br/><br/>
               <td>EN - General info : <input type="text" name="infoscompen" value="<?php echo $config[0]->infoscompen ?>" class="ub-infoscomp"/></td><br/>
               <td>FR - General info : <input type="text" name="infoscompfr" value="<?php echo $config[0]->infoscompfr ?>" class="ub-infoscomp"/></td>
