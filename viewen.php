@@ -216,7 +216,7 @@ if (isset($_GET['chambre']) && isset($_GET['chambreid']) ){
 
           if($getConfig[0]->tidejcompris !== NULL){
             echo '<br/>';
-            echo '<span class="ub-infoscomp">Petit déjeuner inclus.</span>';
+            echo '<span class="ub-infoscomp">Breakfast included.</span>';
 
           } else {
 
@@ -231,7 +231,7 @@ if (isset($_GET['chambre']) && isset($_GET['chambreid']) ){
             if ($getConfig[0]->supptidejstatus !== NULL){
                 ?>
                 <br/>
-                Petit déjeuner : + <?php echo '<span class="ub-infoscomp">' . $getConfig[0]->supptidej . ' ' . $getConfig[0]->devise ?>
+                Breakfast : + <?php echo '<span class="ub-infoscomp">' . $getConfig[0]->supptidej . ' ' . $getConfig[0]->devise ?>
                 <?php
             }
           }
