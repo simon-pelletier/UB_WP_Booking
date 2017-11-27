@@ -141,6 +141,15 @@ div.ub-liste{
     padding-left: 10px;
     width: 60px;
 }
+.ub-room{
+    color: #ffffff !important;
+    background-color: #333333 !important;
+    border: none;
+    height: 30px;
+    text-align: center;
+    padding-left: 10px;
+    width: 60px;
+}
 
 .ub-nbnuits{
     color: #ffffff !important;

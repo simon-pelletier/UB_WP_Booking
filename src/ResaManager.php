@@ -115,42 +115,50 @@ class ResaManager{
         $dateA = date("d-m-Y", strtotime($getInfos[0]->datearrivee));
         $dateB = date("d-m-Y", strtotime($getInfos[0]->datedepart));
 
-        $sujet = "Confirmez votre réservation";
+        $sujet = "Confirmez votre réservation/Confirm your reservation";
         $entete = "From: " . $siteName . " <robotUB@" . $siteNameAtt . ".com>";
 
         if($getInfos[0]->litsupp == 2){
-          $supplement = 'Option lit séparés '. $getConfig[0]->supplits . ' ' . $getConfig[0]->devise;
+          $supplement = 'Option lit séparés '. $getConfig[0]->supplits . ' ' . $getConfig[0]->devise . '<br/>Separate bed option '. $getConfig[0]->supplits . ' ' . $getConfig[0]->devise;
         } else {
           $supplement = '';
         }
 
         if ($getInfos[0]->nuits > 1){
           $nuitAccord = 'nuits';
+          $nuitAccorden = 'nights';
         } else {
           $nuitAccord = 'nuit';
+          $nuitAccorden = 'night';
         }
 
         $message = 'Merci d\'avoir réservé une chambre dans notre hotel ' . $siteName . '.
+        <br/>Thank you for booking a room in our hotel ' . $siteName . '.
 <br/><br/>
 <strong>
-Du '. $dateA .'<br/>
-Au '. $dateB .'<br/>
-'. $getInfos[0]->nuits . ' ' . $nuitAccord . '<br/><br/>
-<br/>' . $supplement . '<br/>
+Du/From <br/>'. $dateA .'<br/>
+Au/To <br/>'. $dateB .'<br/>
+'. $getInfos[0]->nuits . ' ' . $nuitAccord . '/
+'. $getInfos[0]->nuits . ' ' . $nuitAccorden . '<br/>
+' . $supplement . '<br/>
 Total : '. $getInfos[0]->tarif . ' ' . $getConfig[0]->devise . '
 </strong>
-<br/><br/>
+<br/><br/><br/><br/>
 <strong>Pour CONFIRMER votre réservation au nom de ' . $nom . ',<br/>
 merci de cliquer sur le lien ci dessous ou copier/coller dans votre navigateur internet :<br/>
+To CONFIRM your reservation on behalf of '. $nom . '<br/>
+please click on the link below or copy/paste in your internet browser:<br/>
 ' . $url_serveur . '?do=confirm&id='.urlencode($id).'&cle='.urlencode($cle).'</strong>
 <br/><br/><br/>
 
 ---------------------------------------------<br/>
-<i>Pour ANNULER votre réservation, veuillez cliquer sur le lien ci dessous.
+<i>Pour ANNULER votre réservation, veuillez cliquer sur le lien ci dessous.<br/>
+To CANCEL your reservation, please click on the link below.<br/>
 ' . $url_serveur . '?do=cancel&id='.urlencode($id).'&cle='.urlencode($cle).'</i>
 <br/>
 ---------------------------------------------<br/>
-Ceci est un mail automatique, Merci de ne pas y répondre.';
+Ceci est un mail automatique, Merci de ne pas y répondre.<br/>
+This is an automatic email, please do not answer it.';
 
         wp_mail($mail, $sujet, $message, $entete);
 

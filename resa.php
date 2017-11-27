@@ -138,20 +138,16 @@ if(isset($_POST['deletePast'])){
                 <td><input type="text" style="max-width:100px;" name ="tel"/></td>
 
                 <td><select name="nombrep" size="1" class="ub-nbpersonnes">
+
                <?php
                 for ($i=1; $i <= 4; $i++){
-                    echo '<option>' . $i . '</option>';
+                    echo '<option value="' . $i . '">' . $i . '</option>';
                 }
                 ?></select></td>
 
-                <td><select name="chambre" size="1" class="ub-nbpersonnes">
-               <?php
-               $room = $wpdb->get_results("SELECT * FROM $rooms_table");
-               foreach ($room as $room) {
-                 echo '<option>' . $room->chambre . '</option>';
-               }
-
-                ?></select></td>
+                <td class="roomSelect"><div class="roomAffichage">
+                  <select name="chambre" size="1" class="ub-room"><?php $room = $wpdb->get_results("SELECT * FROM $rooms_table"); foreach ($room as $room) { echo '<option>' . $room->chambre . '</option>';}?></select>
+                </div></td>
 
                 <?php
                 $timezone = "Europe/Paris";
@@ -190,7 +186,6 @@ if(isset($_POST['deletePast'])){
             } else {
               echo '<tr class="ub-today">';
             }
-
 
             echo '<td>', $resa->id, '</td>';
             echo '<td>', $resa->nom, '</td>';
