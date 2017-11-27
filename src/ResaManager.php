@@ -148,13 +148,13 @@ Total : '. $getInfos[0]->tarif . ' ' . $getConfig[0]->devise . '
 merci de cliquer sur le lien ci dessous ou copier/coller dans votre navigateur internet :<br/>
 To CONFIRM your reservation on behalf of '. $nom . '<br/>
 please click on the link below or copy/paste in your internet browser:<br/>
-' . $url_serveur . '?do=confirm&id='.urlencode($id).'&cle='.urlencode($cle).'</strong>
+<a href="' . $url_serveur . '?do=confirm&id='.urlencode($id).'&cle='.urlencode($cle).'"/>' . $url_serveur . '?do=confirm&id='.urlencode($id).'&cle='.urlencode($cle).'</a></strong>
 <br/><br/><br/>
 
 ---------------------------------------------<br/>
 <i>Pour ANNULER votre réservation, veuillez cliquer sur le lien ci dessous.<br/>
 To CANCEL your reservation, please click on the link below.<br/>
-' . $url_serveur . '?do=cancel&id='.urlencode($id).'&cle='.urlencode($cle).'</i>
+<a href="' . $url_serveur . '?do=cancel&id='.urlencode($id).'&cle='.urlencode($cle).'>' . $url_serveur . '?do=cancel&id='.urlencode($id).'&cle='.urlencode($cle).'</a></i>
 <br/>
 ---------------------------------------------<br/>
 Ceci est un mail automatique, Merci de ne pas y répondre.<br/>
