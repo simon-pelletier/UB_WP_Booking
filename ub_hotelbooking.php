@@ -131,44 +131,6 @@ function create_plugin_database_table()
       $sqlr .= ") ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ; ";
       require_once( ABSPATH . '/wp-admin/includes/upgrade.php' );
       dbDelta($sqlr);
-
-      //Ajout de Rooms de base
-      $wpdb->insert($wp_table_room, array(
-        'chambre' => "1",
-        'max' => '2',
-        'lits' => '2',
-        'douche' => '0',
-        'wc' => '1',
-        'tel' => '1',
-        'tv' => '1',
-        'baignoire' => '1',
-        'wifi' => '1',
-        'clim' => '1',
-        'for1' => '65',
-        'for2' => '70',
-        'for3' => '80',
-        'for4' => '85',
-        'infosupen' => 'View on the sea',
-        'infosupfr' => 'Vue sur la mer'
-      ));
-      $wpdb->insert($wp_table_room, array(
-        'chambre' => "2",
-        'max' => '4',
-        'lits' => '2',
-        'douche' => '1',
-        'wc' => '1',
-        'tel' => '1',
-        'tv' => '1',
-        'baignoire' => '0',
-        'wifi' => '1',
-        'wifi' => '0',
-        'for1' => '55',
-        'for2' => '55',
-        'for3' => '75',
-        'for4' => '85',
-        'infosupen' => '',
-        'infosupfr' => ''
-      ));
   }
 
   if($wpdb->get_var( "show tables like '$wp_table_resa'" ) != $wp_table_resa)
@@ -193,24 +155,6 @@ function create_plugin_database_table()
       $sqla .= ") ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ; ";
       require_once( ABSPATH . '/wp-admin/includes/upgrade.php' );
       dbDelta($sqla);
-
-      //Ajout d'une reservation de base
-      $wpdb->insert($wp_table_resa, array(
-        'nom' => "nom client",
-        'email' => 'email@client.com',
-        'tel' => '0622556633',
-        'nombrep' => '2',
-        'chambre' => '1',
-        'chambreid' => '1',
-        'datearrivee' => '2017-11-15',
-        'datedepart' => '2017-11-30',
-        'infos' => 'Nous arriverons vers 19h',
-        'tarif' => '55',
-        'nuits' => '15',
-        'confirmclient' => '1',
-        'cleconfirm' => '00000000',
-        'litsupp' => '1'
-      ));
     }
 }
 
