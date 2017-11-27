@@ -236,4 +236,4 @@ function tableRemover(){
 
 register_activation_hook( __FILE__, 'create_plugin_database_table' );
 
-register_deactivation_hook( __FILE__, 'tableRemover' );
+register_uninstall_hook( __FILE__, 'tableRemover' );
