@@ -11,7 +11,7 @@ $roomManager = new RoomManager();
 $configManager = new ConfigManager();
 
 if (isset($_GET['supprimerRoom'])){
-    $messageRoom = 'The room has been removed.';
+    $messageRoom = 'La chambre a été supprimée.';
 
     $roomManager->deleteRoom($_GET['supprimerRoom'], $_GET['photo']);
 
@@ -21,7 +21,7 @@ if (isset($_GET['supprimerRoom'])){
 if (isset($_POST['ajouterChambre'])){
 
   if($roomManager->chambreExistance($_POST['chambre']) > 0){
-    $messageRoomError = 'This room name already exists.';
+    $messageRoomError = 'Ce nom de chambre existe déjà !';
   } else {
     if (!empty($_FILES['photo']['name'])){
         $tailleMax = 2097152;
@@ -31,18 +31,18 @@ if (isset($_POST['ajouterChambre'])){
             $largeur = $dimensions[1];
              if ($longueur==300 && $largeur==300) {
                $roomManager->addRoom($_POST['chambre'], $_POST['max'], $_POST['lits'], $_POST['douche'], $_POST['wc'], $_POST['tel'], $_POST['tv'], $_POST['baignoire'], $_POST['wifi'], $_POST['clim'], $_POST['photo'], $_POST['for1'], $_POST['for2'], $_POST['for3'], $_POST['for4'], $_POST['infosupen'], $_POST['infosupfr']);
-               $messageRoom = 'The room has been added.';
+               $messageRoom = 'La chambre a été ajoutée.';
 
                 $roomManager->ajoutPhoto($_FILES['photo']['name'], $_FILES['photo']['tmp_name']);
             } else {
-                 $messageRoomError = 'Your photo must be 300 * 300px<br/>';
+                 $messageRoomError = 'Votre photo doit être de 300 * 300px<br/>';
              }
          } else {
-             $messageRoomError = 'Your photo must not exceed 2MB<br/>';
+             $messageRoomError = 'Votre photo ne doit pas dépasser les 2Mo<br/>';
          }
     } else {
       $roomManager->addRoom($_POST['chambre'], $_POST['max'], $_POST['lits'], $_POST['douche'], $_POST['wc'], $_POST['tel'], $_POST['tv'], $_POST['baignoire'], $_POST['wifi'], $_POST['clim'], $_POST['photo'], $_POST['for1'], $_POST['for2'], $_POST['for3'], $_POST['for4'], $_POST['infosupen'], $_POST['infosupfr']);
-      $messageRoom = 'The room has been added.';
+      $messageRoom = 'La chambre a été ajoutée.';
     }
   }
 }
@@ -73,10 +73,10 @@ if (isset($_POST['update'])){
       $_POST['suppdiverstextfr'],
       $_POST['suppdivers']
     );
-    $messageConfig = 'Saved configuration.';
+    $messageConfig = 'Configuration sauvegardée';
     ?><meta http-equiv="refresh" content="0; url=admin.php?page=UBHBADMIN"><?php
   } else {
-    $messageRoomError = 'Please enter a valid email address.';
+    $messageRoomError = 'Merci de renseigner une adresse e-mail valide.';
   }
 }
 ?>
@@ -84,7 +84,7 @@ if (isset($_POST['update'])){
 <!DOCTYPE HTML>
 <html>
    <head>
-       <title>Rooms</title>
+       <title>Chambres</title>
        <meta charset="utf-8"/>
        <link rel="stylesheet" type="text/css" href="<?php echo esc_url( home_url( '/' ) ) ?>wp-content/plugins/ub_hotelbooking/web/css/style.css"/>
    </head>
@@ -99,8 +99,8 @@ if (isset($_POST['update'])){
           }
           ?>
         <form method="POST" action="admin.php?page=UBHBADMIN">
-          <label>Booking E-mail : <input type="text" style="max-width:250px;" name="adminmail" value="<?php echo $config[0]->adminmail ?>"/></label>
-          <label>Max people : <select name="persmax" size="1" class="ub-nbpersonnes">
+          <label>E-mail de réservation : <input type="text" style="max-width:250px;" name="adminmail" value="<?php echo $config[0]->adminmail ?>"/></label>
+          <label>Personnes maximum : <select name="persmax" size="1" class="ub-nbpersonnes">
              <?php
               for ($i=1; $i <= 4; $i++){
                 if ($config[0]->personnesmax == $i){
@@ -111,7 +111,7 @@ if (isset($_POST['update'])){
 
               }
               ?></select></label>
-              <label>Currency : <input type="text" style="max-width:30px;" name="devise" value="<?php echo $config[0]->devise ?>"/></label>
+              <label>Devise : <input type="text" style="max-width:30px;" name="devise" value="<?php echo $config[0]->devise ?>"/></label>
               <br/><br/>
               <?php
               if ($configManager->checkedOrNot($config[0]->fumeur) == 'checked'){
@@ -120,7 +120,7 @@ if (isset($_POST['update'])){
                 $fumeurIcon = 'nofumeur.svg';
               }
               ?>
-              <td><input type="checkbox" name="fumeur" value="1" <?php echo $configManager->checkedOrNot($config[0]->fumeur); ?>/><img src="<?php echo esc_url( home_url( '/' ) ) ?>wp-content/plugins/ub_hotelbooking/web/img/<?php echo $fumeurIcon ?>" class="ub-resaImgList"/>Smoking</td> -
+              <td><input type="checkbox" name="fumeur" value="1" <?php echo $configManager->checkedOrNot($config[0]->fumeur); ?>/><img src="<?php echo esc_url( home_url( '/' ) ) ?>wp-content/plugins/ub_hotelbooking/web/img/<?php echo $fumeurIcon ?>" class="ub-resaImgList"/>Fumeur</td> -
               <?php
               if ($configManager->checkedOrNot($config[0]->animaux) == 'checked'){
                 $animauxIcon = 'animaux.svg';
@@ -128,7 +128,7 @@ if (isset($_POST['update'])){
                 $animauxIcon = 'noanimaux.svg';
               }
               ?>
-              <td><input type="checkbox" name="animaux" value="1" <?php echo $configManager->checkedOrNot($config[0]->animaux); ?>/><img src="<?php echo esc_url( home_url( '/' ) ) ?>wp-content/plugins/ub_hotelbooking/web/img/<?php echo $animauxIcon ?>" class="ub-resaImgList"/>Animals</td> -
+              <td><input type="checkbox" name="animaux" value="1" <?php echo $configManager->checkedOrNot($config[0]->animaux); ?>/><img src="<?php echo esc_url( home_url( '/' ) ) ?>wp-content/plugins/ub_hotelbooking/web/img/<?php echo $animauxIcon ?>" class="ub-resaImgList"/>Animaux</td> -
               <?php
               if ($configManager->checkedOrNot($config[0]->parking) == 'checked'){
                 $parkingIcon = 'parking.svg';
@@ -144,7 +144,7 @@ if (isset($_POST['update'])){
                 $cbIcon = 'nocb.svg';
               }
               ?>
-              <td><input type="checkbox" name="cb" value="1" <?php echo $configManager->checkedOrNot($config[0]->cb); ?>/><img src="<?php echo esc_url( home_url( '/' ) ) ?>wp-content/plugins/ub_hotelbooking/web/img/<?php echo $cbIcon ?>" class="ub-resaImgList"/>Credit card</td> -
+              <td><input type="checkbox" name="cb" value="1" <?php echo $configManager->checkedOrNot($config[0]->cb); ?>/><img src="<?php echo esc_url( home_url( '/' ) ) ?>wp-content/plugins/ub_hotelbooking/web/img/<?php echo $cbIcon ?>" class="ub-resaImgList"/>Carte de crédit</td> -
               <?php
               if ($configManager->checkedOrNot($config[0]->cvac) == 'checked'){
                 $cvacIcon = 'cvac.svg';
@@ -152,26 +152,26 @@ if (isset($_POST['update'])){
                 $cvacIcon = 'nocvac.svg';
               }
               ?>
-              <td><input type="checkbox" name="cvac" value="1" <?php echo $configManager->checkedOrNot($config[0]->cvac); ?>/><img src="<?php echo esc_url( home_url( '/' ) ) ?>wp-content/plugins/ub_hotelbooking/web/img/<?php echo $cvacIcon ?>" class="ub-resaImgList"/>Holiday vouchers</td>
+              <td><input type="checkbox" name="cvac" value="1" <?php echo $configManager->checkedOrNot($config[0]->cvac); ?>/><img src="<?php echo esc_url( home_url( '/' ) ) ?>wp-content/plugins/ub_hotelbooking/web/img/<?php echo $cvacIcon ?>" class="ub-resaImgList"/>Chèques vacances</td>
               <br/><br/>
-              <td>EN - General info : <input type="text" name="infoscompen" value="<?php echo $config[0]->infoscompen ?>" class="ub-infoscomp"/></td><br/>
-              <td>FR - General info : <input type="text" name="infoscompfr" value="<?php echo $config[0]->infoscompfr ?>" class="ub-infoscomp"/></td>
+              <td>EN - Informations générales : <input type="text" name="infoscompen" value="<?php echo $config[0]->infoscompen ?>" class="ub-infoscomp"/></td><br/>
+              <td>FR - Informations générales : <input type="text" name="infoscompfr" value="<?php echo $config[0]->infoscompfr ?>" class="ub-infoscomp"/></td>
               <br/>
-              <td><input type="checkbox" name="supplitsstatus" value="1" <?php echo $configManager->checkedOrNot($config[0]->supplitsstatus); ?>/>Extra Separated beds</td> -
-              <td>Amount : <input type="text" name="supplits" value="<?php echo $config[0]->supplits ?>" class="ub-supp"/></td> <?php echo $config[0]->devise ?>
+              <td><input type="checkbox" name="supplitsstatus" value="1" <?php echo $configManager->checkedOrNot($config[0]->supplitsstatus); ?>/>Option lits séparés</td> -
+              <td>Montant : <input type="text" name="supplits" value="<?php echo $config[0]->supplits ?>" class="ub-supp"/></td> <?php echo $config[0]->devise ?>
               <br/>
-              <td><input type="checkbox" name="suppsaisonstatus" value="1" <?php echo $configManager->checkedOrNot($config[0]->suppsaisonstatus); ?>/>Extra Season</td> -
-              <td>Amount : <input type="text" name="suppsaison" value="<?php echo $config[0]->suppsaison ?>" class="ub-supp"/></td> <?php echo $config[0]->devise ?>
+              <td><input type="checkbox" name="suppsaisonstatus" value="1" <?php echo $configManager->checkedOrNot($config[0]->suppsaisonstatus); ?>/>Supplément saison</td> -
+              <td>Montant : <input type="text" name="suppsaison" value="<?php echo $config[0]->suppsaison ?>" class="ub-supp"/></td> <?php echo $config[0]->devise ?>
               <br/>
-              <td><input type="checkbox" name="supptidejstatus" value="1" <?php echo $configManager->checkedOrNot($config[0]->supptidejstatus); ?>/>Extra Breakfast</td> -
-              <td>Amount : <input type="text" name="supptidej" value="<?php echo $config[0]->supptidej ?>" class="ub-supp"/></td> <?php echo $config[0]->devise ?>
+              <td><input type="checkbox" name="supptidejstatus" value="1" <?php echo $configManager->checkedOrNot($config[0]->supptidejstatus); ?>/>Supplément petit déjeuner</td> -
+              <td>Montant : <input type="text" name="supptidej" value="<?php echo $config[0]->supptidej ?>" class="ub-supp"/></td> <?php echo $config[0]->devise ?>
               -
-              <td><input type="checkbox" name="tidejcompris" value="1" <?php echo $configManager->checkedOrNot($config[0]->tidejcompris); ?>/>Breakfast included</td>
+              <td><input type="checkbox" name="tidejcompris" value="1" <?php echo $configManager->checkedOrNot($config[0]->tidejcompris); ?>/>Petit déjeuner inclus</td>
               <br/>
-              <td><input type="checkbox" name="suppdiversstatus" value="1" <?php echo $configManager->checkedOrNot($config[0]->suppdiversstatus); ?>/>Other supplement</td> -
-              <td>EN-Entitled : <input type="text" name="suppdiverstexten" value="<?php echo $config[0]->suppdiverstexten ?>" class="suppdiverstexten"/></td>
-              <td>FR-Entitled : <input type="text" name="suppdiverstextfr" value="<?php echo $config[0]->suppdiverstextfr ?>" class="suppdiverstextfr"/></td>
-              <td>Amount : <input type="text" name="suppdivers" value="<?php echo $config[0]->suppdivers ?>" class="ub-supp"/></td> <?php echo $config[0]->devise ?>
+              <td><input type="checkbox" name="suppdiversstatus" value="1" <?php echo $configManager->checkedOrNot($config[0]->suppdiversstatus); ?>/>Autre supplément</td> -
+              <td>EN-Intitulé : <input type="text" name="suppdiverstexten" value="<?php echo $config[0]->suppdiverstexten ?>" class="suppdiverstexten"/></td>
+              <td>FR-Intitulé : <input type="text" name="suppdiverstextfr" value="<?php echo $config[0]->suppdiverstextfr ?>" class="suppdiverstextfr"/></td>
+              <td>Montant : <input type="text" name="suppdivers" value="<?php echo $config[0]->suppdivers ?>" class="ub-supp"/></td> <?php echo $config[0]->devise ?>
               <br/><br/>
           <input type="submit" name="update" value="Save" class="ub-btn"/>
         </form>
@@ -181,7 +181,7 @@ if (isset($_POST['update'])){
 
 <br/>
         <div class="ub-Tab">
-        <h1><center>Rooms : </center></h1>
+        <h1><center>Chambres : </center></h1>
         <?php
         if (isset($messageRoom)){
         echo '<div class="ub-messageRoom">' . $messageRoom . '</div><br/>';
@@ -193,7 +193,7 @@ if (isset($_POST['update'])){
         <center>
         <table>
           <tr>
-          <th>Room</th>
+          <th>Chambre</th>
           <th>Nb<img src="<?php echo esc_url( home_url( '/' ) ) ?>wp-content/plugins/ub_hotelbooking/web/img/max.svg" class="ub-resaImg"/></th>
           <th><img src="<?php echo esc_url( home_url( '/' ) ) ?>wp-content/plugins/ub_hotelbooking/web/img/lits.svg" class="ub-resaImg"/></th>
           <th><img src="<?php echo esc_url( home_url( '/' ) ) ?>wp-content/plugins/ub_hotelbooking/web/img/douche.svg" class="ub-resaImg"/></th>

@@ -12,14 +12,13 @@ $resaManager = new ResaManager();
 $roomManager = new RoomManager();
 
 if (isset($_GET['supprimerResa'])){
-    $messageResa = 'The reservation has been deleted.';
+    $messageResa = 'La réservation a bien été supprimée.';
     $wpdb->delete( 'wp_hb_resa', array( 'ID' => $_GET['supprimerResa'] ) );
 
 }
 
 if (isset($_POST['deletePastConfirm'])){
-    $messageResa = $resaManager->deletePast() . ' obsolete bookings have been removed.';
-    //$resaManager->deletePast;
+    $messageResa = $resaManager->deletePast() . ' réservations obsolètes ont été supprimées !';
     ?><meta http-equiv="refresh" content="1; url=admin.php?page=UBHBRESA"><?php
 }
 
@@ -43,13 +42,13 @@ if (isset($_POST['ajouterResa'])){
 
       $resaManager->addResaManuel($_POST['nom'], $_POST['email'], $_POST['tel'], $_POST['nombrep'], $_POST['chambre'], $chambreid, $_POST['datearrivee'], $dateB, $_POST['infos'], $tarif, $nuits, $confirmclient, 0, $_POST['litsupp'], $_POST['tidej'], $_POST['divers']);
 
-      $messageResa = 'The reservation has been added!';
+      $messageResa = 'La réservation a été ajoutée.';
 
     } else {
-      $messageResaError = 'The email entered is not correct.';
+      $messageResaError = 'Merci de renseigner une adresse e-mail valide.';
     }
     } else {
-      $messageResaError = 'Please fill in the Customer Name';
+      $messageResaError = 'Merci de renseigner un nom de client.';
     }
 
 }
@@ -63,7 +62,7 @@ if(isset($_POST['deletePast'])){
  <!DOCTYPE HTML>
  <html>
     <head>
-        <title>Booking</title>
+        <title>Réservations</title>
         <meta charset="utf-8"/>
         <link rel="stylesheet" type="text/css" href="<?php echo esc_url( home_url( '/' ) ) ?>wp-content/plugins/ub_hotelbooking/web/css/style.css"/>
     </head>
@@ -71,12 +70,12 @@ if(isset($_POST['deletePast'])){
      <body>
        <center>
          <div class="ub-messageRoomError">
-       ! WARNING ! <br/><br/>
-       This action is irreversible.<br/>
-       Do you really want to delete past bookings?<br/><br/>
+       ! ATTENTION ! <br/><br/>
+       Cette action est irréversible<br/>
+       Voulez vous vraiment supprimer les anciennes réservations ?<br/><br/>
        </div>
        <form method="POST" action="admin.php?page=UBHBRESA">
-         <input type="submit" name="cancel" value="Cancel" class="ub-retour"/><input type="submit" name="deletePastConfirm" value="Confirm cleaning" class="ub-deletePast"/>
+         <input type="submit" name="cancel" value="Annuler" class="ub-retour"/><input type="submit" name="deletePastConfirm" value="Effacer définitivement !" class="ub-deletePast"/>
        </form>
        </center>
      </body>
@@ -91,14 +90,14 @@ if(isset($_POST['deletePast'])){
 <!DOCTYPE HTML>
 <html>
    <head>
-       <title>Booking</title>
+       <title>Réservations</title>
        <meta charset="utf-8"/>
        <link rel="stylesheet" type="text/css" href="<?php echo esc_url( home_url( '/' ) ) ?>wp-content/plugins/ub_hotelbooking/web/css/style.css"/>
    </head>
 
     <body>
        <div class="ub-Tab">
-        <h1><center>Booking</center></h1>
+        <h1><center>Réservations</center></h1>
 
 
 
@@ -115,19 +114,19 @@ if(isset($_POST['deletePast'])){
         <table>
           <tr>
           <th>ID</th>
-          <th>Name</th>
+          <th>Nom</th>
           <th>@</th>
           <th><img src="<?php echo esc_url( home_url( '/' ) ) ?>wp-content/plugins/ub_hotelbooking/web/img/tel.svg" class="ub-resaImg"/></th>
           <th><img src="<?php echo esc_url( home_url( '/' ) ) ?>wp-content/plugins/ub_hotelbooking/web/img/max.svg" class="ub-resaImg"/></th>
-          <th>Room</th>
-          <th>Arrival</th>
+          <th>Chambre</th>
+          <th>Arrivée</th>
           <th><img src="<?php echo esc_url( home_url( '/' ) ) ?>wp-content/plugins/ub_hotelbooking/web/img/nuit.svg" class="ub-resaImg"/></th>
-          <th>Departure</th>
-          <th>Comment</th>
+          <th>Départ</th>
+          <th>Commentaire</th>
           <th>2<img src="<?php echo esc_url( home_url( '/' ) ) ?>wp-content/plugins/ub_hotelbooking/web/img/lits.svg" class="ub-resaImg"/></th>
           <th><?php echo $config[0]->devise ?></th>
 
-          <th>Confirmed</th>
+          <th>Confirmation</th>
           <th></th>
           </tr>
           <tr>
@@ -167,11 +166,10 @@ if(isset($_POST['deletePast'])){
                 <td></td>
 
                 <td></td>
-                <td><input type="submit" name="ajouterResa" value="Add" class="ub-add"/></td>
+                <td><input type="submit" name="ajouterResa" value="Ajouter" class="ub-add"/></td>
               </form></tr>
 
         <?php
-        //$resa = $wpdb->get_results("SELECT * FROM $resa_table ORDER BY tarif");
         foreach ($resaManager->resaList() as $resa)
           {
 
@@ -199,18 +197,18 @@ if(isset($_POST['deletePast'])){
             echo '<td>', $resa->infos, '</td>';
             if($resa->litsupp == 2)
             {
-                echo '<td>Yes</td>';
+                echo '<td>Oui</td>';
             }else{
-                echo '<td>No</td>';
+                echo '<td>Non</td>';
             }
             echo '<td>', $resa->tarif, ' ', $config[0]->devise, '</td>';
 
             if ($resa->confirmclient == 1){
-                echo '<td class="ub-confirmoui">Yes</td>';
+                echo '<td class="ub-confirmoui">Oui</td>';
             }else if ($resa->confirmclient == 0){
-                echo '<td class="ub-confirmnon">No</td>';
+                echo '<td class="ub-confirmnon">Non</td>';
             }else if ($resa->confirmclient == 3){
-              echo '<td class="ub-confirmmanuel">Manual</td>';
+              echo '<td class="ub-confirmmanuel">Manuel</td>';
             }
             echo '<td><a href="admin.php?page=UBHBRESA&supprimerResa=', $resa->id, '"><img src="' . esc_url( home_url( '/' ) ) . 'wp-content/plugins/ub_hotelbooking/web/img/delete.svg" class="ub-icon"/></a></td>';
             echo '</tr>';
@@ -219,7 +217,7 @@ if(isset($_POST['deletePast'])){
         </table></center></div>
         <br/>
         <form method="POST" action="admin.php?page=UBHBRESA">
-          <center><input type="submit" name="deletePast" value="! Cleaning past bookings !" class="ub-deletePast"/></center>
+          <center><input type="submit" name="deletePast" value="! Effacer les anciennes réservations !" class="ub-deletePast"/></center>
         </form>
         <br/>
     </body>
