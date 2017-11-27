@@ -173,7 +173,7 @@ if (isset($_POST['update'])){
               <td>FR-Intitulé : <input type="text" name="suppdiverstextfr" value="<?php echo $config[0]->suppdiverstextfr ?>" class="suppdiverstextfr"/></td>
               <td>Montant : <input type="text" name="suppdivers" value="<?php echo $config[0]->suppdivers ?>" class="ub-supp"/></td> <?php echo $config[0]->devise ?>
               <br/><br/>
-          <input type="submit" name="update" value="Save" class="ub-btn"/>
+          <input type="submit" name="update" value="Sauvegarder" class="ub-btn"/>
         </form>
         </center>
       </div>
@@ -244,7 +244,7 @@ if (isset($_POST['update'])){
             <td><input type="text" style="max-width:30px;" name="for4"/></td>
             <td><input type="text" style="max-width:100px;" name="infosupen"/></td>
             <td><input type="text" style="max-width:100px;" name="infosupfr"/></td>
-            <td><input type="submit" name="ajouterChambre" value="Add" class="ub-add"/></td>
+            <td><input type="submit" name="ajouterChambre" value="Ajouter" class="ub-add"/></td>
             </form>
         </tr>
         <?php
