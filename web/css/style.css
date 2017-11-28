@@ -412,3 +412,7 @@ height: 100px;
 .ub-supp-row{
   background-color: #fff !important;
 }
+.ub-semaine{
+  text-align: center;
+  font-weight: bold;
+}

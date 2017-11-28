@@ -25,7 +25,17 @@ echo '<br/><br/>';
 $nbjour = cal_days_in_month( CAL_GREGORIAN, $mois, $anne); // nombre de jour dans le mois
 
 echo "<table class='ub-calendar' >";
-
+?>
+<tr class="ub-semaine">
+<td>Lundi</td>
+<td>Mardi</td>
+<td>Mercredi</td>
+<td>Jeudi</td>
+<td>Vendredi</td>
+<td>Samedi</td>
+<td>Dimanche</td>
+</tr>
+<?php
 for($i = 1; $nbjour >= $i; $i++){
   $p = cal_to_jd(CAL_GREGORIAN, $mois, $i, $anne); // formater jour
   $jourweek = jddayofweek($p); // jour de la semaine
