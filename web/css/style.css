@@ -1,13 +1,14 @@
 /* ------------------------ ADMIN AREA ------------------------ */
 
 .ub-confirmoui{
-  background-color:aquamarine;
+  background-color:#8dd888;
 }
 .ub-confirmnon{
-  background-color: crimson;
+  background-color: #000;
+  color: #fff;
 }
 .ub-confirmmanuel{
-  background-color: #e2d676;
+  background-color: #8dd888;
 }
 
 /* ------------------------ SEARCH AREA ------------------------ */
@@ -235,7 +236,7 @@ div.ub-liste a, div.ub-liste a:hover, div.ub-liste a:visited, div.ub-liste a:act
 }
 .ub-deletePast{
   color: #ffffff;
-  background-color: #aa0200 !important;
+  background-color: #f94a4a !important;
   border: none;
   padding: 10px;
   cursor: pointer;
@@ -296,6 +297,7 @@ div.ub-Tab td{
 }
 .ub-yesteday{
   background-color: #f94a4a !important;
+  color: #fff;
 }
 .ub-today{
   background-color: #8dd888 !important;
@@ -315,7 +317,9 @@ input[type="date"]::-webkit-clear-button {
     display: none;
 }
 
-
+.ub-limit{
+  max-width: 100px !important;
+}
 
 
 

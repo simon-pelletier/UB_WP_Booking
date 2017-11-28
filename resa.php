@@ -205,7 +205,7 @@ if(isset($_POST['deletePast'])){
             }
 
             echo '<td>', $resa->id, '</td>';
-            echo '<td>', $resa->nom, '</td>';
+            echo '<td class="ub-limit">', $resa->nom, '</td>';
             echo '<td>', $resa->email, '</td>';
             echo '<td>', $resa->tel, '</td>';
             echo '<td>', $resa->nombrep, '</td>';
@@ -213,7 +213,7 @@ if(isset($_POST['deletePast'])){
             echo '<td>', $rdA, '</td>';
             echo '<td>', $resa->nuits, '</td>';
             echo '<td>', $rdB, '</td>';
-            echo '<td>', $resa->infos, '</td>';
+            echo '<td class="ub-limit">', $resa->infos, '</td>';
             if($resa->litsupp == 2)
             {
                 echo '<td>Oui</td>';
