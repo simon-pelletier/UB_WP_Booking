@@ -91,6 +91,7 @@ if (isset($_POST['update'])){
     <body>
       <div>
         <h1><center>Configuration : </center></h1>
+        <br/>
         <center>
           <?php
           $config = $wpdb->get_results("SELECT * FROM $config_table");
@@ -182,6 +183,7 @@ if (isset($_POST['update'])){
 <br/>
         <div class="ub-Tab">
         <h1><center>Chambres : </center></h1>
+        <br/>
         <?php
         if (isset($messageRoom)){
         echo '<div class="ub-messageRoom">' . $messageRoom . '</div><br/>';

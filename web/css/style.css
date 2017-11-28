@@ -314,3 +314,77 @@ input[type="date"]::-webkit-inner-spin-button {
 input[type="date"]::-webkit-clear-button {
     display: none;
 }
+
+
+
+
+
+.ub-calendar
+{
+width:100%;
+height:100%;
+border-collapse: collapse;
+//background-color:#F7F8F5;
+}
+.ub-calendar-case
+{
+font-size:large;
+text-align:center;
+border:1px solid grey;
+font-weight:bold;
+background-color:white;
+vertical-align: text-top;
+width: 100px;
+}
+#ub-cal-cont
+{
+height:80%;
+width:80%;
+margin-left:auto;
+margin-right:auto;
+}
+.ub-calendar-row{
+height: 100px;
+}
+#ub-cal-pre{
+  float:left;
+  cursor:pointer;
+  width: 40px;
+  margin-top: 300px;
+}
+#ub-cal-post{
+  float:right;
+  cursor:pointer;
+  width: 40px;
+  margin-top: 300px;
+  margin-right: 20px;
+}
+.ub-calendar-case-today{
+  border:10px solid #e2d676;
+}
+.ub-arrival{
+  background-color: #8dd888;
+  border-top: 1px solid #000000;
+  font-weight: normal;
+  font-size: small;
+  display: inline-block;
+  width: 100%;
+}
+.ub-departure{
+  background-color: #f28680;
+  border-top: 1px solid #000000;
+  font-weight: normal;
+  font-size: small;
+}
+.ub-arrival-chambre{
+  display: inline;
+  float: left;
+  margin-left: 5px;
+  font-weight: bold;
+}
+.ub-arrival-name{
+  display: inline;
+}
+.ub-tab-resa{
+  margin-top: 100px;
+}

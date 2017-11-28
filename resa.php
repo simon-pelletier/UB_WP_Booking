@@ -96,9 +96,26 @@ if(isset($_POST['deletePast'])){
    </head>
 
     <body>
-       <div class="ub-Tab">
+
+      <?php
+
+      $mois = date("m");
+      $anne = date("Y");
+      ?>
+      <div style="margin-bottom:5%" >
+        <img id="ub-cal-pre" src="<?php echo esc_url( home_url( '/' ) ) ?>wp-content/plugins/ub_hotelbooking/web/img/left.svg"/>
+        <img id="ub-cal-post" src="<?php echo esc_url( home_url( '/' ) ) ?>wp-content/plugins/ub_hotelbooking/web/img/right.svg"/>
+       </div>
+
+      <div id="ub-cal-cont" >
+
+      </div>
+
+
+       <div class="ub-Tab ub-tab-resa">
         <h1><center>Réservations</center></h1>
 
+        <br/>
 
 
         <?php
@@ -220,6 +237,77 @@ if(isset($_POST['deletePast'])){
           <center><input type="submit" name="deletePast" value="! Effacer les anciennes réservations !" class="ub-deletePast"/></center>
         </form>
         <br/>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+        <script>
+
+        var mois = <?php echo $mois;?>;
+
+        var anne = <?php echo $anne;?>;
+
+        $(document).ready(function(){
+
+        $("#ub-cal-cont").load("<?php echo esc_url( home_url( '/' ) ) ?>wp-content/plugins/ub_hotelbooking/calendrier.php?mois="+mois+"&anne="+anne,function(){});
+
+        $("#ub-cal-pre").click(function(){
+
+        mois--;
+
+        if(mois < 1)
+        {
+        anne--;
+        mois = 12;
+        }
+
+        $("#ub-cal-cont").load("<?php echo esc_url( home_url( '/' ) ) ?>wp-content/plugins/ub_hotelbooking/calendrier.php?mois="+mois+"&anne="+anne,function(){});
+
+        });
+
+        $("#ub-cal-post").click(function(){
+
+        mois++;
+
+        if(mois > 12)
+        {
+        anne++;
+        mois = 1;
+        }
+
+        $("#ub-cal-cont").load("<?php echo esc_url( home_url( '/' ) ) ?>wp-content/plugins/ub_hotelbooking/calendrier.php?mois="+mois+"&anne="+anne,function(){});
+
+        });
+
+        });
+        </script>
+
+
+
+
+
+
+
+
+
+
+
     </body>
 </html>
 <?php
