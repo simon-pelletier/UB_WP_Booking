@@ -96,6 +96,8 @@ if(isset($_POST['deletePast'])){
    </head>
 
     <body>
+<center>
+
 
       <?php
 
@@ -110,7 +112,7 @@ if(isset($_POST['deletePast'])){
       <div id="ub-cal-cont" >
 
       </div>
-
+</center>
 
        <div class="ub-Tab ub-tab-resa">
         <h1><center>Réservations</center></h1>
@@ -227,7 +229,7 @@ if(isset($_POST['deletePast'])){
             }else if ($resa->confirmclient == 3){
               echo '<td class="ub-confirmmanuel">Manuel</td>';
             }
-            echo '<td><a href="admin.php?page=UBHBRESA&supprimerResa=', $resa->id, '"><img src="' . esc_url( home_url( '/' ) ) . 'wp-content/plugins/ub_hotelbooking/web/img/delete.svg" class="ub-icon"/></a></td>';
+            echo '<td class="ub-supp-row"><a href="admin.php?page=UBHBRESA&supprimerResa=', $resa->id, '"><img src="' . esc_url( home_url( '/' ) ) . 'wp-content/plugins/ub_hotelbooking/web/img/delete.svg" class="ub-icon"/></a></td>';
             echo '</tr>';
           }
         ?>

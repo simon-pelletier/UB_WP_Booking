@@ -323,6 +323,7 @@ input[type="date"]::-webkit-clear-button {
 {
 width:100%;
 height:100%;
+max-width: 1200px;
 border-collapse: collapse;
 //background-color:#F7F8F5;
 }
@@ -335,6 +336,7 @@ font-weight:bold;
 background-color:white;
 vertical-align: text-top;
 width: 100px;
+height: 50px;
 }
 #ub-cal-cont
 {
@@ -350,41 +352,59 @@ height: 100px;
   float:left;
   cursor:pointer;
   width: 40px;
-  margin-top: 300px;
+  margin-top: 330px;
 }
 #ub-cal-post{
   float:right;
   cursor:pointer;
   width: 40px;
-  margin-top: 300px;
+  margin-top: 330px;
   margin-right: 20px;
 }
 .ub-calendar-case-today{
-  border:10px solid #e2d676;
+  border:10px solid grey;
 }
-.ub-arrival{
-  background-color: #8dd888;
-  border-top: 1px solid #000000;
+
+.ub-resa-case{
+  //border-top: 1px solid #000000;
+  font-weight: normal;
+  margin-top: 5px;
   font-weight: normal;
   font-size: small;
   display: inline-block;
+}
+.ub-arrival{
+  background-color: #b1eaaf;
   width: 100%;
 }
+.ub-current{
+  background-color: #b1eaaf;
+  width: auto;
+  height: 20px;
+  text-align: center !important;
+  margin-right: 5px;
+  padding-right: 5px;
+}
 .ub-departure{
-  background-color: #f28680;
-  border-top: 1px solid #000000;
-  font-weight: normal;
-  font-size: small;
+  background-color: #ffc5bf;
+  width: 100%;
 }
 .ub-arrival-chambre{
   display: inline;
   float: left;
   margin-left: 5px;
   font-weight: bold;
+  //border: 10px solid #ffffff;
+  //width: 20px;
+  //height: 20px;
 }
 .ub-arrival-name{
   display: inline;
+
 }
 .ub-tab-resa{
-  margin-top: 100px;
+  margin-top: 40px;
+}
+.ub-supp-row{
+  background-color: #fff !important;
 }
